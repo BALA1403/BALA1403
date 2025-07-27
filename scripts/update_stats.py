@@ -429,7 +429,7 @@ def fetch_tuf_stats(username="Luffy143"):
             stat_elements = soup.find_all(['div', 'span', 'p'], text=re.compile(r'\d+'))
             for elem in stat_elements:
                 text = elem.get_text().strip()
-                if re.match(r'^\d+, text):
+                if re.match(r'^\d+$', text):
                     parent_text = elem.parent.get_text().lower() if elem.parent else ""
                     if any(keyword in parent_text for keyword in ['problem', 'solved', 'question', 'complete']):
                         try:
