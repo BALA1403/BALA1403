@@ -38,11 +38,35 @@
   <img src="https://leetcard.jacoblin.cool/bxlz14?theme=dark&font=Karma&ext=heatmap" alt="LeetCode Stats" />
 </div>
 
-### HackerRank 
+### GeeksforGeeks & HackerRank
 <div align="center">
+  <a href="https://www.geeksforgeeks.org/user/bxlz14" target="_blank">
+    <img src="https://img.shields.io/badge/GeeksforGeeks-0F9D58?style=for-the-badge&logo=geeksforgeeks&logoColor=white" alt="GeeksforGeeks" />
+  </a>
   <a href="https://www.hackerrank.com/bxlz_14" target="_blank">
     <img src="https://img.shields.io/badge/HackerRank-2EC866?style=for-the-badge&logo=hackerrank&logoColor=white" alt="HackerRank" />
   </a>
+</div>
+
+### Codolio Profile
+<div align="center">
+  <a href="https://codolio.com/profile/bxlz.14" target="_blank">
+    <img src="https://img.shields.io/badge/Codolio-FF6B35?style=for-the-badge&logo=code&logoColor=white" alt="Codolio" />
+  </a>
+</div>
+
+## 📊 Current Coding Stats (Auto-Updated Daily)
+
+<div align="center">
+  
+| Platform | Stats | Profile |
+|----------|--------|---------|
+| 🔥 **LeetCode** | Stats Loading... | [bxlz14](https://leetcode.com/bxlz14) |
+| 🚀 **GeeksforGeeks** | Stats Loading... | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |
+| ⭐ **HackerRank** | Stats Loading... | [bxlz_14](https://www.hackerrank.com/bxlz_14) |
+| 🎯 **Codolio** | Multi-platform Tracker | [bxlz.14](https://codolio.com/profile/bxlz.14) |
+
+</div>
 
 ## 💻 Tech Stack & Tools
 
