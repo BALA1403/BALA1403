@@ -1,3 +1,5 @@
+# Balaganesh.S.B - Profile README
+
 <h1 align="center">Hi 👋, I'm Balaganesh.S.B</h1>
 
 <div align="center">
@@ -38,13 +40,16 @@
   <img src="https://leetcard.jacoblin.cool/bxlz14?theme=dark&font=Karma&ext=heatmap" alt="LeetCode Stats" />
 </div>
 
-### GeeksforGeeks & HackerRank
+### GeeksforGeeks, HackerRank & TUF
 <div align="center">
   <a href="https://www.geeksforgeeks.org/user/bxlz14" target="_blank">
     <img src="https://img.shields.io/badge/GeeksforGeeks-0F9D58?style=for-the-badge&logo=geeksforgeeks&logoColor=white" alt="GeeksforGeeks" />
   </a>
   <a href="https://www.hackerrank.com/bxlz_14" target="_blank">
     <img src="https://img.shields.io/badge/HackerRank-2EC866?style=for-the-badge&logo=hackerrank&logoColor=white" alt="HackerRank" />
+  </a>
+  <a href="https://takeuforward.org/profile/Luffy143" target="_blank">
+    <img src="https://img.shields.io/badge/TakeUForward-FF6B35?style=for-the-badge&logo=code&logoColor=white" alt="TakeUForward" />
   </a>
 </div>
 
@@ -64,7 +69,8 @@
 | 🔥 **LeetCode** | **38** problems solved<br/>Easy: 27 \| Medium: 10 \| Hard: 1<br/>Ranking: #2419544 | [bxlz14](https://leetcode.com/bxlz14) |
 | 🚀 **GeeksforGeeks** | **20** problems solved<br/>Coding Score: 20 | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |
 | ⭐ **HackerRank** | **9** badges earned<br/>🥇 0 \| 🥈 0 \| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) |
-| 🎯 **Codolio** | Multi-platform Tracker | [bxlz.14](https://codolio.com/profile/bxlz.14) |
+| 🎯 **TakeUForward** | DSA Progress Tracker<br/>Username: **Luffy143** | [Luffy143](https://takeuforward.org/profile/Luffy143) |
+| 🔗 **Codolio** | Multi-platform Tracker | [bxlz.14](https://codolio.com/profile/bxlz.14) |
 
 </div>
 
@@ -158,7 +164,7 @@
   <a href="https://bala1403.github.io/portfolio" target="_blank">
     <img src="https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=About.me&logoColor=white" alt="Portfolio" />
   </a>
-  <a href="mailto:sbbalaganesh2004@gmail.com" target="_blank">
+  <a href="mailto:bxlz143@gmail.com" target="_blank">
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
   </a>
 </div>
