@@ -2,11 +2,11 @@ name: Update Profile Stats
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # Daily at 6 AM UTC (fixed cron syntax)
+    - cron: '0 6 * * *'  # Daily at 6 AM UTC
   workflow_dispatch:  # Manual trigger
   push:
     branches: [ main ]
-    paths: [ 'scripts/update_stats.py' ]  # Trigger on script changes
+    paths: [ 'scripts/update_stats.py' ]
 
 # Grant permissions to write to repository
 permissions:
@@ -52,7 +52,7 @@ jobs:
         
     - name: Update coding platform stats
       run: |
-        echo "🚀 Starting stats update process..."
+        echo "🚀 Starting stats update process (TUF removed)..."
         python scripts/update_stats.py
       continue-on-error: true
       
@@ -101,9 +101,9 @@ jobs:
         - 🔥 LeetCode: $([ -f data/leetcode_stats.json ] && echo "✅" || echo "❌")
         - 🚀 GeeksforGeeks: $([ -f data/geeksforgeeks_stats.json ] && echo "✅" || echo "❌")  
         - ⭐ HackerRank: $([ -f data/hackerrank_stats.json ] && echo "✅" || echo "❌")
-        - 🎯 TakeUForward: $([ -f data/tuf_stats.json ] && echo "✅" || echo "❌")
         
-        🤖 Automated update via GitHub Actions"
+        🤖 Automated update via GitHub Actions
+        ⚠️  TakeUForward (TUF) stats removed from automation"
         
         git commit -m "$COMMIT_MSG"
         git push origin main
@@ -116,7 +116,7 @@ jobs:
         echo "| Platform | Status | Last Updated |" >> $GITHUB_STEP_SUMMARY
         echo "|----------|--------|--------------|" >> $GITHUB_STEP_SUMMARY
         
-        # Check each platform
+        # Check each platform (TUF removed)
         if [ -f data/leetcode_stats.json ]; then
           LEETCODE_COUNT=$(cat data/leetcode_stats.json | python -c "import sys, json; data=json.load(sys.stdin); print(data.get('solved_problems', {}).get('total', 0))" 2>/dev/null || echo "0")
           echo "| 🔥 LeetCode | ✅ Success | $LEETCODE_COUNT problems |" >> $GITHUB_STEP_SUMMARY
@@ -138,13 +138,7 @@ jobs:
           echo "| ⭐ HackerRank | ❌ Failed | - |" >> $GITHUB_STEP_SUMMARY
         fi
         
-        if [ -f data/tuf_stats.json ]; then
-          TUF_COUNT=$(cat data/tuf_stats.json | python -c "import sys, json; data=json.load(sys.stdin); print(data.get('problems_solved', 0))" 2>/dev/null || echo "0")
-          echo "| 🎯 TakeUForward | ✅ Success | $TUF_COUNT problems |" >> $GITHUB_STEP_SUMMARY
-        else
-          echo "| 🎯 TakeUForward | ❌ Failed | - |" >> $GITHUB_STEP_SUMMARY
-        fi
-        
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "📅 **Update Time:** $(date +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
         echo "🔄 **Changes:** $(if [ '${{ steps.verify-changed-files.outputs.changed }}' = 'true' ]; then echo 'Yes'; else echo 'No'; fi)" >> $GITHUB_STEP_SUMMARY
+        echo "⚠️  **Note:** TakeUForward (TUF) stats have been removed from automation" >> $GITHUB_STEP_SUMMARY
