@@ -100,13 +100,23 @@ def fetch_geeksforgeeks_stats(username="bxlz14"):
     try:
         url = f"https://auth.geeksforgeeks.org/user/{username}/practice/"
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
         }
         
-        response = requests.get(url, headers=headers, timeout=10)
+        response = requests.get(url, headers=headers, timeout=15)
+        print(f"Response status: {response.status_code}")
         
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
+            
+            # Debug: Print page title to verify we got the right page
+            title = soup.find('title')
+            print(f"Page title: {title.text if title else 'No title found'}")
             
             stats = {
                 'username': username,
@@ -115,21 +125,151 @@ def fetch_geeksforgeeks_stats(username="bxlz14"):
                 'institute_rank': 'N/A'
             }
             
-            # Try to extract stats from the page
-            # This is a basic implementation - GeeksforGeeks structure may vary
-            problem_count = soup.find_all('span', class_='score_card_value')
-            if problem_count:
-                try:
-                    stats['problems_solved'] = int(problem_count[0].text.strip())
-                except (ValueError, IndexError):
-                    pass
+            # Multiple selectors to try for problems solved
+            selectors_to_try = [
+                # Common selectors for GeeksforGeeks stats
+                '.score_card_value',
+                '.scoreCard_head_left--score__oSi_x',
+                '.problemsSolved--count',
+                '.problems-solved',
+                '[data-testid="problems-solved"]',
+                '.basicProfileDetailsLeft_head__MQVtS',
+                '.solvedProblemCount',
+                '.scoreCard_head_left__score',
+                '.score-card-value',
+                '.user-profile-stats .stat-value',
+                '.stat-number',
+                '.problems-count',
+            ]
+            
+            problems_solved = 0
+            
+            # Try each selector
+            for selector in selectors_to_try:
+                elements = soup.select(selector)
+                print(f"Trying selector '{selector}': found {len(elements)} elements")
+                
+                for elem in elements:
+                    text = elem.get_text().strip()
+                    print(f"Element text: '{text}'")
+                    
+                    # Extract number from text
+                    numbers = re.findall(r'\d+', text)
+                    if numbers:
+                        try:
+                            num = int(numbers[0])
+                            if num > problems_solved:  # Take the highest number found
+                                problems_solved = num
+                                print(f"Found potential problems solved: {num}")
+                        except ValueError:
+                            continue
+            
+            # Alternative approach: Look for specific text patterns
+            if problems_solved == 0:
+                # Look for text containing "problems solved" or similar
+                all_text = soup.get_text()
+                patterns = [
+                    r'(\d+)\s*problems?\s*solved',
+                    r'solved\s*(\d+)\s*problems?',
+                    r'(\d+)\s*coding\s*problems?',
+                    r'problems?\s*solved:\s*(\d+)',
+                    r'Total\s*Problems?\s*Solved[:\s]*(\d+)',
+                    r'Problems?\s*Solved[:\s]*(\d+)',
+                ]
+                
+                for pattern in patterns:
+                    matches = re.findall(pattern, all_text, re.IGNORECASE)
+                    if matches:
+                        try:
+                            problems_solved = int(matches[0])
+                            print(f"Found via text pattern '{pattern}': {problems_solved}")
+                            break
+                        except ValueError:
+                            continue
+            
+            # If still 0, try to find any number that might represent solved problems
+            if problems_solved == 0:
+                # Look for divs/spans with numbers that could be problem counts
+                number_elements = soup.find_all(['div', 'span', 'p', 'h1', 'h2', 'h3'], string=re.compile(r'^\d+$'))
+                print(f"Found {len(number_elements)} elements with just numbers")
+                
+                for elem in number_elements:
+                    try:
+                        num = int(elem.get_text().strip())
+                        # Reasonable range for solved problems (not too high, not 0)
+                        if 1 <= num <= 5000:
+                            # Check if parent/sibling elements contain problem-related text
+                            parent = elem.parent
+                            context_text = ""
+                            if parent:
+                                context_text = parent.get_text().lower()
+                                # Also check siblings
+                                for sibling in parent.find_all():
+                                    context_text += " " + sibling.get_text().lower()
+                            
+                            print(f"Checking number {num} with context: '{context_text[:100]}...'")
+                            
+                            if any(keyword in context_text for keyword in ['problem', 'solved', 'practice', 'coding', 'total', 'count']):
+                                problems_solved = num
+                                print(f"Found via context analysis: {num}")
+                                break
+                    except ValueError:
+                        continue
+            
+            # Last resort: try to find script tags with JSON data
+            if problems_solved == 0:
+                script_tags = soup.find_all('script')
+                for script in script_tags:
+                    if script.string:
+                        # Look for JSON-like data in script tags
+                        if 'problemsSolved' in script.string or 'problems_solved' in script.string:
+                            numbers = re.findall(r'"(?:problemsSolved|problems_solved)"\s*:\s*(\d+)', script.string)
+                            if numbers:
+                                try:
+                                    problems_solved = int(numbers[0])
+                                    print(f"Found in script tag: {problems_solved}")
+                                    break
+                                except ValueError:
+                                    continue
+            
+            stats['problems_solved'] = problems_solved
+            
+            # Try to find coding score as well
+            score_patterns = [
+                r'coding\s*score[:\s]*(\d+)',
+                r'score[:\s]*(\d+)',
+                r'points?[:\s]*(\d+)',
+                r'total\s*score[:\s]*(\d+)',
+            ]
+            
+            all_text = soup.get_text()
+            for pattern in score_patterns:
+                matches = re.findall(pattern, all_text, re.IGNORECASE)
+                if matches:
+                    try:
+                        stats['coding_score'] = int(matches[0])
+                        print(f"Found coding score: {stats['coding_score']}")
+                        break
+                    except ValueError:
+                        continue
             
             # Save to file
             os.makedirs('data', exist_ok=True)
             with open('data/geeksforgeeks_stats.json', 'w') as f:
                 json.dump(stats, f, indent=2)
-                
+            
             print(f"✅ GeeksforGeeks stats updated: {stats['problems_solved']} problems solved")
+            
+            # If still 0, save the HTML for debugging
+            if problems_solved == 0:
+                with open('debug_gfg.html', 'w', encoding='utf-8') as f:
+                    f.write(response.text)
+                print("❌ Could not find problems solved count. HTML saved to debug_gfg.html for analysis")
+                
+                # Print some sample text from the page for debugging
+                sample_text = soup.get_text()[:1000]
+                print(f"Sample page text: {sample_text}")
+            
             return stats
             
     except Exception as e:
@@ -141,9 +281,12 @@ def fetch_hackerrank_stats(username="bxlz_14"):
     print(f"Fetching HackerRank stats for {username}...")
     
     try:
+        # Try badges endpoint first
         url = f"https://www.hackerrank.com/rest/hackers/{username}/badges"
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'application/json, text/plain, */*',
+            'Referer': f'https://www.hackerrank.com/profile/{username}',
         }
         
         response = requests.get(url, headers=headers, timeout=10)
@@ -161,12 +304,15 @@ def fetch_hackerrank_stats(username="bxlz_14"):
             
             # Count badges by type
             for badge in data.get('models', []):
-                badge_type = badge.get('badge', {}).get('level', '').lower()
-                if 'gold' in badge_type:
+                badge_info = badge.get('badge', {})
+                badge_type = badge_info.get('level', '').lower()
+                badge_name = badge_info.get('name', '').lower()
+                
+                if 'gold' in badge_type or 'gold' in badge_name:
                     stats['gold_badges'] += 1
-                elif 'silver' in badge_type:
+                elif 'silver' in badge_type or 'silver' in badge_name:
                     stats['silver_badges'] += 1
-                elif 'bronze' in badge_type:
+                elif 'bronze' in badge_type or 'bronze' in badge_name:
                     stats['bronze_badges'] += 1
             
             # Save to file
@@ -176,9 +322,43 @@ def fetch_hackerrank_stats(username="bxlz_14"):
                 
             print(f"✅ HackerRank stats updated: {stats['badges']} badges earned")
             return stats
+        else:
+            print(f"❌ HackerRank API returned status code: {response.status_code}")
             
     except Exception as e:
         print(f"❌ Error fetching HackerRank stats: {e}")
+        
+    # Fallback: try scraping the profile page
+    try:
+        print("Trying HackerRank profile page scraping as fallback...")
+        url = f"https://www.hackerrank.com/profile/{username}"
+        response = requests.get(url, headers=headers, timeout=10)
+        
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.content, 'html.parser')
+            
+            stats = {
+                'username': username,
+                'badges': 0,
+                'gold_badges': 0,
+                'silver_badges': 0,
+                'bronze_badges': 0
+            }
+            
+            # Try to find badge information in the HTML
+            badge_elements = soup.find_all(['div', 'span'], class_=re.compile(r'badge', re.I))
+            stats['badges'] = len(badge_elements)
+            
+            # Save to file
+            os.makedirs('data', exist_ok=True)
+            with open('data/hackerrank_stats.json', 'w') as f:
+                json.dump(stats, f, indent=2)
+                
+            print(f"✅ HackerRank stats updated (via scraping): {stats['badges']} badges found")
+            return stats
+            
+    except Exception as e:
+        print(f"❌ Error with HackerRank fallback scraping: {e}")
         return None
 
 def generate_readme_with_stats():
@@ -264,6 +444,9 @@ def generate_readme_with_stats():
                 readme_content, 
                 flags=re.DOTALL
             )
+        else:
+            # If no competitive programming section, just append at the end
+            readme_content += "\n\n" + stats_section
     
     # Write updated README
     with open('README.md', 'w') as f:
