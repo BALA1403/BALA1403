@@ -55,15 +55,15 @@
   </a>
 </div>
 
-## 📊 Current Coding Stats (Auto-Updated Daily)
+## 📊 Current Coding Stats (Updated: 2025-07-27 04:31 UTC)
 
 <div align="center">
   
 | Platform | Stats | Profile |
 |----------|--------|---------|
-| 🔥 **LeetCode** | Stats Loading... | [bxlz14](https://leetcode.com/bxlz14) |
-| 🚀 **GeeksforGeeks** | Stats Loading... | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |
-| ⭐ **HackerRank** | Stats Loading... | [bxlz_14](https://www.hackerrank.com/bxlz_14) |
+| 🔥 **LeetCode** | **38** problems solved<br/>Easy: 27 \| Medium: 10 \| Hard: 1<br/>Ranking: #2419544 | [bxlz14](https://leetcode.com/bxlz14) |
+| 🚀 **GeeksforGeeks** | **0** problems solved<br/>Coding Score: 0 | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |
+| ⭐ **HackerRank** | **9** badges earned<br/>🥇 0 \| 🥈 0 \| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) |
 | 🎯 **Codolio** | Multi-platform Tracker | [bxlz.14](https://codolio.com/profile/bxlz.14) |
 
 </div>
