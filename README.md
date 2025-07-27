@@ -1,12 +1,159 @@
 <h1 align="center">Hi 👋, I'm Balaganesh.S.B</h1>
-<h3 align="center">Hi, I'm Balaganesh, an Oracle Certified Java Developer with a passion for crafting efficient, scalable, and reliable software solutions. Although I am just starting my journey in the software development industry, I have honed my skills in Java programming, and Web Development. I enjoy solving complex problems and am dedicated to continuous learning and improvement.</h3>
 
-<h3 align="left">Connect with me:</h3>
-<p align="left">
-<a href="https://linkedin.com/in/balaganesh-sb" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="balaganesh-sb" height="30" width="40" /></a>
+<div align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=36BCF7&center=true&vCenter=true&width=600&lines=Oracle+Certified+Java+Developer;Full+Stack+Developer;Android+Developer;Problem+Solver;Always+Learning" alt="Typing SVG" />
+</div>
+
+<h3 align="center">Oracle Certified Java Developer with a passion for crafting efficient, scalable, and reliable software solutions. I specialize in full-stack development and Android applications with expertise in Java, Spring Boot, Angular, and database management.</h3>
+
+## 🚀 About Me
+
+- 🎓 **B.Tech in Computer Science and Business Systems** from Panimalar Engineering College (CGPA: 8.97)
+- 💼 **Wipro TalentNext Java Full Stack Development Intern** (May 2024 - Sept 2024)
+- 🏆 **Oracle Certified Java Professional & Generative AI Professional**
+- 🔭 Currently working on innovative Android applications and full-stack web solutions
+- 🌱 Continuously learning advanced algorithms, system design, and emerging technologies
+- 💬 Ask me about Java, Spring Boot, Android development, and full-stack solutions
+- 📫 How to reach me: **sbbalaganesh2004@gmail.com**
+- 🌐 Portfolio: **[bala1403.github.io/portfolio](https://bala1403.github.io/portfolio)**
+
+## 📊 GitHub Statistics
+
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=BALA1403&show_icons=true&theme=radical&hide_border=true&count_private=true&include_all_commits=true" alt="GitHub Stats" />
+</div>
+
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=BALA1403&layout=compact&theme=radical&hide_border=true&langs_count=10" alt="Top Languages" />
+</div>
+
+<div align="center">
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=BALA1403&theme=radical&hide_border=true" alt="GitHub Streak" />
+</div>
+
+## 🏆 Competitive Programming & Coding Platforms
+
+### LeetCode Stats
+<div align="center">
+  <img src="https://leetcard.jacoblin.cool/bxlz14?theme=dark&font=Karma&ext=heatmap" alt="LeetCode Stats" />
+</div>
+
+### HackerRank 
+<div align="center">
+  <a href="https://www.hackerrank.com/bxlz_14" target="_blank">
+    <img src="https://img.shields.io/badge/HackerRank-2EC866?style=for-the-badge&logo=hackerrank&logoColor=white" alt="HackerRank" />
+  </a>
+
+## 💻 Tech Stack & Tools
+
+### Programming Languages
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=java,python,c,cpp,js,html,css" alt="Programming Languages" />
 </p>
 
-<h3 align="left">Languages and Tools:</h3>
-<p align="left"> <a href="https://getbootstrap.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg" alt="bootstrap" width="40" height="40"/> </a> <a href="https://www.cprogramming.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40"/> </a> <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/> </a> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://www.oracle.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/oracle/oracle-original.svg" alt="oracle" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> </p>
+### Frameworks & Libraries
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=spring,react,angular,bootstrap" alt="Frameworks" />
+</p>
 
-<p><img align="center" src="https://github-readme-stats.vercel.app/api/top-langs?username=bala1403&show_icons=true&locale=en&layout=compact" alt="bala1403" /></p>
+### Databases & Tools
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=mysql,mongodb,sqlite,git,github,docker,oracle" alt="Databases & Tools" />
+</p>
+
+### Mobile & Cloud
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=androidstudio,linux" alt="Mobile & Cloud" />
+</p>
+
+## 🏅 Featured Projects
+
+### 🚨 Crime Connect | Mobile Application
+**Tech Stack:** Java, SQLite, Android SDK  
+**Duration:** January 2025
+
+- 📱 Comprehensive Android-based crime reporting platform connecting citizens with law enforcement
+- 🎯 **35% increase** in community engagement and crime reporting
+- ⚡ **40% reduction** in average reporting time through intuitive mobile interface
+- 🗺️ Interactive crime mapping and real-time notification system
+- 📊 Geographic filtering for targeted alerts, increasing citizen awareness by **28%**
+
+### 🛍️ Luxe Leathers E-commerce Platform
+**Tech Stack:** HTML5, CSS3, JavaScript, Bootstrap  
+**Duration:** December 2024
+
+- 🎨 Responsive frontend for premium leather goods e-commerce platform
+- 📈 **22% increase** in user engagement through elegant shopping experience
+- 🔍 High-quality image zoom and product comparison features
+- 📱 Mobile-first design resulting in **45% increase** in mobile browsing sessions
+- ⚡ **30% improvement** in frontend performance metrics
+
+## 🎓 Certifications & Achievements
+
+<div align="center">
+  
+| Certification | Date | Issuer |
+|---------------|------|--------|
+| 🏆 Oracle Certified Generative AI Professional | July 2024 | Oracle |
+| ☕ Oracle Certified Java Professional | April 2024 | Oracle |
+| 🌐 Web Development Bootcamp | July 2024 | Udemy |
+
+</div>
+
+## 💼 Professional Experience
+
+### Wipro TalentNext - Java Full Stack Development Intern
+**Duration:** May 2024 - September 2024
+
+- 🚀 **Enhanced system performance by 30%** through optimized backend operations
+- ⚡ **25% faster response time** by implementing RESTful APIs
+- 🐳 **20% reduction in deployment time** using Angular and Docker
+- 📈 Built end-to-end Java applications with Spring Boot and MySQL
+
+## 🔥 Activity & Contribution Graph
+
+<div align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=BALA1403&bg_color=0d1117&color=708090&line=708090&point=ff6b6b&area=true&hide_border=true" alt="Contribution Graph" />
+</div>
+
+## 🏆 GitHub Trophies
+
+<div align="center">
+  <img src="https://github-profile-trophy.vercel.app/?username=BALA1403&theme=radical&no-frame=true&no-bg=false&margin-w=4&row=2&column=4" alt="GitHub Trophies" />
+</div>
+
+## 🤝 Connect with Me
+
+<div align="center">
+  <a href="https://linkedin.com/in/balaganesh-sb" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+  <a href="https://github.com/BALA1403" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+  </a>
+  <a href="https://bala1403.github.io/portfolio" target="_blank">
+    <img src="https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=About.me&logoColor=white" alt="Portfolio" />
+  </a>
+  <a href="mailto:sbbalaganesh2004@gmail.com" target="_blank">
+    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+  </a>
+</div>
+
+## 📈 Profile Analytics
+
+<div align="center">
+  <img src="https://komarev.com/ghpvc/?username=BALA1403&color=blueviolet&style=flat-square&label=Profile+Views" alt="Profile Views" />
+  <img src="https://img.shields.io/github/followers/BALA1403?label=Followers&style=social" alt="Followers" />
+</div>
+
+---
+
+<div align="center">
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Random Dev Quote" />
+</div>
+
+<div align="center">
+  <i>"Passionate about creating impactful solutions through code and continuous learning"</i>
+  
+  ⭐️ From <a href="https://github.com/BALA1403">BALA1403</a>
+</div>
