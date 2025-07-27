@@ -69,7 +69,7 @@
 | 🔥 **LeetCode** | **38** problems solved<br/>Easy: 27 \| Medium: 10 \| Hard: 1<br/>Ranking: #2419544 | [bxlz14](https://leetcode.com/bxlz14) |
 | 🚀 **GeeksforGeeks** | **20** problems solved<br/>Coding Score: 20 | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |
 | ⭐ **HackerRank** | **9** badges earned<br/>🥇 0 \| 🥈 0 \| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) |
-| 🎯 **TakeUForward** | DSA Progress Tracker<br/>Username: **Luffy143** | [Luffy143](https://takeuforward.org/profile/Luffy143) |
+| 🎯 **TakeUForward** | **Loading Stats...**<br/>DSA Progress Tracker<br/>Username: **Luffy143** | [Luffy143](https://takeuforward.org/profile/Luffy143) |
 | 🔗 **Codolio** | Multi-platform Tracker | [bxlz.14](https://codolio.com/profile/bxlz.14) |
 
 </div>
@@ -164,7 +164,7 @@
   <a href="https://bala1403.github.io/portfolio" target="_blank">
     <img src="https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=About.me&logoColor=white" alt="Portfolio" />
   </a>
-  <a href="mailto:bxlz143@gmail.com" target="_blank">
+  <a href="mailto:sbbalaganesh2004@gmail.com" target="_blank">
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
   </a>
 </div>
