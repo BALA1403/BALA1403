@@ -361,6 +361,127 @@ def fetch_hackerrank_stats(username="bxlz_14"):
         print(f"❌ Error with HackerRank fallback scraping: {e}")
         return None
 
+def fetch_tuf_stats(username="Luffy143"):
+    """Fetch TakeUForward (TUF) user statistics"""
+    print(f"Fetching TUF stats for {username}...")
+    
+    try:
+        # TUF profile URL - adjust based on actual URL structure
+        url = f"https://takeuforward.org/profile/{username}"
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+        }
+        
+        response = requests.get(url, headers=headers, timeout=15)
+        print(f"TUF Response status: {response.status_code}")
+        
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.content, 'html.parser')
+            
+            stats = {
+                'username': username,
+                'problems_solved': 0,
+                'total_submissions': 0,
+                'acceptance_rate': '0%',
+                'progress_status': 'Active'
+            }
+            
+            # Try to extract TUF-specific stats
+            # These selectors may need adjustment based on actual TUF page structure
+            selectors_patterns = [
+                ('.problems-solved', r'(\d+)'),
+                ('.total-submissions', r'(\d+)'),
+                ('.acceptance-rate', r'(\d+(?:\.\d+)?)%'),
+                ('.stat-value', r'(\d+)'),
+                ('.progress-count', r'(\d+)'),
+            ]
+            
+            page_text = soup.get_text()
+            
+            # Look for common patterns in the page text
+            text_patterns = [
+                (r'problems?\s*solved[:\s]*(\d+)', 'problems_solved'),
+                (r'total\s*submissions?[:\s]*(\d+)', 'total_submissions'),
+                (r'acceptance\s*rate[:\s]*(\d+(?:\.\d+)?)%', 'acceptance_rate'),
+                (r'(\d+)\s*problems?\s*completed', 'problems_solved'),
+                (r'(\d+)\s*questions?\s*solved', 'problems_solved'),
+            ]
+            
+            for pattern, field in text_patterns:
+                matches = re.findall(pattern, page_text, re.IGNORECASE)
+                if matches:
+                    try:
+                        if field == 'acceptance_rate':
+                            stats[field] = f"{matches[0]}%"
+                        else:
+                            stats[field] = int(matches[0])
+                        print(f"Found TUF {field}: {stats[field]}")
+                        break
+                    except (ValueError, IndexError):
+                        continue
+            
+            # Try to find stats in HTML elements
+            stat_elements = soup.find_all(['div', 'span', 'p'], text=re.compile(r'\d+'))
+            for elem in stat_elements:
+                text = elem.get_text().strip()
+                if re.match(r'^\d+, text):
+                    parent_text = elem.parent.get_text().lower() if elem.parent else ""
+                    if any(keyword in parent_text for keyword in ['problem', 'solved', 'question', 'complete']):
+                        try:
+                            num = int(text)
+                            if 0 <= num <= 2000:  # Reasonable range
+                                stats['problems_solved'] = max(stats['problems_solved'], num)
+                        except ValueError:
+                            continue
+            
+            # Save to file
+            os.makedirs('data', exist_ok=True)
+            with open('data/tuf_stats.json', 'w') as f:
+                json.dump(stats, f, indent=2)
+                
+            print(f"✅ TUF stats updated: {stats['problems_solved']} problems solved")
+            return stats
+        else:
+            print(f"❌ TUF profile not accessible: {response.status_code}")
+            # Return default stats if profile is not accessible
+            default_stats = {
+                'username': username,
+                'problems_solved': 0,
+                'total_submissions': 0,
+                'acceptance_rate': '0%',
+                'progress_status': 'Profile Private/Not Found'
+            }
+            
+            # Save default stats
+            os.makedirs('data', exist_ok=True)
+            with open('data/tuf_stats.json', 'w') as f:
+                json.dump(default_stats, f, indent=2)
+            
+            return default_stats
+            
+    except Exception as e:
+        print(f"❌ Error fetching TUF stats: {e}")
+        # Return default stats on error
+        default_stats = {
+            'username': username,
+            'problems_solved': 0,
+            'total_submissions': 0,
+            'acceptance_rate': '0%',
+            'progress_status': 'Error Fetching Data'
+        }
+        
+        # Save default stats
+        os.makedirs('data', exist_ok=True)
+        with open('data/tuf_stats.json', 'w') as f:
+            json.dump(default_stats, f, indent=2)
+        
+        return default_stats
+
 def generate_readme_with_stats():
     """Generate README with updated stats"""
     print("Generating updated README...")
@@ -388,6 +509,13 @@ def generate_readme_with_stats():
             stats['hackerrank'] = json.load(f)
     except FileNotFoundError:
         stats['hackerrank'] = None
+    
+    # Load TUF stats
+    try:
+        with open('data/tuf_stats.json', 'r') as f:
+            stats['tuf'] = json.load(f)
+    except FileNotFoundError:
+        stats['tuf'] = None
     
     # Read current README
     try:
@@ -425,7 +553,13 @@ def generate_readme_with_stats():
     else:
         stats_section += "| ⭐ **HackerRank** | Stats Loading... | [bxlz_14](https://www.hackerrank.com/bxlz_14) |\n"
     
-    stats_section += "| 🎯 **Codolio** | Multi-platform Tracker | [bxlz.14](https://codolio.com/profile/bxlz.14) |\n"
+    if stats['tuf']:
+        tuf = stats['tuf']
+        stats_section += f"| 🎯 **TakeUForward** | **{tuf['problems_solved']}** problems solved<br/>Username: **{tuf['username']}**<br/>Status: {tuf['progress_status']} | [Luffy143](https://takeuforward.org/profile/Luffy143) |\n"
+    else:
+        stats_section += "| 🎯 **TakeUForward** | DSA Progress Tracker<br/>Username: **Luffy143** | [Luffy143](https://takeuforward.org/profile/Luffy143) |\n"
+    
+    stats_section += "| 🔗 **Codolio** | Multi-platform Tracker | [bxlz.14](https://codolio.com/profile/bxlz.14) |\n"
     stats_section += "\n</div>\n"
     
     # Find and replace the stats section in README
@@ -463,6 +597,7 @@ def main():
     fetch_leetcode_stats()
     fetch_geeksforgeeks_stats()
     fetch_hackerrank_stats()
+    fetch_tuf_stats()  # Add TUF stats fetching
     
     # Update README with stats
     generate_readme_with_stats()
