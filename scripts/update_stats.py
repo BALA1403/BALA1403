@@ -555,9 +555,27 @@ def generate_readme_with_stats():
     
     if stats['tuf']:
         tuf = stats['tuf']
-        stats_section += f"| 🎯 **TakeUForward** | **{tuf['problems_solved']}** problems solved<br/>Username: **{tuf['username']}**<br/>Status: {tuf['progress_status']} | [Luffy143](https://takeuforward.org/profile/Luffy143) |\n"
+        # Create comprehensive TUF stats display
+        tuf_line = f"| 🎯 **TakeUForward** | **{tuf['problems_solved']}** problems solved"
+        
+        # Add breakdown if available
+        if tuf['easy_solved'] + tuf['medium_solved'] + tuf['hard_solved'] > 0:
+            tuf_line += f"<br/>Easy: {tuf['easy_solved']} \\| Medium: {tuf['medium_solved']} \\| Hard: {tuf['hard_solved']}"
+        
+        # Add progress info
+        if tuf['progress_percentage'] > 0:
+            tuf_line += f"<br/>Progress: {tuf['progress_percentage']}%"
+        
+        if tuf['current_streak'] > 0:
+            tuf_line += f" \\| Streak: {tuf['current_streak']} days"
+            
+        if tuf['acceptance_rate'] != '0%':
+            tuf_line += f"<br/>Acceptance Rate: {tuf['acceptance_rate']}"
+            
+        tuf_line += f" | [Luffy143](https://takeuforward.org/profile/Luffy143) |\n"
+        stats_section += tuf_line
     else:
-        stats_section += "| 🎯 **TakeUForward** | DSA Progress Tracker<br/>Username: **Luffy143** | [Luffy143](https://takeuforward.org/profile/Luffy143) |\n"
+        stats_section += "| 🎯 **TakeUForward** | **Loading Stats...**<br/>DSA Progress Tracker<br/>Username: **Luffy143** | [Luffy143](https://takeuforward.org/profile/Luffy143) |\n"
     
     stats_section += "| 🔗 **Codolio** | Multi-platform Tracker | [bxlz.14](https://codolio.com/profile/bxlz.14) |\n"
     stats_section += "\n</div>\n"
@@ -588,6 +606,52 @@ def generate_readme_with_stats():
     
     print("✅ README.md updated with latest stats!")
 
+def fetch_tuf_alternative_stats(username="Luffy143"):
+    """Alternative method to fetch TUF stats from SDE Sheet or A2Z DSA Course"""
+    print(f"Trying alternative TUF stats for {username}...")
+    
+    # Try to get stats from TUF's popular sheets/courses
+    alternative_urls = [
+        "https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/",
+        "https://takeuforward.org/interviews/strivers-sde-sheet-top-coding-interview-problems/",
+        f"https://takeuforward.org/profile/{username}/progress",
+        f"https://takeuforward.org/user/{username}/submissions",
+    ]
+    
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Connection': 'keep-alive',
+    }
+    
+    for url in alternative_urls:
+        try:
+            response = requests.get(url, headers=headers, timeout=15)
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.content, 'html.parser')
+                
+                # Look for progress indicators, completed problems, etc.
+                progress_indicators = soup.find_all(['div', 'span', 'p'], 
+                                                  text=re.compile(r'\d+.*(?:complete|solved|done)', re.I))
+                
+                if progress_indicators:
+                    for indicator in progress_indicators:
+                        text = indicator.get_text()
+                        numbers = re.findall(r'\d+', text)
+                        if numbers:
+                            print(f"Found alternative TUF stat: {text}")
+                            return {
+                                'problems_solved': int(numbers[0]),
+                                'source': 'alternative_method',
+                                'url': url
+                            }
+        except Exception as e:
+            print(f"Alternative method failed for {url}: {e}")
+            continue
+    
+    return None
+
 def main():
     """Main function to update all stats"""
     print("🚀 Starting stats update process...")
@@ -597,7 +661,20 @@ def main():
     fetch_leetcode_stats()
     fetch_geeksforgeeks_stats()
     fetch_hackerrank_stats()
-    fetch_tuf_stats()  # Add TUF stats fetching
+    
+    # Try primary TUF method
+    tuf_stats = fetch_tuf_stats()
+    
+    # If primary method didn't get good stats, try alternative
+    if tuf_stats and tuf_stats.get('problems_solved', 0) == 0:
+        print("Trying alternative TUF stats method...")
+        alt_stats = fetch_tuf_alternative_stats()
+        if alt_stats:
+            tuf_stats.update(alt_stats)
+            # Save updated stats
+            os.makedirs('data', exist_ok=True)
+            with open('data/tuf_stats.json', 'w') as f:
+                json.dump(tuf_stats, f, indent=2)
     
     # Update README with stats
     generate_readme_with_stats()
