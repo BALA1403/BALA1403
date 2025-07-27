@@ -14,7 +14,7 @@
 - 🔭 Currently working on innovative Android applications and full-stack web solutions
 - 🌱 Continuously learning advanced algorithms, system design, and emerging technologies
 - 💬 Ask me about Java, Spring Boot, Android development, and full-stack solutions
-- 📫 How to reach me: **sbbalaganesh2004@gmail.com**
+- 📫 How to reach me: **bxlz143@gmail.com**
 - 🌐 Portfolio: **[bala1403.github.io/portfolio](https://bala1403.github.io/portfolio)**
 
 ## 📊 GitHub Statistics
