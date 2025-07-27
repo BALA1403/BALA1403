@@ -1,0 +1,71 @@
+# .github/workflows/update-profile-stats.yml
+name: Update Profile Stats
+
+on:
+  schedule:
+    # Runs every day at 6 AM UTC (11:30 AM IST)
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allows manual trigger
+  push:
+    branches: [ main ]
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    name: Update Profile README
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        pip install requests beautifulsoup4 python-dotenv
+        
+    - name: Update coding platform stats
+      env:
+        LEETCODE_USERNAME: "bxlz14"
+        GEEKSFORGEEKS_USERNAME: "bxlz14"
+        HACKERRANK_USERNAME: "bxlz_14"
+        CODOLIO_USERNAME: "bxlz.14"
+        GITHUB_USERNAME: "BALA1403"
+      run: |
+        python scripts/update_stats.py
+        
+    - name: Commit and push if changed
+      run: |
+        git config --local user.email "sbbalaganesh2004@gmail.com"
+        git config --local user.name "Balaganesh.S.B"
+        git add .
+        git diff --staged --quiet || git commit -m "📊 Auto-update coding stats - $(date +'%Y-%m-%d %H:%M:%S')"
+        git push
+
+  waka-readme:
+    name: Update WakaTime Stats
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update WakaTime Stats
+        uses: anmol098/waka-readme-stats@master
+        with:
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          SHOW_LINES_OF_CODE: "True"
+          SHOW_PROFILE_VIEWS: "True"
+          SHOW_DAYS_OF_WEEK: "True"
+          SHOW_LANGUAGE: "True"
+          SHOW_OS: "True"
+          SHOW_PROJECTS: "True"
+          SHOW_TIMEZONE: "False"
+          SHOW_EDITORS: "True"
+          SHOW_COMMIT: "True"
+          SHOW_LANGUAGE_PER_REPO: "True"
+          SHOW_SHORT_INFO: "True"
+          SHOW_LOC_CHART: "False"
