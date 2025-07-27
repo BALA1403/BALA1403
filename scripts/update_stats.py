@@ -362,19 +362,16 @@ def fetch_hackerrank_stats(username="bxlz_14"):
         return None
 
 def fetch_tuf_stats(username="Luffy143"):
-    """Fetch TakeUForward (TUF) user statistics"""
+    """Fetch TakeUForward (TUF) user statistics with detailed problem breakdown"""
     print(f"Fetching TUF stats for {username}...")
     
     try:
         # TUF profile URL - adjust based on actual URL structure
         url = f"https://takeuforward.org/profile/{username}"
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
             'Accept-Language': 'en-US,en;q=0.5',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
         }
         
         response = requests.get(url, headers=headers, timeout=15)
@@ -383,61 +380,66 @@ def fetch_tuf_stats(username="Luffy143"):
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
             
+            # Initialize stats with default values
             stats = {
                 'username': username,
                 'problems_solved': 0,
+                'easy_solved': 0,
+                'medium_solved': 0,
+                'hard_solved': 0,
                 'total_submissions': 0,
                 'acceptance_rate': '0%',
-                'progress_status': 'Active'
+                'current_streak': 0,
+                'progress_percentage': 0,
+                'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
             
-            # Try to extract TUF-specific stats
-            # These selectors may need adjustment based on actual TUF page structure
-            selectors_patterns = [
-                ('.problems-solved', r'(\d+)'),
-                ('.total-submissions', r'(\d+)'),
-                ('.acceptance-rate', r'(\d+(?:\.\d+)?)%'),
-                ('.stat-value', r'(\d+)'),
-                ('.progress-count', r'(\d+)'),
-            ]
+            # Try to find problem counts in the page
+            # Look for elements that might contain problem counts
+            problem_elements = soup.find_all(['div', 'span', 'li'], class_=re.compile(r'problem|count|solved', re.I))
             
-            page_text = soup.get_text()
+            for elem in problem_elements:
+                text = elem.get_text().lower()
+                
+                # Check for easy/medium/hard problems
+                if 'easy' in text:
+                    numbers = re.findall(r'\d+', text)
+                    if numbers:
+                        stats['easy_solved'] = int(numbers[0])
+                elif 'medium' in text:
+                    numbers = re.findall(r'\d+', text)
+                    if numbers:
+                        stats['medium_solved'] = int(numbers[0])
+                elif 'hard' in text:
+                    numbers = re.findall(r'\d+', text)
+                    if numbers:
+                        stats['hard_solved'] = int(numbers[0])
+                
+                # Check for total problems solved
+                if 'total' in text or 'problems' in text or 'solved' in text:
+                    numbers = re.findall(r'\d+', text)
+                    if numbers:
+                        total = int(numbers[0])
+                        if total > stats['problems_solved']:
+                            stats['problems_solved'] = total
             
-            # Look for common patterns in the page text
-            text_patterns = [
-                (r'problems?\s*solved[:\s]*(\d+)', 'problems_solved'),
-                (r'total\s*submissions?[:\s]*(\d+)', 'total_submissions'),
-                (r'acceptance\s*rate[:\s]*(\d+(?:\.\d+)?)%', 'acceptance_rate'),
-                (r'(\d+)\s*problems?\s*completed', 'problems_solved'),
-                (r'(\d+)\s*questions?\s*solved', 'problems_solved'),
-            ]
+            # Calculate total from individual counts if not found directly
+            if stats['problems_solved'] == 0:
+                stats['problems_solved'] = stats['easy_solved'] + stats['medium_solved'] + stats['hard_solved']
             
-            for pattern, field in text_patterns:
-                matches = re.findall(pattern, page_text, re.IGNORECASE)
-                if matches:
-                    try:
-                        if field == 'acceptance_rate':
-                            stats[field] = f"{matches[0]}%"
-                        else:
-                            stats[field] = int(matches[0])
-                        print(f"Found TUF {field}: {stats[field]}")
-                        break
-                    except (ValueError, IndexError):
-                        continue
+            # Try to find streak information
+            streak_elements = soup.find_all(text=re.compile(r'streak|current', re.I))
+            for elem in streak_elements:
+                numbers = re.findall(r'\d+', elem)
+                if numbers:
+                    stats['current_streak'] = int(numbers[0])
             
-            # Try to find stats in HTML elements
-            stat_elements = soup.find_all(['div', 'span', 'p'], text=re.compile(r'\d+'))
-            for elem in stat_elements:
-                text = elem.get_text().strip()
-                if re.match(r'^\d+$', text):
-                    parent_text = elem.parent.get_text().lower() if elem.parent else ""
-                    if any(keyword in parent_text for keyword in ['problem', 'solved', 'question', 'complete']):
-                        try:
-                            num = int(text)
-                            if 0 <= num <= 2000:  # Reasonable range
-                                stats['problems_solved'] = max(stats['problems_solved'], num)
-                        except ValueError:
-                            continue
+            # Try to find progress percentage
+            progress_elements = soup.find_all(text=re.compile(r'progress|complete', re.I))
+            for elem in progress_elements:
+                numbers = re.findall(r'\d+', elem)
+                if numbers:
+                    stats['progress_percentage'] = int(numbers[0])
             
             # Save to file
             os.makedirs('data', exist_ok=True)
@@ -446,35 +448,28 @@ def fetch_tuf_stats(username="Luffy143"):
                 
             print(f"✅ TUF stats updated: {stats['problems_solved']} problems solved")
             return stats
+            
         else:
             print(f"❌ TUF profile not accessible: {response.status_code}")
-            # Return default stats if profile is not accessible
-            default_stats = {
+            return {
                 'username': username,
                 'problems_solved': 0,
-                'total_submissions': 0,
-                'acceptance_rate': '0%',
-                'progress_status': 'Profile Private/Not Found'
+                'easy_solved': 0,
+                'medium_solved': 0,
+                'hard_solved': 0,
+                'status': 'Profile not accessible'
             }
-            
-            # Save default stats
-            os.makedirs('data', exist_ok=True)
-            with open('data/tuf_stats.json', 'w') as f:
-                json.dump(default_stats, f, indent=2)
-            
-            return default_stats
             
     except Exception as e:
         print(f"❌ Error fetching TUF stats: {e}")
-        # Return default stats on error
-        default_stats = {
+        return {
             'username': username,
             'problems_solved': 0,
-            'total_submissions': 0,
-            'acceptance_rate': '0%',
-            'progress_status': 'Error Fetching Data'
-        }
-        
+            'easy_solved': 0,
+            'medium_solved': 0,
+            'hard_solved': 0,
+            'status': 'Error fetching data'
+        }        
         # Save default stats
         os.makedirs('data', exist_ok=True)
         with open('data/tuf_stats.json', 'w') as f:
