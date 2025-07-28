@@ -96,12 +96,12 @@
 
 ### Databases & Tools
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=mysql,mongodb,sqlite,git,github,docker,oracle" alt="Databases & Tools" />
+  <img src="https://skillicons.dev/icons?i=mysql,sqlite,git,github,docker" alt="Databases & Tools" />
 </p>
 
 ### Mobile & Cloud
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=androidstudio,linux" alt="Mobile & Cloud" />
+  <img src="https://skillicons.dev/icons?i=androidstudio" alt="Mobile & Cloud" />
 </p>
 
 ## 🏅 Featured Projects
