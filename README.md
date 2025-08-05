@@ -180,7 +180,7 @@
 ## 📈 Profile Analytics
 
 <div align="center">
-  <img src="https://komarev.com/ghpvc/?username=BALA1403&color=blueviolet&style=for-the-badge&label=PROFILE+VIEWS" alt="Profile Views" />
+  <img src="https://visitcount.itsvg.in/api?id=BALA1403&icon=0&color=0" alt="Profile Views" />
 </div>
 
 ---
