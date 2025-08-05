@@ -181,8 +181,6 @@
 
 <div align="center">
   <img src="https://komarev.com/ghpvc/?username=BALA1403&color=blueviolet&style=for-the-badge&label=PROFILE+VIEWS" alt="Profile Views" />
-  <img src="https://img.shields.io/github/followers/BALA1403?label=Followers&style=for-the-badge&color=blue" alt="Followers" />
-  <img src="https://img.shields.io/github/stars/BALA1403?label=Stars&style=for-the-badge&color=yellow" alt="Stars" />
 </div>
 
 ---
