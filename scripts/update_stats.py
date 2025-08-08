@@ -304,20 +304,9 @@ def update_readme_with_daily_stats():
 
 <div align="center">
 
-```"""
-
-    # Calculate total problems
-    total_problems = 0
-    if stats['leetcode']:
-        total_problems += stats['leetcode']['solved_problems']['total']
-    if stats['geeksforgeeks']:
-        total_problems += stats['geeksforgeeks']['problems_solved']
-    if stats['hackerrank']:
-        total_problems += stats['hackerrank'].get('problems_solved', 0)
-
-    stats_section += f"""
+```
 🎯 Total Problems Solved: {total_problems}+
-📈 Daily Goal: Consistent Practice
+📈 Daily Goal: Consistent Practice  
 🔥 Current Streak: Building Strong
 ⏰ Auto-Updated: Every Day at 10 PM UTC
 ```
@@ -342,6 +331,18 @@ def update_readme_with_daily_stats():
   </table>
 </div>"""
 
+    # Calculate total problems
+    total_problems = 0
+    if stats['leetcode']:
+        total_problems += stats['leetcode']['solved_problems']['total']
+    if stats['geeksforgeeks']:
+        total_problems += stats['geeksforgeeks']['problems_solved']
+    if stats['hackerrank']:
+        total_problems += stats['hackerrank'].get('problems_solved', 0)
+
+    # Format the stats section with calculated total
+    stats_section = stats_section.format(total_problems=total_problems)
+    
     # Replace the daily progress section in README
     pattern = r'## 📈 Daily Coding Progress.*?</div>'
     
