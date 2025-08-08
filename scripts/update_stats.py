@@ -1,35 +1,26 @@
-# scripts/update_stats.py
+# scripts/update_stats.py - Daily Progress Tracker
 import requests
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 import re
 from bs4 import BeautifulSoup
 import time
 
 def fetch_leetcode_stats(username="bxlz14"):
-    """Fetch LeetCode user statistics"""
-    print(f"Fetching LeetCode stats for {username}...")
+    """Fetch LeetCode daily progress"""
+    print(f"🔥 Fetching LeetCode progress for {username}...")
     
-    # GraphQL query for LeetCode API
     query = """
     query getUserProfile($username: String!) {
         matchedUser(username: $username) {
             username
             profile {
                 ranking
-                userAvatar
-                realName
-                aboutMe
                 reputation
             }
             submitStats {
                 acSubmissionNum {
-                    difficulty
-                    count
-                    submissions
-                }
-                totalSubmissionNum {
                     difficulty
                     count
                     submissions
@@ -58,18 +49,18 @@ def fetch_leetcode_stats(username="bxlz14"):
             if 'data' in data and data['data']['matchedUser']:
                 user_data = data['data']['matchedUser']
                 
-                # Extract key statistics
                 stats = {
+                    'platform': 'LeetCode',
                     'username': user_data['username'],
                     'ranking': user_data['profile'].get('ranking', 'N/A'),
-                    'reputation': user_data['profile'].get('reputation', 0),
                     'solved_problems': {
                         'easy': 0,
                         'medium': 0,
                         'hard': 0,
                         'total': 0
                     },
-                    'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
+                    'last_updated': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC'),
+                    'daily_update': True
                 }
                 
                 # Parse submission stats
@@ -80,67 +71,62 @@ def fetch_leetcode_stats(username="bxlz14"):
                     elif difficulty == 'all':
                         stats['solved_problems']['total'] = submission['count']
                 
-                # Save to file
+                # Save daily progress
                 os.makedirs('data', exist_ok=True)
                 with open('data/leetcode_stats.json', 'w') as f:
                     json.dump(stats, f, indent=2)
                     
-                print(f"✅ LeetCode stats updated: {stats['solved_problems']['total']} problems solved")
+                total = stats['solved_problems']['total']
+                ranking = f"#{stats['ranking']}" if stats['ranking'] != 'N/A' else 'Unranked'
+                print(f"✅ LeetCode: {total} problems solved, Rank: {ranking}")
                 return stats
             else:
-                print("❌ No LeetCode data found for user")
+                print("❌ LeetCode: No user data found")
                 return None
                 
     except Exception as e:
-        print(f"❌ Error fetching LeetCode stats: {e}")
+        print(f"❌ LeetCode error: {e}")
         return None
 
 def fetch_geeksforgeeks_stats(username="bxlz14"):
-    """Fetch GeeksforGeeks user statistics with improved scraping"""
-    print(f"Fetching GeeksforGeeks stats for {username}...")
+    """Fetch GeeksforGeeks daily progress"""
+    print(f"🚀 Fetching GeeksforGeeks progress for {username}...")
     
     try:
         url = f"https://auth.geeksforgeeks.org/user/{username}/practice/"
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.5',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         }
         
         response = requests.get(url, headers=headers, timeout=20)
-        print(f"GeeksforGeeks response status: {response.status_code}")
         
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
             
             stats = {
+                'platform': 'GeeksforGeeks',
                 'username': username,
                 'problems_solved': 0,
                 'coding_score': 0,
-                'institute_rank': 'N/A',
-                'easy_solved': 0,
-                'medium_solved': 0,
-                'hard_solved': 0,
-                'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
+                'last_updated': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC'),
+                'daily_update': True
             }
             
-            # Enhanced selectors for GeeksforGeeks
-            selectors_to_try = [
+            # Enhanced selectors for problem count
+            selectors = [
                 '.score_card_value',
                 '.scoreCard_head_left--score__oSi_x',
                 '.problemsSolved--count',
                 '.problems-solved',
                 '.solvedProblemCount',
-                '.user-profile-stats .stat-value',
-                '.stat-number',
-                '[data-problems-solved]',
                 '.profile-stat-value'
             ]
             
             problems_solved = 0
             
-            # Try each selector
-            for selector in selectors_to_try:
+            # Try to find problems solved count
+            for selector in selectors:
                 elements = soup.select(selector)
                 for elem in elements:
                     text = elem.get_text().strip()
@@ -148,67 +134,49 @@ def fetch_geeksforgeeks_stats(username="bxlz14"):
                     if numbers:
                         try:
                             num = int(numbers[0])
-                            if num > problems_solved and num < 10000:  # Reasonable upper limit
-                                problems_solved = num
+                            if 0 < num < 10000:  # Reasonable range
+                                problems_solved = max(problems_solved, num)
                         except ValueError:
                             continue
             
-            # Alternative: Look for API endpoints or embedded JSON
+            # Check script tags for embedded data
             script_tags = soup.find_all('script')
             for script in script_tags:
-                if script.string and ('problemsSolved' in script.string or 'problems_solved' in script.string):
-                    # Extract from JSON-like structures
-                    json_matches = re.findall(r'"(?:problemsSolved|problems_solved)"\s*:\s*(\d+)', script.string)
-                    if json_matches:
+                if script.string and 'problemsSolved' in script.string:
+                    matches = re.findall(r'"problemsSolved"\s*:\s*(\d+)', script.string)
+                    if matches:
                         try:
-                            problems_solved = max(problems_solved, int(json_matches[0]))
+                            problems_solved = max(problems_solved, int(matches[0]))
                         except ValueError:
                             continue
             
             stats['problems_solved'] = problems_solved
             
-            # Try to extract difficulty-wise stats
-            difficulty_patterns = {
-                'easy': [r'easy[:\s]*(\d+)', r'beginner[:\s]*(\d+)', r'school[:\s]*(\d+)'],
-                'medium': [r'medium[:\s]*(\d+)', r'basic[:\s]*(\d+)'],
-                'hard': [r'hard[:\s]*(\d+)', r'difficult[:\s]*(\d+)']
-            }
-            
-            page_text = soup.get_text().lower()
-            for difficulty, patterns in difficulty_patterns.items():
-                for pattern in patterns:
-                    matches = re.findall(pattern, page_text)
-                    if matches:
-                        try:
-                            stats[f'{difficulty}_solved'] = int(matches[0])
-                            break
-                        except ValueError:
-                            continue
-            
-            # Save to file
+            # Save daily progress
             os.makedirs('data', exist_ok=True)
             with open('data/geeksforgeeks_stats.json', 'w') as f:
                 json.dump(stats, f, indent=2)
             
-            print(f"✅ GeeksforGeeks stats updated: {stats['problems_solved']} problems solved")
+            print(f"✅ GeeksforGeeks: {stats['problems_solved']} problems solved")
             return stats
             
     except Exception as e:
-        print(f"❌ Error fetching GeeksforGeeks stats: {e}")
-        # Return default stats to prevent crashes
+        print(f"❌ GeeksforGeeks error: {e}")
+        # Return default to prevent crashes
         return {
+            'platform': 'GeeksforGeeks',
             'username': username,
             'problems_solved': 0,
             'coding_score': 0,
-            'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
+            'last_updated': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC'),
+            'daily_update': True
         }
 
 def fetch_hackerrank_stats(username="bxlz_14"):
-    """Fetch HackerRank user statistics"""
-    print(f"Fetching HackerRank stats for {username}...")
+    """Fetch HackerRank daily progress"""
+    print(f"⭐ Fetching HackerRank progress for {username}...")
     
     try:
-        # Try profile page scraping
         url = f"https://www.hackerrank.com/profile/{username}"
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
@@ -217,80 +185,65 @@ def fetch_hackerrank_stats(username="bxlz_14"):
         
         response = requests.get(url, headers=headers, timeout=15)
         
+        stats = {
+            'platform': 'HackerRank',
+            'username': username,
+            'badges': 0,
+            'gold_badges': 0,
+            'silver_badges': 0,
+            'bronze_badges': 0,
+            'problems_solved': 0,
+            'last_updated': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC'),
+            'daily_update': True
+        }
+        
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
             
-            stats = {
-                'username': username,
-                'badges': 0,
-                'gold_badges': 0,
-                'silver_badges': 0,
-                'bronze_badges': 0,
-                'problems_solved': 0,
-                'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
-            }
-            
-            # Try to find badge information
+            # Count badges
             badge_elements = soup.find_all(['div', 'span'], class_=re.compile(r'badge', re.I))
             stats['badges'] = len([elem for elem in badge_elements if elem.get_text().strip()])
             
-            # Look for solved problems count
+            # Look for problems solved
             problem_elements = soup.find_all(text=re.compile(r'\d+.*(?:problem|challenge).*solved', re.I))
             for elem in problem_elements:
                 numbers = re.findall(r'\d+', elem)
                 if numbers:
                     stats['problems_solved'] = int(numbers[0])
                     break
-            
-            # Save to file
-            os.makedirs('data', exist_ok=True)
-            with open('data/hackerrank_stats.json', 'w') as f:
-                json.dump(stats, f, indent=2)
-                
-            print(f"✅ HackerRank stats updated: {stats['badges']} badges, {stats['problems_solved']} problems")
-            return stats
-            
-    except Exception as e:
-        print(f"❌ Error fetching HackerRank stats: {e}")
         
-    # Return default stats
-    return {
-        'username': username,
-        'badges': 0,
-        'gold_badges': 0,
-        'silver_badges': 0,
-        'bronze_badges': 0,
-        'problems_solved': 0,
-        'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
-    }
+        # Save daily progress
+        os.makedirs('data', exist_ok=True)
+        with open('data/hackerrank_stats.json', 'w') as f:
+            json.dump(stats, f, indent=2)
+            
+        print(f"✅ HackerRank: {stats['badges']} badges, {stats['problems_solved']} problems")
+        return stats
+        
+    except Exception as e:
+        print(f"❌ HackerRank error: {e}")
+        return {
+            'platform': 'HackerRank',
+            'username': username,
+            'badges': 0,
+            'problems_solved': 0,
+            'last_updated': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC'),
+            'daily_update': True
+        }
 
-def generate_readme_with_stats():
-    """Generate README with updated stats and improved formatting (TUF removed)"""
-    print("Generating updated README...")
+def update_readme_with_daily_stats():
+    """Update README with daily progress stats"""
+    print("📝 Updating README with daily progress...")
     
-    # Load all stats with error handling
+    # Load all platform stats
     stats = {}
     
-    # Load LeetCode stats
-    try:
-        with open('data/leetcode_stats.json', 'r') as f:
-            stats['leetcode'] = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        stats['leetcode'] = None
-    
-    # Load GeeksforGeeks stats
-    try:
-        with open('data/geeksforgeeks_stats.json', 'r') as f:
-            stats['geeksforgeeks'] = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        stats['geeksforgeeks'] = None
-    
-    # Load HackerRank stats
-    try:
-        with open('data/hackerrank_stats.json', 'r') as f:
-            stats['hackerrank'] = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        stats['hackerrank'] = None
+    for platform in ['leetcode', 'geeksforgeeks', 'hackerrank']:
+        try:
+            with open(f'data/{platform}_stats.json', 'r') as f:
+                stats[platform] = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            stats[platform] = None
     
     # Read current README
     try:
@@ -300,59 +253,60 @@ def generate_readme_with_stats():
         print("❌ README.md not found")
         return
     
-    # Create enhanced stats section
-    current_time = datetime.now().strftime('%Y-%m-%d %H:%M UTC')
-    stats_section = f"""## 📊 Current Coding Stats (Updated: {current_time})
+    # Generate daily stats section
+    current_time = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
+    
+    stats_section = f"""## 📈 Daily Coding Progress (Last Updated: {current_time})
 
 <div align="center">
-  
-| Platform | Stats | Profile |
-|----------|--------|---------|"""
 
-    # LeetCode stats
+### 🎯 Current Stats Overview
+
+| 🏅 Platform | 📊 Progress | 🎖️ Achievements | 🔗 Profile |
+|-------------|-------------|-----------------|------------|"""
+
+    # LeetCode row
     if stats['leetcode'] and stats['leetcode']['solved_problems']['total'] > 0:
         lc = stats['leetcode']
-        ranking_text = f"#{lc.get('ranking', 'N/A')}" if lc.get('ranking') != 'N/A' else 'Unranked'
+        ranking = f"#{lc.get('ranking', 'N/A'):,}" if lc.get('ranking') != 'N/A' else 'Unranked'
         stats_section += f"""
-| 🔥 **LeetCode** | **{lc['solved_problems']['total']}** problems solved<br/>Easy: {lc['solved_problems']['easy']} \\| Medium: {lc['solved_problems']['medium']} \\| Hard: {lc['solved_problems']['hard']}<br/>Ranking: {ranking_text} | [bxlz14](https://leetcode.com/bxlz14) |"""
+| **🔥 LeetCode** | **{lc['solved_problems']['total']} Problems**<br/>Easy: {lc['solved_problems']['easy']} • Medium: {lc['solved_problems']['medium']} • Hard: {lc['solved_problems']['hard']}<br/>📈 Rank: {ranking} | 🏆 Consistent Solver<br/>⚡ Medium Progress | [Visit Profile](https://leetcode.com/bxlz14) |"""
     else:
         stats_section += """
-| 🔥 **LeetCode** | **Loading...** 🔄<br/>Fetching latest stats | [bxlz14](https://leetcode.com/bxlz14) |"""
+| **🔥 LeetCode** | **Loading...** 🔄<br/>Fetching latest progress | 🔄 Updating<br/>⏳ Please wait | [Visit Profile](https://leetcode.com/bxlz14) |"""
     
-    # GeeksforGeeks stats
+    # GeeksforGeeks row
     if stats['geeksforgeeks'] and stats['geeksforgeeks']['problems_solved'] > 0:
         gfg = stats['geeksforgeeks']
-        breakdown = ""
-        if gfg.get('easy_solved', 0) + gfg.get('medium_solved', 0) + gfg.get('hard_solved', 0) > 0:
-            breakdown = f"<br/>Easy: {gfg.get('easy_solved', 0)} \\| Medium: {gfg.get('medium_solved', 0)} \\| Hard: {gfg.get('hard_solved', 0)}"
-        
         stats_section += f"""
-| 🚀 **GeeksforGeeks** | **{gfg['problems_solved']}** problems solved{breakdown}<br/>Coding Score: {gfg.get('coding_score', 0)} | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |"""
+| **🚀 GeeksforGeeks** | **{gfg['problems_solved']} Problems**<br/>Coding Score: {gfg.get('coding_score', 0)}<br/>🎯 Skill Building | 🌟 Regular Practice<br/>📚 Foundation Strong | [Visit Profile](https://auth.geeksforgeeks.org/user/bxlz14) |"""
     else:
         stats_section += """
-| 🚀 **GeeksforGeeks** | **Loading...** 🔄<br/>Fetching latest stats | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |"""
+| **🚀 GeeksforGeeks** | **Loading...** 🔄<br/>Fetching latest progress | 🔄 Updating<br/>⏳ Please wait | [Visit Profile](https://auth.geeksforgeeks.org/user/bxlz14) |"""
     
-    # HackerRank stats
+    # HackerRank row
     if stats['hackerrank']:
         hr = stats['hackerrank']
-        problems_text = f" \\| {hr['problems_solved']} problems" if hr['problems_solved'] > 0 else ""
+        problems_text = f" • {hr['problems_solved']} Problems" if hr['problems_solved'] > 0 else ""
         stats_section += f"""
-| ⭐ **HackerRank** | **{hr['badges']}** badges earned{problems_text}<br/>🥇 {hr['gold_badges']} \\| 🥈 {hr['silver_badges']} \\| 🥉 {hr['bronze_badges']} | [bxlz_14](https://www.hackerrank.com/bxlz_14) |"""
+| **⭐ HackerRank** | **{hr['badges']} Badges{problems_text}**<br/>🥇 Gold: {hr['gold_badges']} • 🥈 Silver: {hr['silver_badges']} • 🥉 Bronze: {hr['bronze_badges']} | 🏅 Badge Collector<br/>🎪 Multi-Domain | [Visit Profile](https://www.hackerrank.com/bxlz_14) |"""
     else:
         stats_section += """
-| ⭐ **HackerRank** | **Loading...** 🔄<br/>Fetching latest stats | [bxlz_14](https://www.hackerrank.com/bxlz_14) |"""
+| **⭐ HackerRank** | **Loading...** 🔄<br/>Fetching latest progress | 🔄 Updating<br/>⏳ Please wait | [Visit Profile](https://www.hackerrank.com/bxlz_14) |"""
     
-    # Add multi-platform tracker
+    # Add Codolio tracker
     stats_section += """
-| 🔗 **Codolio** | Multi-platform Progress Tracker<br/>Unified coding stats dashboard | [bxlz.14](https://codolio.com/profile/bxlz.14) |
+| **📊 Codolio** | **Multi-Platform Tracker**<br/>Unified Dashboard | 🔄 Progress Sync<br/>📋 Analytics Hub | [Visit Profile](https://codolio.com/profile/bxlz.14) |
 
 </div>
 
-### 📈 Progress Summary
-<div align="center">
-"""
+### 🚀 Today's Highlights
 
-    # Calculate total problems across platforms (excluding TUF)
+<div align="center">
+
+```"""
+
+    # Calculate total problems
     total_problems = 0
     if stats['leetcode']:
         total_problems += stats['leetcode']['solved_problems']['total']
@@ -362,86 +316,133 @@ def generate_readme_with_stats():
         total_problems += stats['hackerrank'].get('problems_solved', 0)
 
     stats_section += f"""
-**Total Problems Solved: {total_problems}+ 🎯**
+🎯 Total Problems Solved: {total_problems}+
+📈 Daily Goal: Consistent Practice
+🔥 Current Streak: Building Strong
+⏰ Auto-Updated: Every Day at 10 PM UTC
+```
 
-*Last Updated: {current_time} | Auto-updated daily via GitHub Actions ⚡*
+</div>
 
+### 📊 Quick Stats
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Total_Problems-{total_problems}+-brightgreen?style=for-the-badge&logo=target&logoColor=white"/>
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Active_Platforms-4-blue?style=for-the-badge&logo=code&logoColor=white"/>
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Daily_Updates-10_PM_UTC-orange?style=for-the-badge&logo=clock&logoColor=white"/>
+      </td>
+    </tr>
+  </table>
 </div>"""
-    
-    # Find and replace the stats section in README
-    pattern = r'## 📊 Current Coding Stats.*?</div>'
+
+    # Replace the daily progress section in README
+    pattern = r'## 📈 Daily Coding Progress.*?</div>'
     
     if re.search(pattern, readme_content, re.DOTALL):
         readme_content = re.sub(pattern, stats_section.strip(), readme_content, flags=re.DOTALL)
     else:
-        # If stats section doesn't exist, add it after competitive programming
-        competitive_pattern = r'(### Codolio Profile.*?</div>)'
-        if re.search(competitive_pattern, readme_content, re.DOTALL):
+        # If section doesn't exist, add it after competitive programming
+        platform_pattern = r'(### 🌐 Platform Links.*?</div>)'
+        if re.search(platform_pattern, readme_content, re.DOTALL):
             readme_content = re.sub(
-                competitive_pattern, 
-                r'\1\n\n' + stats_section, 
-                readme_content, 
+                platform_pattern,
+                r'\1\n\n---\n\n' + stats_section,
+                readme_content,
                 flags=re.DOTALL
             )
-        else:
-            # Add before connect section
-            connect_pattern = r'(## 🤝 Connect with Me)'
-            if re.search(connect_pattern, readme_content):
-                readme_content = re.sub(
-                    connect_pattern,
-                    stats_section + '\n\n' + r'\1',
-                    readme_content
-                )
     
     # Write updated README
     try:
         with open('README.md', 'w', encoding='utf-8') as f:
             f.write(readme_content)
-        print("✅ README.md updated with stats (TUF removed)!")
+        print("✅ README updated with daily progress!")
+        return True
     except Exception as e:
-        print(f"❌ Error writing README: {e}")
+        print(f"❌ Error updating README: {e}")
+        return False
+
+def generate_daily_summary(stats):
+    """Generate a summary of daily progress"""
+    print("\n" + "="*60)
+    print("📊 DAILY CODING PROGRESS SUMMARY")
+    print("="*60)
+    
+    total_problems = 0
+    platforms_updated = 0
+    
+    for platform, data in stats.items():
+        if data and data.get('daily_update'):
+            platforms_updated += 1
+            if platform == 'leetcode':
+                problems = data['solved_problems']['total']
+                print(f"🔥 LeetCode: {problems} problems (Easy: {data['solved_problems']['easy']}, Medium: {data['solved_problems']['medium']}, Hard: {data['solved_problems']['hard']})")
+                total_problems += problems
+            elif platform == 'geeksforgeeks':
+                problems = data['problems_solved']
+                print(f"🚀 GeeksforGeeks: {problems} problems solved")
+                total_problems += problems
+            elif platform == 'hackerrank':
+                badges = data['badges']
+                problems = data.get('problems_solved', 0)
+                print(f"⭐ HackerRank: {badges} badges, {problems} problems")
+                total_problems += problems
+    
+    print("-" * 60)
+    print(f"🎯 Total Problems Across Platforms: {total_problems}")
+    print(f"📈 Platforms Successfully Updated: {platforms_updated}/3")
+    print(f"🕙 Daily Update Completed: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
+    print("⏰ Next Update: Tomorrow at 10 PM UTC")
+    print("="*60)
 
 def main():
-    """Main function to update all stats (TUF removed)"""
-    print("🚀 Starting stats update process (TUF removed)...")
-    print("=" * 60)
+    """Main function for daily stats update"""
+    print("🌙 Starting Daily Coding Progress Update")
+    print("="*60)
     
+    stats_results = {}
     success_count = 0
-    total_platforms = 3  # Reduced from 4 to 3
     
-    # Fetch stats from platforms (TUF removed)
-    try:
-        lc_stats = fetch_leetcode_stats()
-        if lc_stats:
-            success_count += 1
-    except Exception as e:
-        print(f"❌ LeetCode fetch failed: {e}")
+    # Fetch from all platforms
+    platforms = [
+        ('leetcode', fetch_leetcode_stats),
+        ('geeksforgeeks', fetch_geeksforgeeks_stats),
+        ('hackerrank', fetch_hackerrank_stats)
+    ]
     
-    try:
-        gfg_stats = fetch_geeksforgeeks_stats()
-        if gfg_stats and gfg_stats['problems_solved'] > 0:
-            success_count += 1
-    except Exception as e:
-        print(f"❌ GeeksforGeeks fetch failed: {e}")
+    for platform_name, fetch_function in platforms:
+        try:
+            print(f"\n📡 Connecting to {platform_name.title()}...")
+            result = fetch_function()
+            stats_results[platform_name] = result
+            if result and result.get('daily_update'):
+                success_count += 1
+                print(f"✅ {platform_name.title()} updated successfully")
+            else:
+                print(f"⚠️ {platform_name.title()} update incomplete")
+        except Exception as e:
+            print(f"❌ {platform_name.title()} failed: {e}")
+            stats_results[platform_name] = None
     
-    try:
-        hr_stats = fetch_hackerrank_stats()
-        if hr_stats:
-            success_count += 1
-    except Exception as e:
-        print(f"❌ HackerRank fetch failed: {e}")
+    # Update README with daily progress
+    print(f"\n📝 Updating README with fresh data...")
+    readme_updated = update_readme_with_daily_stats()
     
-    # Update README
-    try:
-        generate_readme_with_stats()
-        print(f"✅ README updated successfully!")
-    except Exception as e:
-        print(f"❌ README update failed: {e}")
+    # Generate summary
+    generate_daily_summary(stats_results)
     
-    print("=" * 60)
-    print(f"📊 Stats update completed: {success_count}/{total_platforms} platforms successful")
-    print(f"🕒 Process completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}")
-    print("✅ TakeUForward (TUF) stats have been removed from the automation")
+    if readme_updated:
+        print("🎉 Daily update completed successfully!")
+    else:
+        print("⚠️ Daily update completed with some issues")
+    
+    return success_count, len(platforms)
 
 if __name__ == "__main__":
-    main()
+    success, total = main()
