@@ -1,25 +1,17 @@
-# scripts/update_daily_stats.py
+# scripts/update_stats.py
 import requests
 import json
 import os
-from datetime import datetime, timedelta
+from datetime import datetime
 import re
 from bs4 import BeautifulSoup
 import time
-from dateutil import tz
-
-def get_local_time():
-    """Get current time in IST (Indian Standard Time)"""
-    utc = tz.gettz('UTC')
-    ist = tz.gettz('Asia/Kolkata')
-    utc_time = datetime.now(utc)
-    ist_time = utc_time.astimezone(ist)
-    return ist_time
 
 def fetch_leetcode_stats(username="bxlz14"):
-    """Fetch LeetCode user statistics with enhanced error handling"""
-    print(f"🔥 Fetching LeetCode stats for {username}...")
+    """Fetch LeetCode user statistics"""
+    print(f"Fetching LeetCode stats for {username}...")
     
+    # GraphQL query for LeetCode API
     query = """
     query getUserProfile($username: String!) {
         matchedUser(username: $username) {
@@ -28,6 +20,7 @@ def fetch_leetcode_stats(username="bxlz14"):
                 ranking
                 userAvatar
                 realName
+                aboutMe
                 reputation
             }
             submitStats {
@@ -42,11 +35,6 @@ def fetch_leetcode_stats(username="bxlz14"):
                     submissions
                 }
             }
-            recentSubmissionList(limit: 10) {
-                title
-                statusDisplay
-                timestamp
-            }
         }
     }
     """
@@ -60,10 +48,9 @@ def fetch_leetcode_stats(username="bxlz14"):
             json={"query": query, "variables": variables},
             headers={
                 "Content-Type": "application/json",
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-                "Referer": "https://leetcode.com/",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
             },
-            timeout=20
+            timeout=15
         )
         
         if response.status_code == 200:
@@ -71,7 +58,7 @@ def fetch_leetcode_stats(username="bxlz14"):
             if 'data' in data and data['data']['matchedUser']:
                 user_data = data['data']['matchedUser']
                 
-                current_time = get_local_time()
+                # Extract key statistics
                 stats = {
                     'username': user_data['username'],
                     'ranking': user_data['profile'].get('ranking', 'N/A'),
@@ -82,9 +69,7 @@ def fetch_leetcode_stats(username="bxlz14"):
                         'hard': 0,
                         'total': 0
                     },
-                    'recent_activity': [],
-                    'last_updated': current_time.strftime('%Y-%m-%d %H:%M:%S IST'),
-                    'last_updated_utc': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
+                    'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
                 }
                 
                 # Parse submission stats
@@ -95,22 +80,12 @@ def fetch_leetcode_stats(username="bxlz14"):
                     elif difficulty == 'all':
                         stats['solved_problems']['total'] = submission['count']
                 
-                # Parse recent submissions
-                if user_data.get('recentSubmissionList'):
-                    for submission in user_data['recentSubmissionList'][:5]:
-                        if submission['statusDisplay'] == 'Accepted':
-                            stats['recent_activity'].append({
-                                'title': submission['title'],
-                                'status': submission['statusDisplay'],
-                                'timestamp': submission['timestamp']
-                            })
-                
-                # Save to platform stats
-                os.makedirs('data/platform_stats', exist_ok=True)
-                with open('data/platform_stats/leetcode_stats.json', 'w') as f:
+                # Save to file
+                os.makedirs('data', exist_ok=True)
+                with open('data/leetcode_stats.json', 'w') as f:
                     json.dump(stats, f, indent=2)
                     
-                print(f"✅ LeetCode: {stats['solved_problems']['total']} total problems (Easy: {stats['solved_problems']['easy']}, Medium: {stats['solved_problems']['medium']}, Hard: {stats['solved_problems']['hard']})")
+                print(f"✅ LeetCode stats updated: {stats['solved_problems']['total']} problems solved")
                 return stats
             else:
                 print("❌ No LeetCode data found for user")
@@ -121,8 +96,8 @@ def fetch_leetcode_stats(username="bxlz14"):
         return None
 
 def fetch_geeksforgeeks_stats(username="bxlz14"):
-    """Fetch GeeksforGeeks user statistics with enhanced scraping"""
-    print(f"🚀 Fetching GeeksforGeeks stats for {username}...")
+    """Fetch GeeksforGeeks user statistics with improved scraping"""
+    print(f"Fetching GeeksforGeeks stats for {username}...")
     
     try:
         url = f"https://auth.geeksforgeeks.org/user/{username}/practice/"
@@ -130,31 +105,23 @@ def fetch_geeksforgeeks_stats(username="bxlz14"):
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
             'Accept-Language': 'en-US,en;q=0.5',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
         }
         
-        response = requests.get(url, headers=headers, timeout=25)
+        response = requests.get(url, headers=headers, timeout=20)
+        print(f"GeeksforGeeks response status: {response.status_code}")
         
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
             
-            current_time = get_local_time()
             stats = {
                 'username': username,
                 'problems_solved': 0,
                 'coding_score': 0,
                 'institute_rank': 'N/A',
-                'difficulty_breakdown': {
-                    'school': 0,
-                    'basic': 0,
-                    'easy': 0,
-                    'medium': 0,
-                    'hard': 0
-                },
-                'last_updated': current_time.strftime('%Y-%m-%d %H:%M:%S IST'),
-                'last_updated_utc': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
+                'easy_solved': 0,
+                'medium_solved': 0,
+                'hard_solved': 0,
+                'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
             }
             
             # Enhanced selectors for GeeksforGeeks
@@ -167,8 +134,7 @@ def fetch_geeksforgeeks_stats(username="bxlz14"):
                 '.user-profile-stats .stat-value',
                 '.stat-number',
                 '[data-problems-solved]',
-                '.profile-stat-value',
-                '.score-card__content .score-card__value'
+                '.profile-stat-value'
             ]
             
             problems_solved = 0
@@ -182,15 +148,16 @@ def fetch_geeksforgeeks_stats(username="bxlz14"):
                     if numbers:
                         try:
                             num = int(numbers[0])
-                            if num > problems_solved and num < 10000:
+                            if num > problems_solved and num < 10000:  # Reasonable upper limit
                                 problems_solved = num
                         except ValueError:
                             continue
             
-            # Look for embedded JSON in script tags
+            # Alternative: Look for API endpoints or embedded JSON
             script_tags = soup.find_all('script')
             for script in script_tags:
                 if script.string and ('problemsSolved' in script.string or 'problems_solved' in script.string):
+                    # Extract from JSON-like structures
                     json_matches = re.findall(r'"(?:problemsSolved|problems_solved)"\s*:\s*(\d+)', script.string)
                     if json_matches:
                         try:
@@ -200,43 +167,59 @@ def fetch_geeksforgeeks_stats(username="bxlz14"):
             
             stats['problems_solved'] = problems_solved
             
-            # Save to platform stats
-            os.makedirs('data/platform_stats', exist_ok=True)
-            with open('data/platform_stats/geeksforgeeks_stats.json', 'w') as f:
+            # Try to extract difficulty-wise stats
+            difficulty_patterns = {
+                'easy': [r'easy[:\s]*(\d+)', r'beginner[:\s]*(\d+)', r'school[:\s]*(\d+)'],
+                'medium': [r'medium[:\s]*(\d+)', r'basic[:\s]*(\d+)'],
+                'hard': [r'hard[:\s]*(\d+)', r'difficult[:\s]*(\d+)']
+            }
+            
+            page_text = soup.get_text().lower()
+            for difficulty, patterns in difficulty_patterns.items():
+                for pattern in patterns:
+                    matches = re.findall(pattern, page_text)
+                    if matches:
+                        try:
+                            stats[f'{difficulty}_solved'] = int(matches[0])
+                            break
+                        except ValueError:
+                            continue
+            
+            # Save to file
+            os.makedirs('data', exist_ok=True)
+            with open('data/geeksforgeeks_stats.json', 'w') as f:
                 json.dump(stats, f, indent=2)
             
-            print(f"✅ GeeksforGeeks: {stats['problems_solved']} problems solved")
+            print(f"✅ GeeksforGeeks stats updated: {stats['problems_solved']} problems solved")
             return stats
             
     except Exception as e:
         print(f"❌ Error fetching GeeksforGeeks stats: {e}")
-        
-    # Return minimal stats to prevent crashes
-    return {
-        'username': username,
-        'problems_solved': 0,
-        'coding_score': 0,
-        'last_updated': get_local_time().strftime('%Y-%m-%d %H:%M:%S IST'),
-        'last_updated_utc': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
-    }
+        # Return default stats to prevent crashes
+        return {
+            'username': username,
+            'problems_solved': 0,
+            'coding_score': 0,
+            'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
+        }
 
 def fetch_hackerrank_stats(username="bxlz_14"):
-    """Fetch HackerRank user statistics with better parsing"""
-    print(f"⭐ Fetching HackerRank stats for {username}...")
+    """Fetch HackerRank user statistics"""
+    print(f"Fetching HackerRank stats for {username}...")
     
     try:
+        # Try profile page scraping
         url = f"https://www.hackerrank.com/profile/{username}"
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         }
         
-        response = requests.get(url, headers=headers, timeout=20)
+        response = requests.get(url, headers=headers, timeout=15)
         
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
             
-            current_time = get_local_time()
             stats = {
                 'username': username,
                 'badges': 0,
@@ -244,17 +227,14 @@ def fetch_hackerrank_stats(username="bxlz_14"):
                 'silver_badges': 0,
                 'bronze_badges': 0,
                 'problems_solved': 0,
-                'domains': [],
-                'last_updated': current_time.strftime('%Y-%m-%d %H:%M:%S IST'),
-                'last_updated_utc': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
+                'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
             }
             
-            # Enhanced badge detection
+            # Try to find badge information
             badge_elements = soup.find_all(['div', 'span'], class_=re.compile(r'badge', re.I))
-            if badge_elements:
-                stats['badges'] = len([elem for elem in badge_elements if elem.get_text().strip()])
+            stats['badges'] = len([elem for elem in badge_elements if elem.get_text().strip()])
             
-            # Look for problems solved
+            # Look for solved problems count
             problem_elements = soup.find_all(text=re.compile(r'\d+.*(?:problem|challenge).*solved', re.I))
             for elem in problem_elements:
                 numbers = re.findall(r'\d+', elem)
@@ -262,12 +242,12 @@ def fetch_hackerrank_stats(username="bxlz_14"):
                     stats['problems_solved'] = int(numbers[0])
                     break
             
-            # Save to platform stats
-            os.makedirs('data/platform_stats', exist_ok=True)
-            with open('data/platform_stats/hackerrank_stats.json', 'w') as f:
+            # Save to file
+            os.makedirs('data', exist_ok=True)
+            with open('data/hackerrank_stats.json', 'w') as f:
                 json.dump(stats, f, indent=2)
                 
-            print(f"✅ HackerRank: {stats['badges']} badges, {stats['problems_solved']} problems")
+            print(f"✅ HackerRank stats updated: {stats['badges']} badges, {stats['problems_solved']} problems")
             return stats
             
     except Exception as e:
@@ -277,110 +257,42 @@ def fetch_hackerrank_stats(username="bxlz_14"):
     return {
         'username': username,
         'badges': 0,
+        'gold_badges': 0,
+        'silver_badges': 0,
+        'bronze_badges': 0,
         'problems_solved': 0,
-        'last_updated': get_local_time().strftime('%Y-%m-%d %H:%M:%S IST'),
-        'last_updated_utc': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
+        'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
     }
 
-def calculate_daily_progress():
-    """Calculate today's progress compared to yesterday"""
-    print("📅 Calculating daily progress...")
+def generate_readme_with_stats():
+    """Generate README with updated stats and improved formatting (TUF removed)"""
+    print("Generating updated README...")
     
-    today = datetime.now().strftime('%Y-%m-%d')
-    yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
-    current_time = get_local_time()
+    # Load all stats with error handling
+    stats = {}
     
-    # Load current stats
-    current_stats = {}
-    platforms = ['leetcode', 'geeksforgeeks', 'hackerrank']
-    
-    for platform in platforms:
-        try:
-            with open(f'data/platform_stats/{platform}_stats.json', 'r') as f:
-                current_stats[platform] = json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            current_stats[platform] = {}
-    
-    # Load yesterday's progress if exists
-    yesterday_progress = {}
+    # Load LeetCode stats
     try:
-        with open(f'data/daily_progress/{yesterday}.json', 'r') as f:
-            yesterday_data = json.load(f)
-            yesterday_progress = yesterday_data.get('platform_totals', {})
+        with open('data/leetcode_stats.json', 'r') as f:
+            stats['leetcode'] = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
-        yesterday_progress = {}
+        stats['leetcode'] = None
     
-    # Calculate today's progress
-    daily_progress = {
-        'date': today,
-        'timestamp': current_time.strftime('%Y-%m-%d %H:%M:%S IST'),
-        'timestamp_utc': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC'),
-        'platform_totals': {},
-        'daily_gains': {},
-        'problems_solved_today': 0,
-        'summary': {
-            'total_platforms_active': 0,
-            'most_active_platform': '',
-            'daily_streak': 0
-        }
-    }
+    # Load GeeksforGeeks stats
+    try:
+        with open('data/geeksforgeeks_stats.json', 'r') as f:
+            stats['geeksforgeeks'] = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        stats['geeksforgeeks'] = None
     
-    total_problems_today = 0
-    platform_gains = {}
+    # Load HackerRank stats
+    try:
+        with open('data/hackerrank_stats.json', 'r') as f:
+            stats['hackerrank'] = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        stats['hackerrank'] = None
     
-    # Calculate gains for each platform
-    if current_stats.get('leetcode', {}).get('solved_problems', {}):
-        lc_total = current_stats['leetcode']['solved_problems']['total']
-        lc_yesterday = yesterday_progress.get('leetcode', 0)
-        lc_gain = max(0, lc_total - lc_yesterday)
-        
-        daily_progress['platform_totals']['leetcode'] = lc_total
-        daily_progress['daily_gains']['leetcode'] = lc_gain
-        total_problems_today += lc_gain
-        platform_gains['leetcode'] = lc_gain
-    
-    if current_stats.get('geeksforgeeks', {}).get('problems_solved'):
-        gfg_total = current_stats['geeksforgeeks']['problems_solved']
-        gfg_yesterday = yesterday_progress.get('geeksforgeeks', 0)
-        gfg_gain = max(0, gfg_total - gfg_yesterday)
-        
-        daily_progress['platform_totals']['geeksforgeeks'] = gfg_total
-        daily_progress['daily_gains']['geeksforgeeks'] = gfg_gain
-        total_problems_today += gfg_gain
-        platform_gains['geeksforgeeks'] = gfg_gain
-    
-    if current_stats.get('hackerrank', {}).get('problems_solved'):
-        hr_total = current_stats['hackerrank']['problems_solved']
-        hr_yesterday = yesterday_progress.get('hackerrank', 0)
-        hr_gain = max(0, hr_total - hr_yesterday)
-        
-        daily_progress['platform_totals']['hackerrank'] = hr_total
-        daily_progress['daily_gains']['hackerrank'] = hr_gain
-        total_problems_today += hr_gain
-        platform_gains['hackerrank'] = hr_gain
-    
-    daily_progress['problems_solved_today'] = total_problems_today
-    
-    # Calculate summary stats
-    active_platforms = sum(1 for gain in platform_gains.values() if gain > 0)
-    daily_progress['summary']['total_platforms_active'] = active_platforms
-    
-    if platform_gains:
-        most_active = max(platform_gains.items(), key=lambda x: x[1])
-        daily_progress['summary']['most_active_platform'] = most_active[0] if most_active[1] > 0 else ''
-    
-    # Save today's progress
-    os.makedirs('data/daily_progress', exist_ok=True)
-    with open(f'data/daily_progress/{today}.json', 'w') as f:
-        json.dump(daily_progress, f, indent=2)
-    
-    print(f"✅ Daily Progress: {total_problems_today} problems solved today across {active_platforms} platforms")
-    return daily_progress
-
-def generate_enhanced_readme():
-    """Generate README with enhanced UI and daily progress tracking"""
-    print("📝 Generating enhanced README with daily progress...")
-    
+    # Read current README
     try:
         with open('README.md', 'r', encoding='utf-8') as f:
             readme_content = f.read()
@@ -388,302 +300,148 @@ def generate_enhanced_readme():
         print("❌ README.md not found")
         return
     
-    # Load today's progress
-    today = datetime.now().strftime('%Y-%m-%d')
-    daily_progress = {}
-    try:
-        with open(f'data/daily_progress/{today}.json', 'r') as f:
-            daily_progress = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        daily_progress = {}
-    
-    # Load platform stats
-    platform_stats = {}
-    platforms = ['leetcode', 'geeksforgeeks', 'hackerrank']
-    for platform in platforms:
-        try:
-            with open(f'data/platform_stats/{platform}_stats.json', 'r') as f:
-                platform_stats[platform] = json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            platform_stats[platform] = {}
-    
-    # Get IST time for display
-    ist_time = get_local_time()
-    display_time = ist_time.strftime('%Y-%m-%d %H:%M IST')
-    
-    # Create enhanced stats section with beautiful UI
-    stats_section = f"""## 📊 Daily Coding Progress & Stats
+    # Create enhanced stats section
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M UTC')
+    stats_section = f"""## 📊 Current Coding Stats (Updated: {current_time})
 
 <div align="center">
+  
+| Platform | Stats | Profile |
+|----------|--------|---------|"""
 
-### 🌙 Today's Progress - {today}
-<table>
-<tr>
-<td align="center" width="25%">
-<img src="https://img.shields.io/badge/Problems%20Solved%20Today-{daily_progress.get('problems_solved_today', 0)}-brightgreen?style=for-the-badge&logo=checkmarx&logoColor=white"/>
-</td>
-<td align="center" width="25%">
-<img src="https://img.shields.io/badge/Active%20Platforms-{daily_progress.get('summary', {}).get('total_platforms_active', 0)}-blue?style=for-the-badge&logo=buffer&logoColor=white"/>
-</td>
-<td align="center" width="25%">
-<img src="https://img.shields.io/badge/Last%20Updated-{ist_time.strftime('%H:%M')}-orange?style=for-the-badge&logo=clock&logoColor=white"/>
-</td>
-<td align="center" width="25%">
-<img src="https://img.shields.io/badge/Auto%20Update-10:00%20PM-purple?style=for-the-badge&logo=github-actions&logoColor=white"/>
-</td>
-</tr>
-</table>
-
-### 📈 Platform Statistics & Daily Progress
-
-| Platform | Today's Gain | Total Solved | Breakdown | Profile |
-|----------|-------------|--------------|-----------|---------|"""
-
-    # LeetCode row
-    lc_stats = platform_stats.get('leetcode', {})
-    lc_gain = daily_progress.get('daily_gains', {}).get('leetcode', 0)
-    if lc_stats and lc_stats.get('solved_problems', {}).get('total', 0) > 0:
-        lc = lc_stats['solved_problems']
-        gain_badge = f"🔥 **+{lc_gain}**" if lc_gain > 0 else "➖ **0**"
-        ranking_text = f"#{lc_stats.get('ranking', 'N/A')}" if lc_stats.get('ranking') != 'N/A' else 'Unranked'
+    # LeetCode stats
+    if stats['leetcode'] and stats['leetcode']['solved_problems']['total'] > 0:
+        lc = stats['leetcode']
+        ranking_text = f"#{lc.get('ranking', 'N/A')}" if lc.get('ranking') != 'N/A' else 'Unranked'
+        stats_section += f"""
+| 🔥 **LeetCode** | **{lc['solved_problems']['total']}** problems solved<br/>Easy: {lc['solved_problems']['easy']} \\| Medium: {lc['solved_problems']['medium']} \\| Hard: {lc['solved_problems']['hard']}<br/>Ranking: {ranking_text} | [bxlz14](https://leetcode.com/bxlz14) |"""
+    else:
+        stats_section += """
+| 🔥 **LeetCode** | **Loading...** 🔄<br/>Fetching latest stats | [bxlz14](https://leetcode.com/bxlz14) |"""
+    
+    # GeeksforGeeks stats
+    if stats['geeksforgeeks'] and stats['geeksforgeeks']['problems_solved'] > 0:
+        gfg = stats['geeksforgeeks']
+        breakdown = ""
+        if gfg.get('easy_solved', 0) + gfg.get('medium_solved', 0) + gfg.get('hard_solved', 0) > 0:
+            breakdown = f"<br/>Easy: {gfg.get('easy_solved', 0)} \\| Medium: {gfg.get('medium_solved', 0)} \\| Hard: {gfg.get('hard_solved', 0)}"
         
         stats_section += f"""
-| 🔥 **LeetCode** | {gain_badge} | **{lc['total']}** | Easy: {lc['easy']} \\| Medium: {lc['medium']} \\| Hard: {lc['hard']}<br/>Ranking: {ranking_text} | [bxlz14](https://leetcode.com/bxlz14) |"""
+| 🚀 **GeeksforGeeks** | **{gfg['problems_solved']}** problems solved{breakdown}<br/>Coding Score: {gfg.get('coding_score', 0)} | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |"""
     else:
         stats_section += """
-| 🔥 **LeetCode** | 🔄 Loading... | **Loading...** | Fetching latest stats... | [bxlz14](https://leetcode.com/bxlz14) |"""
-
-    # GeeksforGeeks row
-    gfg_stats = platform_stats.get('geeksforgeeks', {})
-    gfg_gain = daily_progress.get('daily_gains', {}).get('geeksforgeeks', 0)
-    if gfg_stats and gfg_stats.get('problems_solved', 0) > 0:
-        gain_badge = f"🚀 **+{gfg_gain}**" if gfg_gain > 0 else "➖ **0**"
+| 🚀 **GeeksforGeeks** | **Loading...** 🔄<br/>Fetching latest stats | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |"""
+    
+    # HackerRank stats
+    if stats['hackerrank']:
+        hr = stats['hackerrank']
+        problems_text = f" \\| {hr['problems_solved']} problems" if hr['problems_solved'] > 0 else ""
         stats_section += f"""
-| 🚀 **GeeksforGeeks** | {gain_badge} | **{gfg_stats['problems_solved']}** | Coding Score: {gfg_stats.get('coding_score', 0)}<br/>Multi-difficulty problems | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |"""
+| ⭐ **HackerRank** | **{hr['badges']}** badges earned{problems_text}<br/>🥇 {hr['gold_badges']} \\| 🥈 {hr['silver_badges']} \\| 🥉 {hr['bronze_badges']} | [bxlz_14](https://www.hackerrank.com/bxlz_14) |"""
     else:
         stats_section += """
-| 🚀 **GeeksforGeeks** | 🔄 Loading... | **Loading...** | Fetching latest stats... | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |"""
-
-    # HackerRank row
-    hr_stats = platform_stats.get('hackerrank', {})
-    hr_gain = daily_progress.get('daily_gains', {}).get('hackerrank', 0)
-    if hr_stats and hr_stats.get('badges', 0) > 0:
-        gain_badge = f"⭐ **+{hr_gain}**" if hr_gain > 0 else "➖ **0**"
-        stats_section += f"""
-| ⭐ **HackerRank** | {gain_badge} | **{hr_stats['badges']}** badges | Problems: {hr_stats.get('problems_solved', 0)}<br/>🥇 {hr_stats.get('gold_badges', 0)} \\| 🥈 {hr_stats.get('silver_badges', 0)} \\| 🥉 {hr_stats.get('bronze_badges', 0)} | [bxlz_14](https://www.hackerrank.com/bxlz_14) |"""
-    else:
-        stats_section += """
-| ⭐ **HackerRank** | 🔄 Loading... | **Loading...** | Fetching latest stats... | [bxlz_14](https://www.hackerrank.com/bxlz_14) |"""
-
-    # Add Codolio tracker
+| ⭐ **HackerRank** | **Loading...** 🔄<br/>Fetching latest stats | [bxlz_14](https://www.hackerrank.com/bxlz_14) |"""
+    
+    # Add multi-platform tracker
     stats_section += """
-| 🔗 **Codolio** | 📊 **Tracker** | **Multi-Platform** | Unified progress dashboard<br/>Real-time sync across platforms | [bxlz.14](https://codolio.com/profile/bxlz.14) |
+| 🔗 **Codolio** | Multi-platform Progress Tracker<br/>Unified coding stats dashboard | [bxlz.14](https://codolio.com/profile/bxlz.14) |
 
 </div>
 
-### 🎯 Progress Summary
-
+### 📈 Progress Summary
 <div align="center">
+"""
 
-<table>
-<tr>
-<td align="center" width="50%">
-<h4>📅 Today's Activity</h4>"""
-
-    # Today's activity breakdown
-    if daily_progress:
-        if daily_progress.get('problems_solved_today', 0) > 0:
-            stats_section += f"""
-<img src="https://img.shields.io/badge/🔥_LeetCode-+{daily_progress.get('daily_gains', {}).get('leetcode', 0)}-ff6b6b?style=flat-square"/>
-<img src="https://img.shields.io/badge/🚀_GeeksforGeeks-+{daily_progress.get('daily_gains', {}).get('geeksforgeeks', 0)}-4caf50?style=flat-square"/>
-<img src="https://img.shields.io/badge/⭐_HackerRank-+{daily_progress.get('daily_gains', {}).get('hackerrank', 0)}-ffc107?style=flat-square"/>
-<br/>
-<img src="https://img.shields.io/badge/Total%20Today-{daily_progress.get('problems_solved_today', 0)}%20problems-brightgreen?style=for-the-badge&logo=target&logoColor=white"/>"""
-        else:
-            stats_section += """
-<img src="https://img.shields.io/badge/Today-Rest%20Day-lightgrey?style=for-the-badge&logo=coffee&logoColor=white"/>
-<br/>
-<sub>🌙 Ready for tomorrow's challenges!</sub>"""
-    else:
-        stats_section += """
-<img src="https://img.shields.io/badge/Status-Syncing...-yellow?style=for-the-badge&logo=refresh&logoColor=white"/>"""
-
-    stats_section += """
-</td>
-<td align="center" width="50%">
-<h4>📊 Overall Progress</h4>"""
-
-    # Calculate total problems
+    # Calculate total problems across platforms (excluding TUF)
     total_problems = 0
-    if platform_stats.get('leetcode', {}).get('solved_problems', {}):
-        total_problems += platform_stats['leetcode']['solved_problems']['total']
-    if platform_stats.get('geeksforgeeks', {}).get('problems_solved', 0):
-        total_problems += platform_stats['geeksforgeeks']['problems_solved']
-    if platform_stats.get('hackerrank', {}).get('problems_solved', 0):
-        total_problems += platform_stats['hackerrank']['problems_solved']
+    if stats['leetcode']:
+        total_problems += stats['leetcode']['solved_problems']['total']
+    if stats['geeksforgeeks']:
+        total_problems += stats['geeksforgeeks']['problems_solved']
+    if stats['hackerrank']:
+        total_problems += stats['hackerrank'].get('problems_solved', 0)
 
     stats_section += f"""
-<img src="https://img.shields.io/badge/Total%20Solved-{total_problems}%2B-blue?style=for-the-badge&logo=trophy&logoColor=white"/>
-<br/>
-<img src="https://img.shields.io/badge/Platforms-3%20Active-purple?style=flat-square&logo=buffer"/>
-<img src="https://img.shields.io/badge/Auto%20Update-Daily%2010PM-orange?style=flat-square&logo=clock"/>
-</td>
-</tr>
-</table>
+**Total Problems Solved: {total_problems}+ 🎯**
 
-<sub>🌙 <em>Last Updated: {display_time} | Auto-updated daily at 10:00 PM IST</em></sub>
-<br/>
-<sub>📈 <em>Tracking daily progress and cumulative achievements across all platforms</em></sub>
+*Last Updated: {current_time} | Auto-updated daily via GitHub Actions ⚡*
 
 </div>"""
-
-    # Update README with enhanced stats section
-    pattern = r'## 📊 (?:Current Coding Stats|Daily Coding Progress).*?(?=## [🎓💻🏅]|$)'
+    
+    # Find and replace the stats section in README
+    pattern = r'## 📊 Current Coding Stats.*?</div>'
     
     if re.search(pattern, readme_content, re.DOTALL):
-        readme_content = re.sub(pattern, stats_section.strip() + '\n\n', readme_content, flags=re.DOTALL)
+        readme_content = re.sub(pattern, stats_section.strip(), readme_content, flags=re.DOTALL)
     else:
-        # Find a good place to insert the stats section
+        # If stats section doesn't exist, add it after competitive programming
         competitive_pattern = r'(### Codolio Profile.*?</div>)'
         if re.search(competitive_pattern, readme_content, re.DOTALL):
             readme_content = re.sub(
                 competitive_pattern, 
-                r'\1\n\n' + stats_section + '\n', 
+                r'\1\n\n' + stats_section, 
                 readme_content, 
                 flags=re.DOTALL
             )
         else:
-            # Insert before tech stack
-            tech_pattern = r'(## 💻 Tech Stack)'
-            if re.search(tech_pattern, readme_content):
+            # Add before connect section
+            connect_pattern = r'(## 🤝 Connect with Me)'
+            if re.search(connect_pattern, readme_content):
                 readme_content = re.sub(
-                    tech_pattern,
+                    connect_pattern,
                     stats_section + '\n\n' + r'\1',
                     readme_content
                 )
-
-    # Write the updated README
+    
+    # Write updated README
     try:
         with open('README.md', 'w', encoding='utf-8') as f:
             f.write(readme_content)
-        print("✅ README.md updated with enhanced daily progress UI!")
+        print("✅ README.md updated with stats (TUF removed)!")
     except Exception as e:
         print(f"❌ Error writing README: {e}")
 
-def cleanup_old_progress_files():
-    """Clean up progress files older than 30 days"""
-    print("🧹 Cleaning up old progress files...")
-    
-    progress_dir = 'data/daily_progress'
-    if not os.path.exists(progress_dir):
-        return
-    
-    cutoff_date = datetime.now() - timedelta(days=30)
-    files_cleaned = 0
-    
-    for filename in os.listdir(progress_dir):
-        if filename.endswith('.json'):
-            try:
-                file_date = datetime.strptime(filename.replace('.json', ''), '%Y-%m-%d')
-                if file_date < cutoff_date:
-                    os.remove(os.path.join(progress_dir, filename))
-                    files_cleaned += 1
-            except ValueError:
-                continue
-    
-    if files_cleaned > 0:
-        print(f"🗑️ Cleaned up {files_cleaned} old progress files")
-
 def main():
-    """Main function to update daily stats and progress"""
-    print("🌙 Starting daily coding progress update at 10:00 PM...")
-    print("=" * 80)
-    
-    ist_time = get_local_time()
-    print(f"🕙 Current IST Time: {ist_time.strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"🌍 Current UTC Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print("=" * 80)
+    """Main function to update all stats (TUF removed)"""
+    print("🚀 Starting stats update process (TUF removed)...")
+    print("=" * 60)
     
     success_count = 0
-    total_platforms = 3
+    total_platforms = 3  # Reduced from 4 to 3
     
-    # Fetch stats from all platforms
-    platform_results = {}
-    
+    # Fetch stats from platforms (TUF removed)
     try:
-        print("\n🔥 LEETCODE UPDATE")
-        print("-" * 40)
         lc_stats = fetch_leetcode_stats()
-        if lc_stats and lc_stats['solved_problems']['total'] > 0:
+        if lc_stats:
             success_count += 1
-            platform_results['leetcode'] = lc_stats
-        time.sleep(2)  # Rate limiting
     except Exception as e:
         print(f"❌ LeetCode fetch failed: {e}")
     
     try:
-        print("\n🚀 GEEKSFORGEEKS UPDATE")
-        print("-" * 40)
         gfg_stats = fetch_geeksforgeeks_stats()
-        if gfg_stats and gfg_stats['problems_solved'] >= 0:
+        if gfg_stats and gfg_stats['problems_solved'] > 0:
             success_count += 1
-            platform_results['geeksforgeeks'] = gfg_stats
-        time.sleep(2)  # Rate limiting
     except Exception as e:
         print(f"❌ GeeksforGeeks fetch failed: {e}")
     
     try:
-        print("\n⭐ HACKERRANK UPDATE")
-        print("-" * 40)
         hr_stats = fetch_hackerrank_stats()
         if hr_stats:
             success_count += 1
-            platform_results['hackerrank'] = hr_stats
-        time.sleep(2)  # Rate limiting
     except Exception as e:
         print(f"❌ HackerRank fetch failed: {e}")
     
-    # Calculate daily progress
+    # Update README
     try:
-        print("\n📅 DAILY PROGRESS CALCULATION")
-        print("-" * 40)
-        daily_progress = calculate_daily_progress()
-        print(f"✅ Daily progress calculated and saved!")
-    except Exception as e:
-        print(f"❌ Daily progress calculation failed: {e}")
-    
-    # Update README with enhanced UI
-    try:
-        print("\n📝 README UPDATE")
-        print("-" * 40)
-        generate_enhanced_readme()
-        print("✅ README updated with enhanced UI!")
+        generate_readme_with_stats()
+        print(f"✅ README updated successfully!")
     except Exception as e:
         print(f"❌ README update failed: {e}")
     
-    # Cleanup old files
-    try:
-        cleanup_old_progress_files()
-    except Exception as e:
-        print(f"⚠️ Cleanup warning: {e}")
-    
-    # Final summary
-    print("\n" + "=" * 80)
-    print(f"🌙 NIGHTLY UPDATE COMPLETE - {ist_time.strftime('%Y-%m-%d %H:%M:%S IST')}")
-    print("=" * 80)
-    print(f"📊 Platform Updates: {success_count}/{total_platforms} successful")
-    
-    if daily_progress:
-        print(f"📈 Today's Progress: {daily_progress.get('problems_solved_today', 0)} problems solved")
-        active_platforms = daily_progress.get('summary', {}).get('total_platforms_active', 0)
-        print(f"🎯 Active Platforms: {active_platforms}")
-        
-        if daily_progress.get('summary', {}).get('most_active_platform'):
-            print(f"🏆 Most Active: {daily_progress['summary']['most_active_platform'].title()}")
-    
-    print(f"🔄 Next Update: Tomorrow at 10:00 PM IST")
-    print("✨ Enhanced UI with daily progress tracking active!")
-    print("=" * 80)
+    print("=" * 60)
+    print(f"📊 Stats update completed: {success_count}/{total_platforms} platforms successful")
+    print(f"🕒 Process completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}")
+    print("✅ TakeUForward (TUF) stats have been removed from the automation")
 
 if __name__ == "__main__":
     main()
