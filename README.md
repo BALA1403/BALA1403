@@ -14,7 +14,9 @@
 </div>
 
 <br>
+
 ---
+
 ## 🚀 **About Me**
 
 <img align="right" alt="Coding" width="400" src="https://raw.githubusercontent.com/abhisheknaiidu/abhisheknaiidu/master/code.gif">
@@ -61,7 +63,7 @@
 ### 💻 **LeetCode Progress**
 <div align="center">
   <a href="https://leetcode.com/bxlz14" target="_blank">
-    <img src="https://leetcard.jacoblin.cool/bxlz14?theme=unicorn&font=Karma&ext=heatmap&width=600" alt="LeetCode Stats" />
+    <img src="https://leetcard.jacoblin.cool/bxlz14?theme=dark&font=Karma&ext=heatmap" alt="LeetCode Stats" />
   </a>
 </div>
 
