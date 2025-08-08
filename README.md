@@ -1,175 +1,289 @@
 # 
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,2,5,30&height=220&section=header&text=Balaganesh.S.B&fontSize=85&fontAlignY=35&animation=twinkling&fontColor=ffffff" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=240&section=header&text=Balaganesh.S.B&fontSize=90&fontAlignY=38&animation=fadeIn&fontColor=F8FAFC&desc=Oracle%20Certified%20Java%20Developer&descSize=24&descAlignY=65" />
 </div>
 
 <div align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=24&duration=2500&pause=1000&color=00D9FF&center=true&vCenter=true&width=700&lines=Oracle+Certified+Java+Developer+%E2%9A%A1;Full+Stack+Developer+%F0%9F%9A%80;Android+Developer+%F0%9F%93%B1;Problem+Solver+%F0%9F%A7%A9;Always+Learning+%F0%9F%93%9A;Building+Tomorrow's+Solutions+%F0%9F%8C%9F" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=SF+Pro+Display&size=28&duration=2800&pause=1200&color=6366F1&center=true&vCenter=true&width=800&lines=Oracle+Certified+Java+Developer+⚡;Full+Stack+Architect+🚀;Android+Development+Expert+📱;System+Design+Enthusiast+🏗️;Continuous+Learning+Advocate+📚;Building+Tomorrow's+Solutions+✨" alt="Dynamic Typing" />
 </div>
 
 <div align="center">
-  <h3>🌟 Oracle Certified Java Developer with a passion for crafting efficient, scalable, and reliable software solutions</h3>
-  <p><em>Specializing in full-stack development and Android applications with expertise in Java, Spring Boot, Angular, and database management</em></p>
+  <h2 style="color: #1E293B; font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;">
+    🌟 Crafting Scalable Solutions with Precision & Innovation
+  </h2>
+  <p style="color: #64748B; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 18px;">
+    <em>Specializing in enterprise-grade applications with expertise in Java ecosystem, modern web technologies, and mobile development</em>
+  </p>
+</div>
+
+<div align="center">
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white&labelColor=1E293B" />
+  <img src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white&labelColor=1E293B" />
+  <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white&labelColor=1E293B" />
+  <img src="https://img.shields.io/badge/Oracle_Certified-F80000?style=for-the-badge&logo=oracle&logoColor=white&labelColor=1E293B" />
 </div>
 
 <br>
 
 ---
 
-## 🚀 **About Me**
+## 🚀 **Professional Overview**
 
-<img align="right" alt="Coding" width="400" src="https://raw.githubusercontent.com/abhisheknaiidu/abhisheknaiidu/master/code.gif">
+<div align="left" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 12px;">
 
-- 🎓 **B.Tech in Computer Science and Business Systems** from Panimalar Engineering College (CGPA: 8.97)
-- 💼 **Wipro TalentNext Java Full Stack Development Intern** (May 2024 - Sept 2024)
-- 🏆 **Oracle Certified Java Professional & Generative AI Professional**
-- 🔭 Currently working on innovative Android applications and full-stack web solutions
-- 🌱 Continuously learning advanced algorithms, system design, and emerging technologies
-- 💬 Ask me about **Java, Spring Boot, Android development, and full-stack solutions**
-- 📫 How to reach me: **bxlz143@gmail.com**
-- 🌐 Portfolio: **[bala1403.github.io/portfolio](https://bala1403.github.io/portfolio)**
-- ⚡ Fun fact: I solve coding problems while listening to music! 🎵
+<img align="right" alt="Development Animation" width="420" src="https://raw.githubusercontent.com/abhisheknaiidu/abhisheknaiidu/master/code.gif" style="border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+
+### 👨‍💻 **Background**
+- 🎓 **B.Tech in Computer Science & Business Systems** | Panimalar Engineering College *(CGPA: 8.97)*
+- 💼 **Wipro TalentNext Java Full Stack Development Intern** *(May 2024 - Sept 2024)*
+- 🏆 **Oracle Certified Professional** | Java & Generative AI Specialist
+
+### 🎯 **Current Focus**
+- 🔭 Architecting scalable Android applications with modern development practices
+- 🌱 Mastering advanced system design patterns and microservices architecture
+- 💡 Exploring AI/ML integration in full-stack solutions
+- 📈 Contributing to open-source projects and technical communities
+
+### 📬 **Connect**
+- 📧 **Primary:** bxlz143@gmail.com
+- 🌐 **Portfolio:** [bala1403.github.io/portfolio](https://bala1403.github.io/portfolio)
+- 💼 **LinkedIn:** [balaganesh-sb](https://linkedin.com/in/balaganesh-sb)
 
 <br clear="both"/>
 
+</div>
+
 ---
 
-## 📊 **GitHub Statistics**
+## 💻 **Technology Ecosystem**
 
 <div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api?username=BALA1403&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=0D1117&title_color=00D9FF&text_color=FFFFFF&icon_color=00D9FF">
-    <img src="https://github-readme-stats.vercel.app/api?username=BALA1403&show_icons=true&theme=default&hide_border=true&count_private=true&include_all_commits=true" alt="GitHub Stats" height="180"/>
-  </picture>
+
+### **Core Programming Languages**
+<div style="background: #F1F5F9; padding: 20px; border-radius: 12px; margin: 10px;">
   
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=BALA1403&layout=compact&theme=tokyonight&hide_border=true&langs_count=10&bg_color=0D1117&title_color=00D9FF&text_color=FFFFFF">
-    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=BALA1403&layout=compact&theme=default&hide_border=true&langs_count=10" alt="Top Languages" height="180"/>
-  </picture>
-</div>
-
-<div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-streak-stats.herokuapp.com/?user=BALA1403&theme=tokyonight&hide_border=true&background=0D1117&stroke=00D9FF&ring=00D9FF&fire=FF6B6B&currStreakLabel=00D9FF">
-    <img src="https://github-readme-streak-stats.herokuapp.com/?user=BALA1403&theme=default&hide_border=true" alt="GitHub Streak" width="500"/>
-  </picture>
-</div>
-
----
-
-## 🏆 **Competitive Programming & Coding Platforms**
-
-### 💻 **LeetCode Progress**
-<div align="center">
-  <a href="https://leetcode.com/bxlz14" target="_blank">
-    <img src="https://leetcard.jacoblin.cool/bxlz14?theme=dark&font=Karma&ext=heatmap" alt="LeetCode Stats" />
-  </a>
-</div>
-
-### 🌐 **Coding Platforms**
-<div align="center">
-  <a href="https://www.geeksforgeeks.org/user/bxlz14" target="_blank">
-    <img src="https://img.shields.io/badge/GeeksforGeeks-298D46?style=for-the-badge&logo=geeksforgeeks&logoColor=white" alt="GeeksforGeeks" />
-  </a>
-  <a href="https://www.hackerrank.com/bxlz_14" target="_blank">
-    <img src="https://img.shields.io/badge/HackerRank-2EC866?style=for-the-badge&logo=hackerrank&logoColor=white" alt="HackerRank" />
-  </a>
-  <a href="https://takeuforward.org/profile/Luffy143" target="_blank">
-    <img src="https://img.shields.io/badge/TakeUForward-FF6B35?style=for-the-badge&logo=code&logoColor=white" alt="TakeUForward" />
-  </a>
-  <a href="https://codolio.com/profile/bxlz.14" target="_blank">
-    <img src="https://img.shields.io/badge/Codolio-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Codolio" />
-  </a>
-</div>
-
----
-
-## 📈 **Current Coding Stats** 
-<div align="center">
-  <sub><em>📅 Updated: 2025-08-08 10:00 UTC</em></sub>
-</div>
-
-<div align="center">
-  
-| 🏆 **Platform** | 📊 **Stats** | 🔗 **Profile** |
-|:----------------|:-------------|:---------------|
-| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **42** problems solved<br/>🟢 Easy: 30 \| 🟡 Medium: 11 \| 🔴 Hard: 1<br/>🏅 Ranking: #2438294 | [bxlz14](https://leetcode.com/bxlz14) |
-| <img src="https://img.icons8.com/color/24/000000/GeeksforGeeks.png" width="20"/> **GeeksforGeeks** | **20** problems solved<br/>⚡ Coding Score: 0 | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |
-| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-hackerrank-is-a-technology-company-that-focuses-on-competitive-programming-logo-shadow-tal-revivo.png" width="20"/> **HackerRank** | **6** badges earned \| **7** problems<br/>🥇 0 \| 🥈 0 \| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) |
-| <img src="https://img.icons8.com/ios-filled/24/58A6FF/code.png" width="20"/> **Codolio** | 📊 Multi-platform Progress Tracker<br/>🔄 Unified coding stats dashboard | [bxlz.14](https://codolio.com/profile/bxlz.14) |
+[![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white&labelColor=334155)](https://skillicons.dev)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=334155)](https://skillicons.dev)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&labelColor=334155)](https://skillicons.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white&labelColor=334155)](https://skillicons.dev)
+[![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white&labelColor=334155)](https://skillicons.dev)
 
 </div>
-
-<div align="center">
-  <br>
-  <img src="https://img.shields.io/badge/Total%20Problems%20Solved-69+-FF6B6B?style=for-the-badge&logo=target&logoColor=white" alt="Total Problems" />
-  <br>
-  <sub>⚡ <em>Auto-updated daily via GitHub Actions</em></sub>
-</div>
-
----
-
-## 💻 **Tech Stack & Tools**
-
-<div align="center">
-
-### **Languages**
-[![Languages](https://skillicons.dev/icons?i=java,python,c,cpp,js,html,css&theme=dark)](https://skillicons.dev)
 
 ### **Frameworks & Libraries**
-[![Frameworks](https://skillicons.dev/icons?i=spring,react,angular,bootstrap,nodejs&theme=dark)](https://skillicons.dev)
+<div style="background: #EEF2FF; padding: 20px; border-radius: 12px; margin: 10px;">
 
-### **Databases & Tools**
-[![Tools](https://skillicons.dev/icons?i=mysql,sqlite,git,github,docker,idea,vscode&theme=dark)](https://skillicons.dev)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white&labelColor=3730A3)](https://skillicons.dev)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB&labelColor=3730A3)](https://skillicons.dev)
+[![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white&labelColor=3730A3)](https://skillicons.dev)
+[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white&labelColor=3730A3)](https://skillicons.dev)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white&labelColor=3730A3)](https://skillicons.dev)
 
-### **Mobile & Cloud**
-[![Mobile](https://skillicons.dev/icons?i=androidstudio,firebase&theme=dark)](https://skillicons.dev)
+</div>
+
+### **Database & DevOps**
+<div style="background: #F0FDF4; padding: 20px; border-radius: 12px; margin: 10px;">
+
+[![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white&labelColor=166534)](https://skillicons.dev)
+[![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white&labelColor=166534)](https://skillicons.dev)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white&labelColor=166534)](https://skillicons.dev)
+[![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white&labelColor=166534)](https://skillicons.dev)
+[![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black&labelColor=166534)](https://skillicons.dev)
+
+</div>
+
+### **Development Environment**
+<div style="background: #FEF7FF; padding: 20px; border-radius: 12px; margin: 10px;">
+
+[![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white&labelColor=7C3AED)](https://skillicons.dev)
+[![VS Code](https://img.shields.io/badge/VS_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white&labelColor=7C3AED)](https://skillicons.dev)
+[![Android Studio](https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white&labelColor=7C3AED)](https://skillicons.dev)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white&labelColor=7C3AED)](https://skillicons.dev)
+
+</div>
 
 </div>
 
 ---
 
-## 🏅 **Featured Projects**
+## 🏆 **Competitive Programming Journey**
 
-<div align="center">
-  
-| 🚀 **Project** | 🛠️ **Tech Stack** | 📅 **Duration** | 🎯 **Impact** |
-|:---------------|:------------------|:----------------|:---------------|
-| **🚨 Crime Connect** | Java, SQLite, Android SDK | January 2025 | 📈 35% ↑ community engagement<br/>⚡ 40% ↓ reporting time |
-| **🛍️ Luxe Leathers** | HTML5, CSS3, JavaScript, Bootstrap | December 2024 | 📱 45% ↑ mobile sessions<br/>⚡ 30% ↑ performance |
+### **Problem Solving Platforms**
+<div align="center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 16px; color: white;">
+
+<table style="width: 100%; border-collapse: collapse;">
+<thead>
+<tr style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
+<th style="padding: 15px; text-align: center; color: #F8FAFC; font-family: 'SF Pro Display', sans-serif;">🏆 Platform</th>
+<th style="padding: 15px; text-align: center; color: #F8FAFC; font-family: 'SF Pro Display', sans-serif;">📊 Progress</th>
+<th style="padding: 15px; text-align: center; color: #F8FAFC; font-family: 'SF Pro Display', sans-serif;">🔗 Profile</th>
+</tr>
+</thead>
+<tbody>
+<tr style="background: rgba(255,255,255,0.05);">
+<td style="padding: 15px; text-align: center;">
+<img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=white&labelColor=1E293B" />
+</td>
+<td style="padding: 15px; text-align: center; color: #E2E8F0;">
+<strong>42</strong> problems solved<br/>
+🟢 Easy: 30 | 🟡 Medium: 11 | 🔴 Hard: 1<br/>
+<em>Ranking: #2,438,294</em>
+</td>
+<td style="padding: 15px; text-align: center;">
+<a href="https://leetcode.com/bxlz14" style="color: #60A5FA; text-decoration: none;">bxlz14</a>
+</td>
+</tr>
+<tr style="background: rgba(255,255,255,0.02);">
+<td style="padding: 15px; text-align: center;">
+<img src="https://img.shields.io/badge/GeeksforGeeks-298D46?style=for-the-badge&logo=geeksforgeeks&logoColor=white&labelColor=1E293B" />
+</td>
+<td style="padding: 15px; text-align: center; color: #E2E8F0;">
+<strong>20</strong> problems solved<br/>
+⚡ Active problem solver<br/>
+<em>Consistent daily practice</em>
+</td>
+<td style="padding: 15px; text-align: center;">
+<a href="https://auth.geeksforgeeks.org/user/bxlz14" style="color: #34D399; text-decoration: none;">bxlz14</a>
+</td>
+</tr>
+<tr style="background: rgba(255,255,255,0.05);">
+<td style="padding: 15px; text-align: center;">
+<img src="https://img.shields.io/badge/HackerRank-2EC866?style=for-the-badge&logo=hackerrank&logoColor=white&labelColor=1E293B" />
+</td>
+<td style="padding: 15px; text-align: center; color: #E2E8F0;">
+<strong>6</strong> badges earned<br/>
+<strong>7</strong> problems completed<br/>
+<em>Java & Problem Solving focus</em>
+</td>
+<td style="padding: 15px; text-align: center;">
+<a href="https://www.hackerrank.com/bxlz_14" style="color: #10B981; text-decoration: none;">bxlz_14</a>
+</td>
+</tr>
+<tr style="background: rgba(255,255,255,0.02);">
+<td style="padding: 15px; text-align: center;">
+<img src="https://img.shields.io/badge/Codolio-4285F4?style=for-the-badge&logo=google&logoColor=white&labelColor=1E293B" />
+</td>
+<td style="padding: 15px; text-align: center; color: #E2E8F0;">
+Multi-platform tracker<br/>
+📊 Unified progress dashboard<br/>
+<em>Cross-platform analytics</em>
+</td>
+<td style="padding: 15px; text-align: center;">
+<a href="https://codolio.com/profile/bxlz.14" style="color: #3B82F6; text-decoration: none;">bxlz.14</a>
+</td>
+</tr>
+</tbody>
+</table>
+
+<div style="margin-top: 20px;">
+<img src="https://img.shields.io/badge/Total%20Problems%20Solved-69+-FF6B6B?style=for-the-badge&logo=target&logoColor=white&labelColor=1E293B" />
+<br/>
+<sub style="color: #CBD5E1;"><em>⚡ Auto-updated daily via GitHub Actions</em></sub>
+</div>
 
 </div>
 
-### **🚨 Crime Connect | Mobile Application**
+---
+
+## 🏅 **Featured Projects Portfolio**
+
+<div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 30px; border-radius: 16px; margin: 20px 0;">
+
+### **🚨 Crime Connect | Advanced Mobile Application**
+<div style="background: rgba(255,255,255,0.95); padding: 25px; border-radius: 12px; margin: 15px 0; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+
+**Tech Stack:** `Java` `SQLite` `Android SDK` `Material Design` `Google Maps API`  
+**Duration:** January 2025 *(4 weeks intensive development)*
+
+#### **🎯 Key Achievements:**
+- 📈 **35% increase** in community engagement through intuitive reporting interface
+- ⚡ **40% reduction** in average crime reporting time via streamlined mobile workflow  
+- 🗺️ **Real-time crime mapping** with geographic filtering and push notifications
+- 📊 **28% improvement** in citizen awareness through targeted location-based alerts
+- 🔐 **End-to-end encryption** ensuring secure data transmission and user privacy
+
+#### **🚀 Technical Highlights:**
 ```
-📱 Comprehensive Android-based crime reporting platform connecting citizens with law enforcement
-🎯 35% increase in community engagement and crime reporting
-⚡ 40% reduction in average reporting time through intuitive mobile interface
-🗺️ Interactive crime mapping and real-time notification system
-📊 Geographic filtering for targeted alerts, increasing citizen awareness by 28%
+✨ Material Design 3.0 implementation for modern, accessible UI/UX
+🗃️ Optimized SQLite database with indexed queries for fast data retrieval
+📍 Integration with Google Maps API for precise location-based services
+🔔 Firebase Cloud Messaging for real-time notifications and alerts
+📱 Adaptive UI supporting multiple screen sizes and orientations
 ```
 
-### **🛍️ Luxe Leathers E-commerce Platform**
+</div>
+
+### **🛍️ Luxe Leathers | Premium E-commerce Platform**
+<div style="background: rgba(255,255,255,0.95); padding: 25px; border-radius: 12px; margin: 15px 0; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+
+**Tech Stack:** `HTML5` `CSS3` `JavaScript ES6+` `Bootstrap 5` `SCSS` `Responsive Design`  
+**Duration:** December 2024 *(3 weeks development cycle)*
+
+#### **🎯 Performance Metrics:**
+- 📱 **45% increase** in mobile browsing sessions through responsive design optimization
+- ⚡ **30% improvement** in frontend performance metrics and load times
+- 🎨 **22% boost** in user engagement via elegant, intuitive shopping experience  
+- 🔍 **Advanced product gallery** with zoom functionality and comparison features
+- 📊 **Improved conversion rates** through optimized checkout flow and UX design
+
+#### **🚀 Technical Implementation:**
 ```
-🎨 Responsive frontend for premium leather goods e-commerce platform
-📈 22% increase in user engagement through elegant shopping experience
-🔍 High-quality image zoom and product comparison features
-📱 Mobile-first design resulting in 45% increase in mobile browsing sessions
-⚡ 30% improvement in frontend performance metrics
+🎨 Modern CSS Grid and Flexbox layouts for responsive design
+⚡ Optimized images with lazy loading for enhanced performance
+🖱️ Interactive hover effects and micro-animations for engagement
+📱 Mobile-first approach with progressive enhancement
+🔍 Advanced product filtering and search functionality
 ```
+
+</div>
+
+</div>
 
 ---
 
-## 🎓 **Certifications & Achievements**
+## 🎓 **Professional Certifications**
 
-<div align="center">
-  
-| 🏆 **Certification** | 📅 **Date** | 🏢 **Issuer** |
-|:---------------------|:------------|:--------------|
-| 🤖 Oracle Certified Generative AI Professional | July 2024 | Oracle |
-| ☕ Oracle Certified Java Professional | April 2024 | Oracle |
-| 🌐 Web Development Bootcamp | July 2024 | Udemy |
+<div align="center" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 30px; border-radius: 16px;">
+
+<table style="width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.95); border-radius: 12px; overflow: hidden;">
+<thead>
+<tr style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+<th style="padding: 20px; text-align: center; font-family: 'SF Pro Display', sans-serif;">🏆 Certification</th>
+<th style="padding: 20px; text-align: center; font-family: 'SF Pro Display', sans-serif;">📅 Achievement Date</th>
+<th style="padding: 20px; text-align: center; font-family: 'SF Pro Display', sans-serif;">🏢 Certifying Authority</th>
+</tr>
+</thead>
+<tbody>
+<tr style="background: #F8FAFC;">
+<td style="padding: 20px; text-align: center; color: #1E293B; font-weight: 600;">
+🤖 Oracle Certified Generative AI Professional
+</td>
+<td style="padding: 20px; text-align: center; color: #475569;">July 2024</td>
+<td style="padding: 20px; text-align: center;">
+<img src="https://img.shields.io/badge/Oracle-F80000?style=flat-square&logo=oracle&logoColor=white" />
+</td>
+</tr>
+<tr style="background: #FFFFFF;">
+<td style="padding: 20px; text-align: center; color: #1E293B; font-weight: 600;">
+☕ Oracle Certified Java Professional
+</td>
+<td style="padding: 20px; text-align: center; color: #475569;">April 2024</td>
+<td style="padding: 20px; text-align: center;">
+<img src="https://img.shields.io/badge/Oracle-F80000?style=flat-square&logo=oracle&logoColor=white" />
+</td>
+</tr>
+<tr style="background: #F8FAFC;">
+<td style="padding: 20px; text-align: center; color: #1E293B; font-weight: 600;">
+🌐 Complete Web Development Bootcamp
+</td>
+<td style="padding: 20px; text-align: center; color: #475569;">July 2024</td>
+<td style="padding: 20px; text-align: center;">
+<img src="https://img.shields.io/badge/Udemy-A435F0?style=flat-square&logo=udemy&logoColor=white" />
+</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 
@@ -177,73 +291,102 @@
 
 ## 💼 **Professional Experience**
 
+<div style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); padding: 30px; border-radius: 16px;">
+
 <div align="center">
-  <img src="https://img.shields.io/badge/Wipro%20TalentNext-Java%20Full%20Stack%20Intern-0078D4?style=for-the-badge&logo=wipro&logoColor=white" alt="Wipro Experience" />
+<img src="https://img.shields.io/badge/Wipro%20TalentNext-Java%20Full%20Stack%20Development%20Intern-0078D4?style=for-the-badge&logo=wipro&logoColor=white&labelColor=1E293B" />
 </div>
 
-**Duration:** May 2024 - September 2024
+<div style="background: rgba(255,255,255,0.9); padding: 25px; border-radius: 12px; margin: 20px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
 
+### **📅 Duration:** May 2024 - September 2024 *(5 months intensive program)*
+
+#### **🚀 Key Achievements & Impact:**
+- ⚡ **30% performance enhancement** in backend systems through optimized database queries and caching strategies
+- 🔄 **25% faster API response times** by implementing efficient RESTful services with Spring Boot
+- 🐳 **20% reduction in deployment time** using containerized applications with Docker and Angular frontend
+- 📈 **End-to-end application development** covering full software development lifecycle
+- 🔐 **Security implementation** including JWT authentication and role-based access control
+
+#### **🛠️ Technical Responsibilities:**
 ```
-🚀 Enhanced system performance by 30% through optimized backend operations
-⚡ 25% faster response time by implementing RESTful APIs
-🐳 20% reduction in deployment time using Angular and Docker
-📈 Built end-to-end Java applications with Spring Boot and MySQL
+☕ Java Enterprise Development: Spring Boot, Hibernate, JPA for robust backend services
+🗄️ Database Management: MySQL optimization, query tuning, and schema design
+🌐 Frontend Development: Angular with TypeScript for dynamic, responsive user interfaces  
+🔗 API Development: RESTful services with proper documentation and testing
+🐳 DevOps Integration: Docker containerization and deployment pipeline setup
+✅ Quality Assurance: Unit testing, integration testing, and code review processes
 ```
 
----
+#### **🎯 Project Highlights:**
+- 🏗️ **Microservices Architecture:** Designed and implemented scalable microservices using Spring Boot
+- 📊 **Data Analytics Dashboard:** Created real-time analytics platform with Angular and Chart.js
+- 🔄 **CI/CD Pipeline:** Established automated testing and deployment workflows
+- 📱 **Responsive Web Applications:** Developed mobile-first applications with Bootstrap and Angular
 
-## 🔥 **Activity & Contribution Graph**
+</div>
 
-<div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=BALA1403&bg_color=0d1117&color=00d9ff&line=00d9ff&point=ff6b6b&area=true&hide_border=true&area_color=00d9ff" alt="Contribution Graph" />
 </div>
 
 ---
 
-## 🏆 **GitHub Trophies**
+## 🤝 **Professional Network**
 
-<div align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=BALA1403&theme=tokyonight&no-frame=true&no-bg=true&margin-w=4&row=2&column=4" alt="GitHub Trophies" />
+<div align="center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 16px;">
+
+<div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+
+<a href="https://linkedin.com/in/balaganesh-sb" target="_blank">
+<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=1E293B" alt="LinkedIn Profile" />
+</a>
+
+<a href="https://github.com/BALA1403" target="_blank">
+<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white&labelColor=1E293B" alt="GitHub Profile" />
+</a>
+
+<a href="https://bala1403.github.io/portfolio" target="_blank">
+<img src="https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=About.me&logoColor=white&labelColor=1E293B" alt="Professional Portfolio" />
+</a>
+
+<a href="mailto:sbbalaganesh2004@gmail.com" target="_blank">
+<img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white&labelColor=1E293B" alt="Professional Email" />
+</a>
+
+<a href="https://leetcode.com/bxlz14" target="_blank">
+<img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=white&labelColor=1E293B" alt="LeetCode Profile" />
+</a>
+
+</div>
+
+<div style="margin-top: 25px; color: #F1F5F9; text-align: center;">
+<p style="font-family: 'SF Pro Display', sans-serif; font-size: 18px; margin: 0;">
+🌟 <strong>Open to collaboration on innovative projects and professional opportunities</strong> 🌟
+</p>
+<p style="font-family: 'Inter', sans-serif; font-size: 14px; opacity: 0.9; margin: 10px 0 0 0;">
+Let's connect and build something extraordinary together!
+</p>
+</div>
+
 </div>
 
 ---
 
-## 🤝 **Connect with Me**
-
 <div align="center">
-  <a href="https://linkedin.com/in/balaganesh-sb" target="_blank">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
-  </a>
-  <a href="https://github.com/BALA1403" target="_blank">
-    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
-  </a>
-  <a href="https://bala1403.github.io/portfolio" target="_blank">
-    <img src="https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=About.me&logoColor=white" alt="Portfolio" />
-  </a>
-  <a href="mailto:sbbalaganesh2004@gmail.com" target="_blank">
-    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
-  </a>
-  <a href="https://leetcode.com/bxlz14" target="_blank">
-    <img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=white" alt="LeetCode" />
-  </a>
+<img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight&border=true" alt="Inspirational Quote" />
 </div>
 
----
-
-<div align="center">
-  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight" alt="Random Dev Quote" />
+<div align="center" style="margin-top: 30px;">
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=140&section=footer" />
 </div>
 
-<div align="center">
-  <br>
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,2,5,30&height=120&section=footer" />
-</div>
-
-<div align="center">
-  <br>
-  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=16&duration=3000&pause=1000&color=00D9FF&center=true&vCenter=true&width=500&lines=Thanks+for+visiting!+%E2%AD%90;Let's+build+something+amazing+together!+%F0%9F%9A%80;Happy+Coding!+%F0%9F%92%BB" alt="Footer Typing" />
-  <br><br>
-  <sub>💫 <em>"Passionate about creating impactful solutions through code and continuous learning"</em></sub>
-  <br><br>
-  ⭐️ From <a href="https://github.com/BALA1403"><strong>BALA1403</strong></a> with ❤️
+<div align="center" style="padding: 20px;">
+<img src="https://readme-typing-svg.herokuapp.com?font=SF+Pro+Display&size=18&duration=3500&pause=1000&color=6366F1&center=true&vCenter=true&width=600&lines=Thank+you+for+visiting!+⭐;Let's+innovate+and+build+the+future+together!+🚀;Happy+Coding+and+Continuous+Learning!+💻✨" alt="Footer Message" />
+<br><br>
+<sub style="color: #64748B; font-family: 'Inter', sans-serif;">
+💫 <em>"Driven by passion for technology, committed to excellence in every line of code"</em>
+</sub>
+<br><br>
+<p style="color: #1E293B; font-family: 'SF Pro Display', sans-serif; margin: 15px 0;">
+⭐️ Crafted with ❤️ by <a href="https://github.com/BALA1403" style="color: #6366F1; text-decoration: none; font-weight: 600;"><strong>BALA1403</strong></a>
+</p>
 </div>
