@@ -42,7 +42,7 @@
   <img src="https://leetcard.jacoblin.cool/bxlz14?theme=dark&font=Karma&ext=heatmap" alt="LeetCode Stats" />
 </div>
 
-### GeeksforGeeks, HackerRank & Multi-Platform Tracking
+### GeeksforGeeks, HackerRank & TUF
 <div align="center">
   <a href="https://www.geeksforgeeks.org/user/bxlz14" target="_blank">
     <img src="https://img.shields.io/badge/GeeksforGeeks-0F9D58?style=for-the-badge&logo=geeksforgeeks&logoColor=white" alt="GeeksforGeeks" />
@@ -50,67 +50,37 @@
   <a href="https://www.hackerrank.com/bxlz_14" target="_blank">
     <img src="https://img.shields.io/badge/HackerRank-2EC866?style=for-the-badge&logo=hackerrank&logoColor=white" alt="HackerRank" />
   </a>
-  <a href="https://codolio.com/profile/bxlz.14" target="_blank">
-    <img src="https://img.shields.io/badge/Codolio-FF6B35?style=for-the-badge&logo=code&logoColor=white" alt="Codolio Multi-Platform Tracker" />
+  <a href="https://takeuforward.org/profile/Luffy143" target="_blank">
+    <img src="https://img.shields.io/badge/TakeUForward-FF6B35?style=for-the-badge&logo=code&logoColor=white" alt="TakeUForward" />
   </a>
 </div>
 
-## 📊 Daily Coding Progress & Stats
+### Codolio Profile
+<div align="center">
+  <a href="https://codolio.com/profile/bxlz.14" target="_blank">
+    <img src="https://img.shields.io/badge/Codolio-FF6B35?style=for-the-badge&logo=code&logoColor=white" alt="Codolio" />
+  </a>
+</div>
+
+## 📊 Current Coding Stats (Updated: 2025-08-05 06:18 UTC)
 
 <div align="center">
-
-### 🌙 Today's Progress - 2025-08-08
-<table>
-<tr>
-<td align="center" width="25%">
-<img src="https://img.shields.io/badge/Problems%20Solved%20Today-0-brightgreen?style=for-the-badge&logo=checkmarx&logoColor=white"/>
-</td>
-<td align="center" width="25%">
-<img src="https://img.shields.io/badge/Active%20Platforms-0-blue?style=for-the-badge&logo=buffer&logoColor=white"/>
-</td>
-<td align="center" width="25%">
-<img src="https://img.shields.io/badge/Last%20Updated-10:00-orange?style=for-the-badge&logo=clock&logoColor=white"/>
-</td>
-<td align="center" width="25%">
-<img src="https://img.shields.io/badge/Auto%20Update-10:00%20PM-purple?style=for-the-badge&logo=github-actions&logoColor=white"/>
-</td>
-</tr>
-</table>
-
-### 📈 Platform Statistics & Daily Progress
-
-| Platform | Today's Gain | Total Solved | Breakdown | Profile |
-|----------|-------------|--------------|-----------|---------|
-| 🔥 **LeetCode** | 🔄 Loading... | **Loading...** | Fetching latest stats... | [bxlz14](https://leetcode.com/bxlz14) |
-| 🚀 **GeeksforGeeks** | 🔄 Loading... | **Loading...** | Fetching latest stats... | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |
-| ⭐ **HackerRank** | 🔄 Loading... | **Loading...** | Fetching latest stats... | [bxlz_14](https://www.hackerrank.com/bxlz_14) |
-| 🔗 **Codolio** | 📊 **Tracker** | **Multi-Platform** | Unified progress dashboard<br/>Real-time sync across platforms | [bxlz.14](https://codolio.com/profile/bxlz.14) |
+  
+| Platform | Stats | Profile |
+|----------|--------|---------|
+| 🔥 **LeetCode** | **39** problems solved<br/>Easy: 27 \| Medium: 11 \| Hard: 1<br/>Ranking: #2438294 | [bxlz14](https://leetcode.com/bxlz14) |
+| 🚀 **GeeksforGeeks** | **20** problems solved<br/>Coding Score: 0 | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |
+| ⭐ **HackerRank** | **6** badges earned \| 7 problems<br/>🥇 0 \| 🥈 0 \| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) |
+| 🔗 **Codolio** | Multi-platform Progress Tracker<br/>Unified coding stats dashboard | [bxlz.14](https://codolio.com/profile/bxlz.14) |
 
 </div>
 
-### 🎯 Progress Summary
-
+### 📈 Progress Summary
 <div align="center">
 
-<table>
-<tr>
-<td align="center" width="50%">
-<h4>📅 Today's Activity</h4>
-<img src="https://img.shields.io/badge/Status-Syncing...-yellow?style=for-the-badge&logo=refresh&logoColor=white"/>
-</td>
-<td align="center" width="50%">
-<h4>📊 Overall Progress</h4>
-<img src="https://img.shields.io/badge/Total%20Solved-Loading...-blue?style=for-the-badge&logo=trophy&logoColor=white"/>
-<br/>
-<img src="https://img.shields.io/badge/Platforms-3%20Active-purple?style=flat-square&logo=buffer"/>
-<img src="https://img.shields.io/badge/Auto%20Update-Daily%2010PM-orange?style=flat-square&logo=clock"/>
-</td>
-</tr>
-</table>
+**Total Problems Solved: 66+ 🎯**
 
-<sub>🌙 <em>Last Updated: Loading... | Auto-updated daily at 10:00 PM IST</em></sub>
-<br/>
-<sub>📈 <em>Tracking daily progress and cumulative achievements across all platforms</em></sub>
+*Last Updated: 2025-08-05 06:18 UTC | Auto-updated daily via GitHub Actions ⚡*
 
 </div>
 
