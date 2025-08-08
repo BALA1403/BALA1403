@@ -192,6 +192,28 @@
   <img src="https://github-profile-trophy.vercel.app/?username=BALA1403&theme=radical&no-frame=true&no-bg=false&margin-w=4&row=2&column=4" alt="GitHub Trophies" />
 </div>
 
+## 📊 Current Coding Stats (Updated: 2025-08-08 05:21 UTC)
+
+<div align="center">
+  
+| Platform | Stats | Profile |
+|----------|--------|---------|
+| 🔥 **LeetCode** | **42** problems solved<br/>Easy: 27 \| Medium: 14 \| Hard: 1<br/>Ranking: #2305627 | [bxlz14](https://leetcode.com/bxlz14) |
+| 🚀 **GeeksforGeeks** | **20** problems solved<br/>Coding Score: 0 | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |
+| ⭐ **HackerRank** | **6** badges earned \| 7 problems<br/>🥇 0 \| 🥈 0 \| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) |
+| 🔗 **Codolio** | Multi-platform Progress Tracker<br/>Unified coding stats dashboard | [bxlz.14](https://codolio.com/profile/bxlz.14) |
+
+</div>
+
+### 📈 Progress Summary
+<div align="center">
+
+**Total Problems Solved: 69+ 🎯**
+
+*Last Updated: 2025-08-08 05:21 UTC | Auto-updated daily via GitHub Actions ⚡*
+
+</div>
+
 ## 🤝 Connect with Me
 
 <div align="center">
