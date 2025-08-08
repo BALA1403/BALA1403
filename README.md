@@ -14,13 +14,7 @@
 </div>
 
 <br>
-
-<div align="center">
-  <img src="https://github-profile-views-counter.vercel.app/api?username=BALA1403&color=brightgreen&style=for-the-badge&label=PROFILE+VIEWS" alt="Profile Views" />
-</div>
-
 ---
-
 ## 🚀 **About Me**
 
 <img align="right" alt="Coding" width="400" src="https://raw.githubusercontent.com/abhisheknaiidu/abhisheknaiidu/master/code.gif">
