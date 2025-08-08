@@ -28,12 +28,12 @@
 ## 📊 GitHub Statistics
 
 <div align="center">
-  <img width="49%" src="https://github-readme-stats.vercel.app/api?username=BALA1403&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true" alt="GitHub Stats" />
-  <img width="49%" src="https://github-readme-streak-stats.herokuapp.com/?user=BALA1403&theme=tokyonight&hide_border=true" alt="GitHub Streak" />
+  <img width="48%" src="https://github-readme-stats.vercel.app/api?username=BALA1403&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&card_width=400" alt="GitHub Stats" />
+  <img width="48%" src="https://github-readme-streak-stats.herokuapp.com/?user=BALA1403&theme=tokyonight&hide_border=true&card_width=400" alt="GitHub Streak" />
 </div>
 
 <div align="center">
-  <img width="60%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=BALA1403&layout=compact&theme=tokyonight&hide_border=true&langs_count=12" alt="Top Languages" />
+  <img width="60%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=BALA1403&layout=compact&theme=tokyonight&hide_border=true&langs_count=12&card_width=600" alt="Top Languages" />
 </div>
 
 ---
@@ -42,7 +42,7 @@
 
 ### 🔥 LeetCode Progress
 <div align="center">
-  <img src="https://leetcard.jacoblin.cool/bxlz14?theme=dark&font=Karma&ext=contest" alt="LeetCode Stats" />
+  <img src="https://leetcard.jacoblin.cool/bxlz14?theme=unicorn&font=Karma&ext=heatmap" alt="LeetCode Stats" />
 </div>
 
 ### 🌐 Platform Links
@@ -85,19 +85,6 @@
 ```
 🎯 Total Problems Solved: 69+
 📈 Daily Goal: Consistent Practice
-🔥 Current Streak: Building Strong
-⏰ Auto-Updated: Every Day at 10 PM UTC
-```
-
-</div>
-
-### 🚀 Today's Highlights
-
-<div align="center">
-
-```
-🎯 Total Problems Solved: 69+
-📈 Daily Goal: Consistent Practice  
 🔥 Current Streak: Building Strong
 ⏰ Auto-Updated: Every Day at 10 PM UTC
 ```
