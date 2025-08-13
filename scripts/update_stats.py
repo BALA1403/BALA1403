@@ -268,85 +268,66 @@ def update_readme_stats_section():
     if stats['geeksforgeeks']:
         total_problems += stats['geeksforgeeks']['problems_solved']
     
-    # Create the properly formatted stats section
-    stats_section = f"""## 📈 **Current Coding Stats** 
-<div align="center">
-  <sub><em>📅 Updated: {current_time}</em></sub>
-</div>
-
-<div align="center">
-  
-| 🏆 **Platform** | 📊 **Stats** | 🔗 **Profile** |
+    # Update the specific stats table section
+    stats_table = f"""| 🏆 **Platform** | 📊 **Stats** | 🔗 **Profile** |
 |:----------------|:-------------|:---------------|"""
-
+    
     # LeetCode row
     if stats['leetcode']:
         lc = stats['leetcode']
         ranking = f"#{lc.get('ranking', 'N/A'):,}" if lc.get('ranking') != 'N/A' else 'Unranked'
-        stats_section += f"""
+        stats_table += f"""
 | <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **{lc['solved_problems']['total']}** problems solved<br/>🟢 Easy: {lc['solved_problems']['easy']} \\| 🟡 Medium: {lc['solved_problems']['medium']} \\| 🔴 Hard: {lc['solved_problems']['hard']}<br/>🏅 Ranking: {ranking} | [bxlz14](https://leetcode.com/bxlz14) |"""
     else:
-        stats_section += """
+        stats_table += """
 | <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **42** problems solved<br/>🟢 Easy: 30 \\| 🟡 Medium: 11 \\| 🔴 Hard: 1<br/>🏅 Ranking: #2438294 | [bxlz14](https://leetcode.com/bxlz14) |"""
     
     # GeeksforGeeks row  
     if stats['geeksforgeeks']:
         gfg = stats['geeksforgeeks']
-        stats_section += f"""
+        stats_table += f"""
 | <img src="https://img.icons8.com/color/24/000000/GeeksforGeeks.png" width="20"/> **GeeksforGeeks** | **{gfg['problems_solved']}** problems solved<br/>⚡ Coding Score: {gfg.get('coding_score', 0)} | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |"""
     else:
-        stats_section += """
+        stats_table += """
 | <img src="https://img.icons8.com/color/24/000000/GeeksforGeeks.png" width="20"/> **GeeksforGeeks** | **20** problems solved<br/>⚡ Coding Score: 0 | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |"""
     
     # HackerRank row
     if stats['hackerrank']:
         hr = stats['hackerrank']
-        stats_section += f"""
+        stats_table += f"""
 | <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-hackerrank-is-a-technology-company-that-focuses-on-competitive-programming-logo-shadow-tal-revivo.png" width="20"/> **HackerRank** | **{hr['badges']}** badges earned \\| **{hr['problems_solved']}** problems<br/>🥇 0 \\| 🥈 0 \\| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) |"""
     else:
-        stats_section += """
+        stats_table += """
 | <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-hackerrank-is-a-technology-company-that-focuses-on-competitive-programming-logo-shadow-tal-revivo.png" width="20"/> **HackerRank** | **6** badges earned \\| **7** problems<br/>🥇 0 \\| 🥈 0 \\| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) |"""
     
-    # Add Codolio row and closing
-    stats_section += f"""
-| <img src="https://img.icons8.com/ios-filled/24/58A6FF/code.png" width="20"/> **Codolio** | 📊 Multi-platform Progress Tracker<br/>🔄 Unified coding stats dashboard | [bxlz.14](https://codolio.com/profile/bxlz.14) |
-
-</div>
-
-<div align="center">
-  <br>
-  <img src="https://img.shields.io/badge/Total%20Problems%20Solved-{total_problems}+-FF6B6B?style=for-the-badge&logo=target&logoColor=white" alt="Total Problems" />
-  <br>
-  <sub>⚡ <em>Auto-updated daily via GitHub Actions</em></sub>
-</div>"""
+    # Add Codolio row
+    stats_table += """
+| <img src="https://img.icons8.com/ios-filled/24/58A6FF/code.png" width="20"/> **Codolio** | 📊 Multi-platform Progress Tracker<br/>🔄 Unified coding stats dashboard | [bxlz.14](https://codolio.com/profile/bxlz.14) |"""
     
-    # Find and replace the entire section
-    section_pattern = r'## 📈 \*\*Current Coding Stats\*\*[\s\S]*?<sub>⚡ <em>Auto-updated daily via GitHub Actions</em></sub>\s*</div>'
+    # Update the last updated timestamp in the document
+    updated_text = f'<sub><em>📅 Updated: {current_time}</em></sub>'
     
-    if re.search(section_pattern, readme_content):
-        readme_content = re.sub(section_pattern, stats_section, readme_content, flags=re.DOTALL)
-        print("✅ Found and updated entire stats section")
+    # Find and replace the stats table
+    table_pattern = r'(\| 🏆 \*\*Platform\*\* \| 📊 \*\*Stats\*\* \| 🔗 \*\*Profile\*\* \|[\s\S]*?\| \[bxlz\.14\]\(https://codolio\.com/profile/bxlz\.14\) \|)'
+    if re.search(table_pattern, readme_content):
+        readme_content = re.sub(table_pattern, stats_table, readme_content, flags=re.MULTILINE)
+        print("✅ Found and updated stats table")
     else:
-        print("⚠️ Stats section pattern not found, trying alternative patterns...")
-        
-        # Try alternative patterns
-        alt_patterns = [
-            r'## 📈 \*\*Current Coding Stats\*\*.*?(?=---|\n## )',
-            r'\*📅 Updated:.*?Auto-updated daily via GitHub Actions.*?\*\*',
-            r'## 📈.*?(?=\n---|\n## )'
-        ]
-        
-        updated = False
-        for pattern in alt_patterns:
-            if re.search(pattern, readme_content, re.DOTALL):
-                readme_content = re.sub(pattern, stats_section, readme_content, flags=re.DOTALL)
-                print(f"✅ Updated using alternative pattern")
-                updated = True
-                break
-        
-        if not updated:
-            print("❌ Could not find any matching pattern")
-            return False
+        print("⚠️ Stats table pattern not found")
+        return False
+    
+    # Update the timestamp
+    timestamp_pattern = r'<sub><em>📅 Updated: [^<]+</em></sub>'
+    if re.search(timestamp_pattern, readme_content):
+        readme_content = re.sub(timestamp_pattern, updated_text, readme_content)
+        print("✅ Updated timestamp")
+    
+    # Update total problems badge
+    total_badge_pattern = r'Total%20Problems%20Solved-\d+\+?-'
+    replacement = f'Total%20Problems%20Solved-{total_problems}+-'
+    if re.search(total_badge_pattern, readme_content):
+        readme_content = re.sub(total_badge_pattern, replacement, readme_content)
+        print(f"✅ Updated total problems count to {total_problems}")
     
     # Write updated README
     try:

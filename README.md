@@ -49,80 +49,10 @@
 
 ---
 
-## 🏆 **GitHub Achievements & Trophies**
-
-<div align="center">
-  
-### 🎖️ **Profile Highlights**
-
-<table>
-<tr>
-<td align="center" width="33%">
-
-**📊 Repositories**  
-![Repos](https://img.shields.io/badge/dynamic/json?logo=github&label=Repositories&query=%24.public_repos&url=https%3A%2F%2Fapi.github.com%2Fusers%2FBALA1403&color=brightgreen&style=for-the-badge)
-
-</td>
-<td align="center" width="33%">
-
-**⭐ Total Stars**  
-![Stars](https://img.shields.io/github/stars/BALA1403?affiliations=OWNER%2CCOLLABORATOR&style=for-the-badge&logo=github&color=yellow)
-
-</td>
-<td align="center" width="33%">
-
-**👥 Followers**  
-![Followers](https://img.shields.io/github/followers/BALA1403?style=for-the-badge&logo=github&color=blue)
-
-</td>
-</tr>
-</table>
-
-### 🏅 **Achievement Badges**
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=BALA1403&show=reviews,discussions_started,discussions_answered,prs_merged,prs_merged_percentage&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=00D9FF&text_color=FFFFFF&icon_color=00D9FF" alt="GitHub Achievements" height="200"/>
-</div>
-
-### 🎯 **GitHub Metrics**
-
-<div align="center">
-  <table>
-    <tr>
-      <td>🔥 <strong>Commit Streak</strong></td>
-      <td>📈 <strong>Contributions</strong></td>
-      <td>🌟 <strong>Languages</strong></td>
-      <td>📊 <strong>Activity</strong></td>
-    </tr>
-    <tr>
-      <td>Daily Updates</td>
-      <td>Auto + Manual</td>
-      <td>Java, Python, JS</td>
-      <td>High Frequency</td>
-    </tr>
-  </table>
-</div>
-
-</div>
-
----
-
 ## 🔥 **Activity & Contribution Graph**
 
 <div align="center">
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=BALA1403&bg_color=0d1117&color=00d9ff&line=00d9ff&point=ff6b6b&area=true&hide_border=true&area_color=00d9ff" alt="Contribution Graph" />
-</div>
-
-### 🏆 **Alternative Trophies** 
-<div align="center">
-  
-<!-- Try this reliable trophy service -->
-<img width="800" src="https://github-profile-trophy.vercel.app/?username=BALA1403&column=8&theme=darkhub&no-frame=true&no-bg=true" alt="GitHub Trophies"/>
-
-<!-- If above fails, this should definitely work -->
-<br><br>
-<img src="https://github-readme-stats.vercel.app/api?username=BALA1403&show_icons=true&include_all_commits=true&count_private=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=00D9FF&text_color=FFFFFF&icon_color=00D9FF&custom_title=GitHub%20Performance%20Summary" alt="Performance Stats" height="180"/>
-
 </div>
 
 ---
@@ -176,6 +106,7 @@
   <br>
   <sub>⚡ <em>Auto-updated daily via GitHub Actions</em></sub>
 </div>
+
 ---
 
 ## 💻 **Tech Stack & Tools**

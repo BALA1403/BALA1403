@@ -86,7 +86,8 @@ jobs:
           fi
         done
         
-    - name: Configure Git and Force Daily Commit
+    - name: Configure Git and Commit Changes
+      if: steps.verify-changes.outputs.changed == 'true'
       run: |
         # Configure git
         git config --local user.email "sbbalaganesh2004@gmail.com"
@@ -94,9 +95,6 @@ jobs:
         
         # Get current timestamp
         TIMESTAMP=$(date +'%Y-%m-%d %H:%M:%S UTC')
-        
-        # Always add all files
-        git add -A
         
         # Create commit message with stats summary
         LEETCODE_PROBLEMS="0"
@@ -139,44 +137,23 @@ jobs:
         
         TOTAL_PROBLEMS=$((LEETCODE_PROBLEMS + GFG_PROBLEMS))
         
-        # Check if there are any changes
-        if git diff --staged --quiet; then
-          echo "ℹ️ No file changes, but creating daily commit for contribution"
-          
-          # Create or update a timestamp file to force a daily commit
-          echo "Last updated: $TIMESTAMP" > .last_update
-          git add .last_update
-          
-          COMMIT_MSG="📅 Daily Activity - $TIMESTAMP
+        # Create detailed commit message
+        COMMIT_MSG="🔄 Daily Stats Update - $TIMESTAMP
 
-        📊 Stats Summary:
-        • 🔥 LeetCode: $LEETCODE_PROBLEMS problems
-        • 🚀 GeeksforGeeks: $GFG_PROBLEMS problems  
-        • ⭐ HackerRank: $HACKERRANK_BADGES badges
-        • 🎯 Total Problems: $TOTAL_PROBLEMS
-        
-        🤖 Daily contribution via GitHub Actions
-        ⏰ Scheduled: Every day at 22:00 UTC"
-        else
-          echo "✅ File changes detected, creating update commit"
-          
-          COMMIT_MSG="🔄 Daily Stats Update - $TIMESTAMP
-
-        📊 Updated Progress:
+        📊 Current Progress:
         • 🔥 LeetCode: $LEETCODE_PROBLEMS problems
         • 🚀 GeeksforGeeks: $GFG_PROBLEMS problems  
         • ⭐ HackerRank: $HACKERRANK_BADGES badges
         • 🎯 Total Problems: $TOTAL_PROBLEMS
         
         🤖 Auto-updated via GitHub Actions
-        ⏰ Next update: Tomorrow at 22:00 UTC"
-        fi
+        ⏰ Next update: Tomorrow at 10 PM UTC"
         
-        # Always commit (either updates or daily activity)
+        # Commit and push
         git commit -m "$COMMIT_MSG"
         git push origin main
         
-        echo "✅ Successfully committed and pushed daily update!"
+        echo "✅ Successfully committed and pushed changes!"
         
     - name: Create Action Summary
       if: always()
