@@ -229,9 +229,8 @@
   <sub>💫 <em>"Passionate about creating impactful solutions through code and continuous learning"</em></sub>
   <br><br>
   <div align="center">
-    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3JhdGJqeWF6ODBkMXdjdmQ4YmhxN2RoZWNsMm9mNnlpOGRwNGQzdCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/kyKlOX7SdvPFbshVud/giphy.gif" width="150" alt="Monkey D. Luffy" />
-    <br>
-    <sub><em>🏴‍☠️ "I'm gonna be King of the Programmers!" - Luffy 🏴‍☠️</em></sub>
+    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzVpZHRoeDM3a2N6NDJnMDhnYjlzcW95cXJhbmRpbm1nZzl0dTA0MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tuCFp8rod0x3O/giphy.gif" width="150" alt="Monkey D. Luffy" />
+    
   </div>
   <br>
   ⭐️ From <a href="https://github.com/BALA1403"><strong>BALA1403</strong></a> with ❤️
