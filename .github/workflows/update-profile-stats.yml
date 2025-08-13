@@ -2,17 +2,16 @@ name: Update Profile Stats
 
 on:
   schedule:
-     - cron: '0 22 * * *'  # 10 pm
+    - cron: '0 22 * * *'  # 10:00 PM UTC daily
   workflow_dispatch:  # Manual trigger
   push:
     branches: [ main ]
-    paths: [ 'scripts/update_stats.py' ]
+    paths: [ 'scripts/update_stats.py', '.github/workflows/*.yml' ]
 
 # Grant permissions to write to repository
 permissions:
   contents: write
   actions: read
-  pull-requests: write
 
 jobs:
   update-stats:
@@ -39,6 +38,7 @@ jobs:
         requests>=2.31.0
         beautifulsoup4>=4.12.0
         lxml>=4.9.0
+        pytz>=2023.3
         EOF
         fi
         
@@ -52,29 +52,28 @@ jobs:
         
     - name: Update coding platform stats
       run: |
-        echo "🚀 Starting stats update process (TUF removed)..."
+        echo "🚀 Starting daily stats update at $(date)"
         python scripts/update_stats.py
-      continue-on-error: true
+      continue-on-error: false
       
-    - name: Verify data files
+    - name: Verify data files and changes
+      id: verify-changes
       run: |
-        echo "📁 Checking generated data files:"
+        echo "📁 Generated data files:"
         ls -la data/ || echo "No data directory found"
         
-    - name: Check for changes
-      id: verify-changed-files
-      run: |
-        echo "🔍 Checking for changes..."
-        git diff --name-only
-        if [ -n "$(git status --porcelain)" ]; then
-          echo "changed=true" >> $GITHUB_OUTPUT
-          echo "✅ Changes detected"
-        else
+        echo "🔍 Checking for any changes..."
+        git add -A
+        if git diff --staged --quiet; then
           echo "changed=false" >> $GITHUB_OUTPUT
-          echo "ℹ️ No changes detected"
+          echo "ℹ️ No changes to commit"
+        else
+          echo "changed=true" >> $GITHUB_OUTPUT
+          echo "✅ Changes detected, ready to commit"
+          git diff --staged --name-only
         fi
         
-    - name: Display current stats
+    - name: Display current stats summary
       if: always()
       run: |
         echo "📊 Current Stats Summary:"
@@ -82,63 +81,163 @@ jobs:
         for file in data/*.json; do
           if [ -f "$file" ]; then
             echo "📄 $(basename "$file"):"
-            cat "$file" | python -m json.tool || echo "Invalid JSON in $file"
+            cat "$file" | python -m json.tool 2>/dev/null || echo "⚠️ Invalid JSON in $file"
             echo ""
           fi
         done
         
-    - name: Commit and push changes
-      if: steps.verify-changed-files.outputs.changed == 'true'
+    - name: Configure Git and Force Daily Commit
       run: |
+        # Configure git
         git config --local user.email "sbbalaganesh2004@gmail.com"
-        git config --local user.name "Balaganesh.S.B"
+        git config --local user.name "BALA1403"
+        
+        # Get current timestamp
+        TIMESTAMP=$(date +'%Y-%m-%d %H:%M:%S UTC')
+        
+        # Always add all files
         git add -A
         
-        # Create detailed commit message
-        COMMIT_MSG="📊 Auto-update coding stats - $(date +'%Y-%m-%d %H:%M:%S UTC')
+        # Create commit message with stats summary
+        LEETCODE_PROBLEMS="0"
+        GFG_PROBLEMS="0"
+        HACKERRANK_BADGES="0"
+        TOTAL_PROBLEMS="0"
+        
+        if [ -f data/leetcode_stats.json ]; then
+          LEETCODE_PROBLEMS=$(cat data/leetcode_stats.json | python -c "
+        import sys, json
+        try:
+            data=json.load(sys.stdin)
+            print(data.get('solved_problems', {}).get('total', 0))
+        except:
+            print(0)
+        " 2>/dev/null)
+        fi
+        
+        if [ -f data/geeksforgeeks_stats.json ]; then
+          GFG_PROBLEMS=$(cat data/geeksforgeeks_stats.json | python -c "
+        import sys, json
+        try:
+            data=json.load(sys.stdin)
+            print(data.get('problems_solved', 0))
+        except:
+            print(0)
+        " 2>/dev/null)
+        fi
+        
+        if [ -f data/hackerrank_stats.json ]; then
+          HACKERRANK_BADGES=$(cat data/hackerrank_stats.json | python -c "
+        import sys, json
+        try:
+            data=json.load(sys.stdin)
+            print(data.get('badges', 0))
+        except:
+            print(0)
+        " 2>/dev/null)
+        fi
+        
+        TOTAL_PROBLEMS=$((LEETCODE_PROBLEMS + GFG_PROBLEMS))
+        
+        # Check if there are any changes
+        if git diff --staged --quiet; then
+          echo "ℹ️ No file changes, but creating daily commit for contribution"
+          
+          # Create or update a timestamp file to force a daily commit
+          echo "Last updated: $TIMESTAMP" > .last_update
+          git add .last_update
+          
+          COMMIT_MSG="📅 Daily Activity - $TIMESTAMP
 
-        Updated platforms:
-        - 🔥 LeetCode: $([ -f data/leetcode_stats.json ] && echo "✅" || echo "❌")
-        - 🚀 GeeksforGeeks: $([ -f data/geeksforgeeks_stats.json ] && echo "✅" || echo "❌")  
-        - ⭐ HackerRank: $([ -f data/hackerrank_stats.json ] && echo "✅" || echo "❌")
+        📊 Stats Summary:
+        • 🔥 LeetCode: $LEETCODE_PROBLEMS problems
+        • 🚀 GeeksforGeeks: $GFG_PROBLEMS problems  
+        • ⭐ HackerRank: $HACKERRANK_BADGES badges
+        • 🎯 Total Problems: $TOTAL_PROBLEMS
         
-        🤖 Automated update via GitHub Actions
-        ⚠️  TakeUForward (TUF) stats removed from automation"
+        🤖 Daily contribution via GitHub Actions
+        ⏰ Scheduled: Every day at 22:00 UTC"
+        else
+          echo "✅ File changes detected, creating update commit"
+          
+          COMMIT_MSG="🔄 Daily Stats Update - $TIMESTAMP
+
+        📊 Updated Progress:
+        • 🔥 LeetCode: $LEETCODE_PROBLEMS problems
+        • 🚀 GeeksforGeeks: $GFG_PROBLEMS problems  
+        • ⭐ HackerRank: $HACKERRANK_BADGES badges
+        • 🎯 Total Problems: $TOTAL_PROBLEMS
         
+        🤖 Auto-updated via GitHub Actions
+        ⏰ Next update: Tomorrow at 22:00 UTC"
+        fi
+        
+        # Always commit (either updates or daily activity)
         git commit -m "$COMMIT_MSG"
         git push origin main
         
-    - name: Create summary
+        echo "✅ Successfully committed and pushed daily update!"
+        
+    - name: Create Action Summary
       if: always()
       run: |
-        echo "## 📊 Stats Update Summary" >> $GITHUB_STEP_SUMMARY
+        echo "## 📊 Daily Stats Update Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "| Platform | Status | Last Updated |" >> $GITHUB_STEP_SUMMARY
-        echo "|----------|--------|--------------|" >> $GITHUB_STEP_SUMMARY
+        echo "**Update Time:** $(date +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "| Platform | Status | Progress |" >> $GITHUB_STEP_SUMMARY
+        echo "|----------|--------|----------|" >> $GITHUB_STEP_SUMMARY
         
-        # Check each platform (TUF removed)
+        # Check each platform
         if [ -f data/leetcode_stats.json ]; then
-          LEETCODE_COUNT=$(cat data/leetcode_stats.json | python -c "import sys, json; data=json.load(sys.stdin); print(data.get('solved_problems', {}).get('total', 0))" 2>/dev/null || echo "0")
+          LEETCODE_COUNT=$(cat data/leetcode_stats.json | python -c "
+        import sys, json
+        try:
+            data=json.load(sys.stdin)
+            total = data.get('solved_problems', {}).get('total', 0)
+            easy = data.get('solved_problems', {}).get('easy', 0)
+            medium = data.get('solved_problems', {}).get('medium', 0) 
+            hard = data.get('solved_problems', {}).get('hard', 0)
+            print(f'{total} (E:{easy} M:{medium} H:{hard})')
+        except:
+            print('0')
+        " 2>/dev/null)
           echo "| 🔥 LeetCode | ✅ Success | $LEETCODE_COUNT problems |" >> $GITHUB_STEP_SUMMARY
         else
           echo "| 🔥 LeetCode | ❌ Failed | - |" >> $GITHUB_STEP_SUMMARY
         fi
         
         if [ -f data/geeksforgeeks_stats.json ]; then
-          GFG_COUNT=$(cat data/geeksforgeeks_stats.json | python -c "import sys, json; data=json.load(sys.stdin); print(data.get('problems_solved', 0))" 2>/dev/null || echo "0")
+          GFG_COUNT=$(cat data/geeksforgeeks_stats.json | python -c "
+        import sys, json
+        try:
+            data=json.load(sys.stdin)
+            print(data.get('problems_solved', 0))
+        except:
+            print(0)
+        " 2>/dev/null)
           echo "| 🚀 GeeksforGeeks | ✅ Success | $GFG_COUNT problems |" >> $GITHUB_STEP_SUMMARY
         else
           echo "| 🚀 GeeksforGeeks | ❌ Failed | - |" >> $GITHUB_STEP_SUMMARY
         fi
         
         if [ -f data/hackerrank_stats.json ]; then
-          HR_COUNT=$(cat data/hackerrank_stats.json | python -c "import sys, json; data=json.load(sys.stdin); print(data.get('badges', 0))" 2>/dev/null || echo "0")
-          echo "| ⭐ HackerRank | ✅ Success | $HR_COUNT badges |" >> $GITHUB_STEP_SUMMARY
+          HR_COUNT=$(cat data/hackerrank_stats.json | python -c "
+        import sys, json
+        try:
+            data=json.load(sys.stdin)
+            badges = data.get('badges', 0)
+            problems = data.get('problems_solved', 0)
+            print(f'{badges} badges, {problems} problems')
+        except:
+            print('0 badges')
+        " 2>/dev/null)
+          echo "| ⭐ HackerRank | ✅ Success | $HR_COUNT |" >> $GITHUB_STEP_SUMMARY
         else
           echo "| ⭐ HackerRank | ❌ Failed | - |" >> $GITHUB_STEP_SUMMARY
         fi
         
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "📅 **Update Time:** $(date +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
-        echo "🔄 **Changes:** $(if [ '${{ steps.verify-changed-files.outputs.changed }}' = 'true' ]; then echo 'Yes'; else echo 'No'; fi)" >> $GITHUB_STEP_SUMMARY
-        echo "⚠️  **Note:** TakeUForward (TUF) stats have been removed from automation" >> $GITHUB_STEP_SUMMARY
+        echo "**Changes Committed:** $(if [ '${{ steps.verify-changes.outputs.changed }}' = 'true' ]; then echo '✅ Yes'; else echo '❌ No'; fi)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "🔗 [View Repository](https://github.com/${{ github.repository }})" >> $GITHUB_STEP_SUMMARY
