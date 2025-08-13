@@ -261,60 +261,68 @@ def update_readme_stats_section():
     # Get current timestamp
     current_time = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
     
-    # Calculate totals
+    # Calculate totals - FIXED TO INCLUDE HACKERRANK
     total_problems = 0
     if stats['leetcode']:
         total_problems += stats['leetcode']['solved_problems']['total']
     if stats['geeksforgeeks']:
         total_problems += stats['geeksforgeeks']['problems_solved']
+    if stats['hackerrank']:
+        total_problems += stats['hackerrank']['problems_solved']  # THIS WAS MISSING!
     
     # Update the specific stats table section
-    stats_table = f"""| 🏆 **Platform** | 📊 **Stats** | 🔗 **Profile** |
-|:----------------|:-------------|:---------------|"""
+    stats_table = f"""| 🏆 **Platform** | 📊 **Stats** | 🔗 **Profile** | 🏴‍☠️ **One Piece Reference** |
+|:----------------|:-------------|:---------------|:------------------------------|"""
     
     # LeetCode row
     if stats['leetcode']:
         lc = stats['leetcode']
         ranking = f"#{lc.get('ranking', 'N/A'):,}" if lc.get('ranking') != 'N/A' else 'Unranked'
         stats_table += f"""
-| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **{lc['solved_problems']['total']}** problems solved<br/>🟢 Easy: {lc['solved_problems']['easy']} \\| 🟡 Medium: {lc['solved_problems']['medium']} \\| 🔴 Hard: {lc['solved_problems']['hard']}<br/>🏅 Ranking: {ranking} | [bxlz14](https://leetcode.com/bxlz14) |"""
+| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **{lc['solved_problems']['total']}** problems solved<br/>🟢 Easy: {lc['solved_problems']['easy']} \\| 🟡 Medium: {lc['solved_problems']['medium']} \\| 🔴 Hard: {lc['solved_problems']['hard']}<br/>🏅 Ranking: {ranking} | [bxlz14](https://leetcode.com/bxlz14) | 🎯 Usopp's Sniper Mode |"""
     else:
         stats_table += """
-| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **42** problems solved<br/>🟢 Easy: 30 \\| 🟡 Medium: 11 \\| 🔴 Hard: 1<br/>🏅 Ranking: #2438294 | [bxlz14](https://leetcode.com/bxlz14) |"""
+| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **44** problems solved<br/>🟢 Easy: 28 \\| 🟡 Medium: 15 \\| 🔴 Hard: 1<br/>🏅 Ranking: #2,251,220 | [bxlz14](https://leetcode.com/bxlz14) | 🎯 Usopp's Sniper Mode |"""
     
     # GeeksforGeeks row  
     if stats['geeksforgeeks']:
         gfg = stats['geeksforgeeks']
         stats_table += f"""
-| <img src="https://img.icons8.com/color/24/000000/GeeksforGeeks.png" width="20"/> **GeeksforGeeks** | **{gfg['problems_solved']}** problems solved<br/>⚡ Coding Score: {gfg.get('coding_score', 0)} | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |"""
+| <img src="https://img.icons8.com/color/24/000000/GeeksforGeeks.png" width="20"/> **GeeksforGeeks** | **{gfg['problems_solved']}** problems solved<br/>⚡ Coding Score: {gfg.get('coding_score', 0)} | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) | ⚔️ Zoro's Training |"""
     else:
         stats_table += """
-| <img src="https://img.icons8.com/color/24/000000/GeeksforGeeks.png" width="20"/> **GeeksforGeeks** | **20** problems solved<br/>⚡ Coding Score: 0 | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |"""
+| <img src="https://img.icons8.com/color/24/000000/GeeksforGeeks.png" width="20"/> **GeeksforGeeks** | **20** problems solved<br/>⚡ Coding Score: 0 | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) | ⚔️ Zoro's Training |"""
     
     # HackerRank row
     if stats['hackerrank']:
         hr = stats['hackerrank']
         stats_table += f"""
-| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-hackerrank-is-a-technology-company-that-focuses-on-competitive-programming-logo-shadow-tal-revivo.png" width="20"/> **HackerRank** | **{hr['badges']}** badges earned \\| **{hr['problems_solved']}** problems<br/>🥇 0 \\| 🥈 0 \\| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) |"""
+| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-hackerrank-is-a-technology-company-that-focuses-on-competitive-programming-logo-shadow-tal-revivo.png" width="20"/> **HackerRank** | **{hr['badges']}** badges earned \\| **{hr['problems_solved']}** problems<br/>🥇 0 \\| 🥈 0 \\| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) | 🍖 Sanji's Recipe Collection |"""
     else:
         stats_table += """
-| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-hackerrank-is-a-technology-company-that-focuses-on-competitive-programming-logo-shadow-tal-revivo.png" width="20"/> **HackerRank** | **6** badges earned \\| **7** problems<br/>🥇 0 \\| 🥈 0 \\| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) |"""
+| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-hackerrank-is-a-technology-company-that-focuses-on-competitive-programming-logo-shadow-tal-revivo.png" width="20"/> **HackerRank** | **6** badges earned \\| **7** problems<br/>🥇 0 \\| 🥈 0 \\| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) | 🍖 Sanji's Recipe Collection |"""
     
     # Add Codolio row
     stats_table += """
-| <img src="https://img.icons8.com/ios-filled/24/58A6FF/code.png" width="20"/> **Codolio** | 📊 Multi-platform Progress Tracker<br/>🔄 Unified coding stats dashboard | [bxlz.14](https://codolio.com/profile/bxlz.14) |"""
+| <img src="https://img.icons8.com/ios-filled/24/58A6FF/code.png" width="20"/> **Codolio** | 📊 Multi-platform Progress Tracker<br/>🔄 Unified coding stats dashboard | [bxlz.14](https://codolio.com/profile/bxlz.14) | 🧭 Nami's Grand Line Map |"""
     
     # Update the last updated timestamp in the document
     updated_text = f'<sub><em>📅 Updated: {current_time}</em></sub>'
     
-    # Find and replace the stats table
-    table_pattern = r'(\| 🏆 \*\*Platform\*\* \| 📊 \*\*Stats\*\* \| 🔗 \*\*Profile\*\* \|[\s\S]*?\| \[bxlz\.14\]\(https://codolio\.com/profile/bxlz\.14\) \|)'
+    # Find and replace the stats table - Updated pattern for new format
+    table_pattern = r'(\| 🏆 \*\*Platform\*\* \| 📊 \*\*Stats\*\* \| 🔗 \*\*Profile\*\* \| 🏴‍☠️ \*\*One Piece Reference\*\* \|[\s\S]*?\| \[bxlz\.14\]\(https://codolio\.com/profile/bxlz\.14\) \| 🧭 Nami\'s Grand Line Map \|)'
     if re.search(table_pattern, readme_content):
         readme_content = re.sub(table_pattern, stats_table, readme_content, flags=re.MULTILINE)
-        print("✅ Found and updated stats table")
+        print("✅ Found and updated anime-enhanced stats table")
     else:
-        print("⚠️ Stats table pattern not found")
-        return False
+        # Fallback to original pattern if new one doesn't exist yet
+        original_pattern = r'(\| 🏆 \*\*Platform\*\* \| 📊 \*\*Stats\*\* \| 🔗 \*\*Profile\*\* \|[\s\S]*?\| \[bxlz\.14\]\(https://codolio\.com/profile/bxlz\.14\) \|)'
+        if re.search(original_pattern, readme_content):
+            readme_content = re.sub(original_pattern, stats_table, readme_content, flags=re.MULTILINE)
+            print("✅ Found and updated original stats table")
+        else:
+            print("⚠️ Stats table pattern not found")
+            return False
     
     # Update the timestamp
     timestamp_pattern = r'<sub><em>📅 Updated: [^<]+</em></sub>'
@@ -322,12 +330,12 @@ def update_readme_stats_section():
         readme_content = re.sub(timestamp_pattern, updated_text, readme_content)
         print("✅ Updated timestamp")
     
-    # Update total problems badge
+    # Update total problems badge - FIXED CALCULATION
     total_badge_pattern = r'Total%20Problems%20Solved-\d+\+?-'
     replacement = f'Total%20Problems%20Solved-{total_problems}+-'
     if re.search(total_badge_pattern, readme_content):
         readme_content = re.sub(total_badge_pattern, replacement, readme_content)
-        print(f"✅ Updated total problems count to {total_problems}")
+        print(f"✅ Updated total problems count to {total_problems} (including HackerRank)")
     
     # Write updated README
     try:
@@ -363,17 +371,22 @@ def generate_daily_summary(stats):
                 badges = data['badges']
                 problems = data.get('problems_solved', 0)
                 print(f"⭐ HackerRank: {badges} badges, {problems} problems")
+                total_problems += problems  # FIXED: Now includes HackerRank problems in total
     
     print("-" * 60)
-    print(f"🎯 Total Problems Across Platforms: {total_problems}")
+    print(f"🎯 Total Problems Across Platforms: {total_problems} (LeetCode + GeeksforGeeks + HackerRank)")
     print(f"📈 Platforms Successfully Updated: {platforms_updated}/3")
     print(f"🕙 Daily Update Completed: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
     print("⏰ Next Update: Tomorrow at 22:00 UTC (10 PM)")
+    print("🏴‍☠️ One Piece Motto: 'Just like Luffy's crew grows stronger, so does my coding!'")
+    print("🔥 JJK Energy: 'Domain Expansion: Infinite Problem Solving!'")
     print("="*60)
 
 def main():
     """Main function for daily stats update"""
     print("🌙 Starting Daily Coding Progress Update")
+    print("🏴‍☠️ Setting sail on the Grand Line of Code!")
+    print("🔥 Activating Six Eyes to see all coding platforms...")
     print(f"⏰ Current Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
     print("="*60)
     
@@ -390,6 +403,13 @@ def main():
     for platform_name, fetch_function in platforms:
         try:
             print(f"\n📡 Connecting to {platform_name.title()}...")
+            if platform_name == 'leetcode':
+                print("🎯 Using Usopp's Observation Haki for precise targeting...")
+            elif platform_name == 'geeksforgeeks':
+                print("⚔️ Channeling Zoro's three-sword technique...")
+            elif platform_name == 'hackerrank':
+                print("🍖 Applying Sanji's culinary precision...")
+                
             result = fetch_function()
             stats_results[platform_name] = result
             if result and result.get('daily_update'):
@@ -403,6 +423,7 @@ def main():
     
     # Update README with fresh stats
     print(f"\n📝 Updating README with fresh data...")
+    print("🔥 Domain Expansion: Infinite README Updates!")
     readme_updated = update_readme_stats_section()
     
     # Generate summary
@@ -411,8 +432,11 @@ def main():
     if readme_updated and success_count > 0:
         print("🎉 Daily update completed successfully!")
         print("✅ Changes ready for commit")
+        print("🏴‍☠️ Another successful adventure on the Grand Line!")
+        print("🔥 JJK Victory: 'Throughout Heaven and Earth, this script alone is the honored one!'")
     else:
         print("⚠️ Daily update completed with issues")
+        print("🤔 Even Luffy has tough battles sometimes...")
     
     return success_count, len(platforms)
 
