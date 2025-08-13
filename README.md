@@ -86,14 +86,14 @@
 
 ## 📈 **Current Coding Stats** 
 <div align="center">
-  <sub><em>📅 Updated: 2025-08-13 15:30 UTC</em></sub>
+  <sub><em>📅 Updated: 2025-08-13 04:58 UTC</em></sub>
 </div>
 
 <div align="center">
   
 | 🏆 **Platform** | 📊 **Stats** | 🔗 **Profile** |
 |:----------------|:-------------|:---------------|
-| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **42** problems solved<br/>🟢 Easy: 30 \| 🟡 Medium: 11 \| 🔴 Hard: 1<br/>🏅 Ranking: #2438294 | [bxlz14](https://leetcode.com/bxlz14) |
+| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **44** problems solved<br/>🟢 Easy: 28 \| 🟡 Medium: 15 \| 🔴 Hard: 1<br/>🏅 Ranking: #2,251,220 | [bxlz14](https://leetcode.com/bxlz14) |
 | <img src="https://img.icons8.com/color/24/000000/GeeksforGeeks.png" width="20"/> **GeeksforGeeks** | **20** problems solved<br/>⚡ Coding Score: 0 | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |
 | <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-hackerrank-is-a-technology-company-that-focuses-on-competitive-programming-logo-shadow-tal-revivo.png" width="20"/> **HackerRank** | **6** badges earned \| **7** problems<br/>🥇 0 \| 🥈 0 \| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) |
 | <img src="https://img.icons8.com/ios-filled/24/58A6FF/code.png" width="20"/> **Codolio** | 📊 Multi-platform Progress Tracker<br/>🔄 Unified coding stats dashboard | [bxlz.14](https://codolio.com/profile/bxlz.14) |
@@ -102,7 +102,7 @@
 
 <div align="center">
   <br>
-  <img src="https://img.shields.io/badge/Total%20Problems%20Solved-69+-FF6B6B?style=for-the-badge&logo=target&logoColor=white" alt="Total Problems" />
+  <img src="https://img.shields.io/badge/Total%20Problems%20Solved-64+-FF6B6B?style=for-the-badge&logo=target&logoColor=white" alt="Total Problems" />
   <br>
   <sub>⚡ <em>Auto-updated daily via GitHub Actions</em></sub>
 </div>
