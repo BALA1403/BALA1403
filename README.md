@@ -203,7 +203,7 @@
   <a href="https://bala1403.github.io/portfolio" target="_blank">
     <img src="https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=About.me&logoColor=white" alt="Portfolio" />
   </a>
-  <a href="mailto:bxlz143@gmail.com" target="_blank">
+  <a href="mailto:sbbalaganesh2004@gmail.com" target="_blank">
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
   </a>
   <a href="https://leetcode.com/bxlz14" target="_blank">
@@ -229,8 +229,11 @@
   <sub>💫 <em>"Passionate about creating impactful solutions through code and continuous learning"</em></sub>
   <br><br>
   <div align="center">
-    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzVpZHRoeDM3a2N6NDJnMDhnYjlzcW95cXJhbmRpbm1nZzl0dTA0MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tuCFp8rod0x3O/giphy.gif" width="150" alt="Monkey D. Luffy" />
-    
+    <br>
+    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzVpZHRoeDM3a2N6NDJnMDhnYjlzcW95cXJhbmRpbm1nZzl0dTA0MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tuCFp8rod0x3O/giphy.gif" width="250" alt="Monkey D. Luffy" />
+    <br><br>
+    <h3>🏴‍☠️ <em>"I'm gonna be King of the Programmers!"</em> 🏴‍☠️</h3>
+    <p><strong>- Monkey D. Luffy</strong></p>
   </div>
   <br>
   ⭐️ From <a href="https://github.com/BALA1403"><strong>BALA1403</strong></a> with ❤️
