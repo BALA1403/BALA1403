@@ -212,7 +212,7 @@
     <img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=white" alt="LeetCode" />
   </a>
 </div>
-
+<br>
   <div align="center">
     <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzVpZHRoeDM3a2N6NDJnMDhnYjlzcW95cXJhbmRpbm1nZzl0dTA0MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tuCFp8rod0x3O/giphy.gif" width="400" height="200" alt="Monkey D. Luffy" />
   </div>
