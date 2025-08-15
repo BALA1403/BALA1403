@@ -6,6 +6,18 @@ from datetime import datetime, timezone
 import re
 from bs4 import BeautifulSoup
 import time
+import pytz
+
+# Indian Standard Time
+IST = pytz.timezone('Asia/Kolkata')
+
+def get_ist_time():
+    """Get current time in IST"""
+    return datetime.now(IST).strftime('%Y-%m-%d %H:%M:%S IST')
+
+def get_utc_time():
+    """Get current time in UTC"""
+    return datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
 
 def fetch_leetcode_stats(username="bxlz14"):
     """Fetch LeetCode daily progress"""
@@ -59,7 +71,8 @@ def fetch_leetcode_stats(username="bxlz14"):
                         'hard': 0,
                         'total': 0
                     },
-                    'last_updated': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC'),
+                    'last_updated_utc': get_utc_time(),
+                    'last_updated_ist': get_ist_time(),
                     'daily_update': True
                 }
                 
@@ -109,7 +122,8 @@ def fetch_geeksforgeeks_stats(username="bxlz14"):
                 'username': username,
                 'problems_solved': 0,
                 'coding_score': 0,
-                'last_updated': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC'),
+                'last_updated_utc': get_utc_time(),
+                'last_updated_ist': get_ist_time(),
                 'daily_update': True
             }
             
@@ -172,7 +186,8 @@ def fetch_geeksforgeeks_stats(username="bxlz14"):
             'username': username,
             'problems_solved': 20,  # Your current known count
             'coding_score': 0,
-            'last_updated': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC'),
+            'last_updated_utc': get_utc_time(),
+            'last_updated_ist': get_ist_time(),
             'daily_update': True
         }
 
@@ -197,7 +212,8 @@ def fetch_hackerrank_stats(username="bxlz_14"):
             'silver_badges': 0,
             'bronze_badges': 0,
             'problems_solved': 7,  # Your current count
-            'last_updated': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC'),
+            'last_updated_utc': get_utc_time(),
+            'last_updated_ist': get_ist_time(),
             'daily_update': True
         }
         
@@ -233,7 +249,8 @@ def fetch_hackerrank_stats(username="bxlz_14"):
             'username': username,
             'badges': 6,
             'problems_solved': 7,
-            'last_updated': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC'),
+            'last_updated_utc': get_utc_time(),
+            'last_updated_ist': get_ist_time(),
             'daily_update': True
         }
 
@@ -258,8 +275,8 @@ def update_readme_stats_section():
         print("❌ README.md not found")
         return False
     
-    # Get current timestamp
-    current_time = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
+    # Get current timestamp in IST
+    current_time = get_ist_time().replace(' IST', ' IST')
     
     # Calculate totals
     total_problems = 0
@@ -304,7 +321,7 @@ def update_readme_stats_section():
     stats_table += """
 | <img src="https://img.icons8.com/ios-filled/24/58A6FF/code.png" width="20"/> **Codolio** | 📊 Multi-platform Progress Tracker<br/>🔄 Unified coding stats dashboard | [bxlz.14](https://codolio.com/profile/bxlz.14) |"""
     
-    # Update the last updated timestamp in the document
+    # Update the last updated timestamp in the document - show IST time
     updated_text = f'<sub><em>📅 Updated: {current_time}</em></sub>'
     
     # Find and replace the stats table
@@ -344,6 +361,9 @@ def generate_daily_summary(stats):
     print("\n" + "="*60)
     print("📊 DAILY CODING PROGRESS SUMMARY")
     print("="*60)
+    print(f"🇮🇳 Chennai Time: {get_ist_time()}")
+    print(f"🌍 UTC Time: {get_utc_time()}")
+    print("-" * 60)
     
     total_problems = 0
     platforms_updated = 0
@@ -367,14 +387,15 @@ def generate_daily_summary(stats):
     print("-" * 60)
     print(f"🎯 Total Problems Across Platforms: {total_problems}")
     print(f"📈 Platforms Successfully Updated: {platforms_updated}/3")
-    print(f"🕙 Daily Update Completed: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
-    print("⏰ Next Update: Tomorrow at 22:00 UTC (10 PM)")
+    print(f"🕙 Daily Update Completed: {get_ist_time()}")
+    print("⏰ Next Update: Tomorrow at 10:00 PM IST (Chennai)")
     print("="*60)
 
 def main():
     """Main function for daily stats update"""
     print("🌙 Starting Daily Coding Progress Update")
-    print(f"⏰ Current Time: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
+    print(f"⏰ Current Time (IST): {get_ist_time()}")
+    print(f"⏰ Current Time (UTC): {get_utc_time()}")
     print("="*60)
     
     stats_results = {}
