@@ -205,7 +205,7 @@
   <a href="https://bala1403.github.io/portfolio" target="_blank">
     <img src="https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=About.me&logoColor=white" alt="Portfolio" />
   </a>
-  <a href="mailto:sbbalaganesh2004@gmail.com" target="_blank">
+  <a href="mailto:bxlz143@gmail.com" target="_blank">
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
   </a>
   <a href="https://leetcode.com/bxlz14" target="_blank">
