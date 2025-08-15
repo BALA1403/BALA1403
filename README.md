@@ -16,7 +16,6 @@
 <br>
 <div align="center">
   <img src="https://komarev.com/ghpvc/?username=BALA1403&label=Profile%20Views&color=0e75b6&style=flat" alt="Profile Views" />
-  <img src="https://img.shields.io/github/followers/BALA1403?label=Followers&style=social" alt="GitHub followers" />
 </div>
 <br>
 ---
@@ -215,15 +214,14 @@
   </a>
 </div>
 
----
-
-☕ Support My Work
+## ☕ Support My Work
 <div align="center">
   <p>If you found my projects helpful or learned something from my repositories, consider buying me a coffee!</p>
   <a href="https://ko-fi.com/bxlz14" target="_blank">
     <img src="https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Ko-fi" />
   </a>
 </div>
+<br>
 
   <div align="center">
     <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzVpZHRoeDM3a2N6NDJnMDhnYjlzcW95cXJhbmRpbm1nZzl0dTA0MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tuCFp8rod0x3O/giphy.gif" width="400" height="200" alt="Monkey D. Luffy" />
