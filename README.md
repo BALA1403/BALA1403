@@ -213,15 +213,6 @@
   </a>
 </div>
 
-## ☕ Support My Work
-<div align="center">
-  <p>If you found my projects helpful or learned something from my repositories, consider buying me a coffee!</p>
-  <a href="https://ko-fi.com/V7V81JPZUX" target="_blank">
-    <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Ko-fi" />
-  </a>
-</div>
-<br>
-
   <div align="center">
     <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzVpZHRoeDM3a2N6NDJnMDhnYjlzcW95cXJhbmRpbm1nZzl0dTA0MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tuCFp8rod0x3O/giphy.gif" width="400" height="200" alt="Monkey D. Luffy" />
   </div>
