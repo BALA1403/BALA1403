@@ -2,7 +2,7 @@ name: Update Profile Stats
 
 on:
   schedule:
-    - cron: '0 22 * * *'  # 10:00 PM UTC daily
+    - cron: '30 16 * * *'  # 4:30 PM UTC = 10:00 PM IST (Chennai time)
   workflow_dispatch:  # Manual trigger
   push:
     branches: [ main ]
@@ -52,7 +52,8 @@ jobs:
         
     - name: Update coding platform stats
       run: |
-        echo "🚀 Starting daily stats update at $(date)"
+        echo "🚀 Starting daily stats update at $(date) (UTC)"
+        echo "🇮🇳 Local Chennai time: $(TZ='Asia/Kolkata' date)"
         python scripts/update_stats.py
       continue-on-error: false
       
@@ -93,8 +94,9 @@ jobs:
         git config --local user.email "sbbalaganesh2004@gmail.com"
         git config --local user.name "BALA1403"
         
-        # Get current timestamp
-        TIMESTAMP=$(date +'%Y-%m-%d %H:%M:%S UTC')
+        # Get current timestamp in IST
+        TIMESTAMP_UTC=$(date +'%Y-%m-%d %H:%M:%S UTC')
+        TIMESTAMP_IST=$(TZ='Asia/Kolkata' date +'%Y-%m-%d %H:%M:%S IST')
         
         # Create commit message with stats summary
         LEETCODE_PROBLEMS="0"
@@ -137,8 +139,8 @@ jobs:
         
         TOTAL_PROBLEMS=$((LEETCODE_PROBLEMS + GFG_PROBLEMS))
         
-        # Create detailed commit message
-        COMMIT_MSG="🔄 Daily Stats Update - $TIMESTAMP
+        # Create detailed commit message with IST time
+        COMMIT_MSG="🔄 Daily Stats Update - $TIMESTAMP_IST
 
         📊 Current Progress:
         • 🔥 LeetCode: $LEETCODE_PROBLEMS problems
@@ -147,7 +149,7 @@ jobs:
         • 🎯 Total Problems: $TOTAL_PROBLEMS
         
         🤖 Auto-updated via GitHub Actions
-        ⏰ Next update: Tomorrow at 10 PM UTC"
+        ⏰ Next update: Tomorrow at 10 PM IST (Chennai)"
         
         # Commit and push
         git commit -m "$COMMIT_MSG"
@@ -160,7 +162,8 @@ jobs:
       run: |
         echo "## 📊 Daily Stats Update Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "**Update Time:** $(date +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+        echo "**Update Time (UTC):** $(date +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+        echo "**Update Time (IST):** $(TZ='Asia/Kolkata' date +'%Y-%m-%d %H:%M:%S IST')" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "| Platform | Status | Progress |" >> $GITHUB_STEP_SUMMARY
         echo "|----------|--------|----------|" >> $GITHUB_STEP_SUMMARY
@@ -217,4 +220,6 @@ jobs:
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "**Changes Committed:** $(if [ '${{ steps.verify-changes.outputs.changed }}' = 'true' ]; then echo '✅ Yes'; else echo '❌ No'; fi)" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "🔗 [View Repository](https://github.com/${{ github.repository }})" >> $GITHUB_STEP_SUMMARY
+        echo "**🇮🇳 Scheduled for:** Daily at 10:00 PM IST (Chennai Time)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "🔗 [View Repository](https://github.com/${{ github.repository }})"
