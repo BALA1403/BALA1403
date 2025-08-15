@@ -216,8 +216,8 @@
 ## ☕ Support My Work
 <div align="center">
   <p>If you found my projects helpful or learned something from my repositories, consider buying me a coffee!</p>
-  <a href="https://ko-fi.com/bxlz14" target="_blank">
-    <img src="https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Ko-fi" />
+  <a href="https://ko-fi.com/V7V81JPZUX" target="_blank">
+    <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Ko-fi" />
   </a>
 </div>
 <br>
