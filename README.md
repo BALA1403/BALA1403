@@ -241,13 +241,13 @@
 <div align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=16&duration=3000&pause=1000&color=00D9FF&center=true&vCenter=true&width=500&lines=Thanks+for+visiting!+%E2%AD%90;Let's+build+something+amazing+together!+%F0%9F%9A%80;Happy+Coding!+%F0%9F%92%BB" alt="Footer Typing" />
 
-  <br>
-  ⭐️ From <a href="https://github.com/BALA1403"><strong>BALA1403</strong></a> with ❤️
 </div>
 
 <br>
 <div align="center">
   <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight" alt="Random Dev Quote" />
+    <br>
+  ⭐️ From <a href="https://github.com/BALA1403"><strong>BALA1403</strong></a> with ❤️
 </div>
 
 <div align="center">
