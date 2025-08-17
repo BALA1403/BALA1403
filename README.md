@@ -231,11 +231,6 @@
   <a href="https://www.buymeacoffee.com/bxlz.14" target="_blank">
     <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" />
   </a>
-  
-  <br><br>
-  
-  <img src="https://img.shields.io/badge/Support-Buy%20Me%20A%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Support Badge" />
-  
   <br><br>
   
   <sub>☕ <strong>Every coffee fuels innovation!</strong> Your support motivates me to keep building amazing projects</sub>
