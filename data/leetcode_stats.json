@@ -1,14 +1,14 @@
 {
   "platform": "LeetCode",
   "username": "bxlz14",
-  "ranking": 2068569,
+  "ranking": 2043718,
   "solved_problems": {
     "easy": 29,
-    "medium": 21,
+    "medium": 22,
     "hard": 1,
-    "total": 51
+    "total": 52
   },
-  "last_updated_utc": "2025-08-24 16:45:15 UTC",
-  "last_updated_ist": "2025-08-24 22:15:15 IST",
+  "last_updated_utc": "2025-08-25 16:48:30 UTC",
+  "last_updated_ist": "2025-08-25 22:18:30 IST",
   "daily_update": true
 }
