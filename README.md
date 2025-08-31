@@ -88,14 +88,14 @@
 
 ## 📈 **Current Coding Stats** 
 <div align="center">
-  <sub><em>📅 Updated: 2025-08-30 22:13:21 IST</em></sub>
+  <sub><em>📅 Updated: 2025-08-31 22:13:17 IST</em></sub>
 </div>
 
 <div align="center">
   
 | 🏆 **Platform** | 📊 **Stats** | 🔗 **Profile** |
 |:----------------|:-------------|:---------------|
-| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **54** problems solved<br/>🟢 Easy: 29 \| 🟡 Medium: 23 \| 🔴 Hard: 2<br/>🏅 Ranking: #2,002,000 | [bxlz14](https://leetcode.com/bxlz14) |
+| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **54** problems solved<br/>🟢 Easy: 29 \| 🟡 Medium: 23 \| 🔴 Hard: 2<br/>🏅 Ranking: #2,003,519 | [bxlz14](https://leetcode.com/bxlz14) |
 | <img src="https://img.icons8.com/color/24/000000/GeeksforGeeks.png" width="20"/> **GeeksforGeeks** | **20** problems solved<br/>⚡ Coding Score: 0 | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |
 | <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-hackerrank-is-a-technology-company-that-focuses-on-competitive-programming-logo-shadow-tal-revivo.png" width="20"/> **HackerRank** | **6** badges earned \| **7** problems<br/>🥇 0 \| 🥈 0 \| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) |
 | <img src="https://img.icons8.com/ios-filled/24/58A6FF/code.png" width="20"/> **Codolio** | 📊 Multi-platform Progress Tracker<br/>🔄 Unified coding stats dashboard | [bxlz.14](https://codolio.com/profile/bxlz.14) |
