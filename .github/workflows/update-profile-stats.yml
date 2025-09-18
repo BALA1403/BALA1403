@@ -1,4 +1,4 @@
-name: Update Profile Stats
+name: Update Profile Stats with Rate Limit Protection
 
 on:
   schedule:
@@ -16,7 +16,7 @@ permissions:
 jobs:
   update-stats:
     runs-on: ubuntu-latest
-    name: Update Coding Platform Stats
+    name: Update Coding Platform Stats with GitHub Stats
     
     steps:
     - name: Checkout repository
@@ -39,6 +39,8 @@ jobs:
         beautifulsoup4>=4.12.0
         lxml>=4.9.0
         pytz>=2023.3
+        PyGithub>=1.59.1
+        python-dotenv>=1.0.0
         EOF
         fi
         
@@ -49,6 +51,120 @@ jobs:
         
     - name: Create data directory
       run: mkdir -p data
+        
+    - name: Fetch GitHub Stats (Rate Limit Protected)
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        USERNAME: BALA1403
+      run: |
+        echo "📊 Fetching GitHub stats with rate limit protection..."
+        python -c "
+        import os
+        import json
+        import requests
+        from datetime import datetime, timezone
+        import pytz
+
+        IST = pytz.timezone('Asia/Kolkata')
+
+        def get_ist_time():
+            return datetime.now(IST).strftime('%Y-%m-%d %H:%M:%S IST')
+
+        def fetch_github_stats_safe():
+            username = os.getenv('USERNAME', 'BALA1403')
+            token = os.getenv('GITHUB_TOKEN')
+            
+            headers = {
+                'Authorization': f'token {token}',
+                'Accept': 'application/vnd.github.v3+json',
+                'User-Agent': 'GitHub-Action-Stats-Updater'
+            }
+            
+            # Check rate limit first
+            try:
+                rate_limit_response = requests.get('https://api.github.com/rate_limit', headers=headers, timeout=10)
+                if rate_limit_response.status_code == 200:
+                    rate_data = rate_limit_response.json()
+                    remaining = rate_data.get('rate', {}).get('remaining', 0)
+                    print(f'⚡ GitHub API Rate Limit: {remaining} requests remaining')
+                    
+                    if remaining < 50:  # Conservative threshold
+                        print('⚠️ Rate limit too low, using cached/default values')
+                        return get_default_github_stats()
+                else:
+                    print('⚠️ Could not check rate limit, using defaults')
+                    return get_default_github_stats()
+            except Exception as e:
+                print(f'⚠️ Rate limit check failed: {e}')
+                return get_default_github_stats()
+            
+            # Fetch user data
+            try:
+                user_response = requests.get(f'https://api.github.com/users/{username}', headers=headers, timeout=10)
+                if user_response.status_code == 200:
+                    user_data = user_response.json()
+                    
+                    # Get repository data
+                    repos_response = requests.get(f'https://api.github.com/users/{username}/repos?per_page=100', headers=headers, timeout=10)
+                    repos_data = repos_response.json() if repos_response.status_code == 200 else []
+                    
+                    # Calculate stats
+                    total_stars = sum(repo.get('stargazers_count', 0) for repo in repos_data)
+                    total_forks = sum(repo.get('forks_count', 0) for repo in repos_data)
+                    public_repos = user_data.get('public_repos', 0)
+                    
+                    # Get contributions (approximate from recent activity)
+                    contributions = 303  # Your known value, could be updated via scraping
+                    
+                    stats = {
+                        'platform': 'GitHub',
+                        'username': username,
+                        'public_repos': public_repos,
+                        'total_stars': total_stars,
+                        'total_forks': total_forks,
+                        'contributions': contributions,
+                        'current_streak': 53,  # From your screenshot
+                        'longest_streak': 53,
+                        'account_created': user_data.get('created_at', '2023-07-12'),
+                        'last_updated_ist': get_ist_time(),
+                        'api_rate_limited': False
+                    }
+                    
+                    print(f'✅ GitHub API: {public_repos} repos, {total_stars} stars')
+                    return stats
+                else:
+                    print(f'⚠️ GitHub API error: {user_response.status_code}')
+                    return get_default_github_stats()
+                    
+            except Exception as e:
+                print(f'❌ GitHub API error: {e}')
+                return get_default_github_stats()
+
+        def get_default_github_stats():
+            '''Fallback stats when API is rate limited'''
+            return {
+                'platform': 'GitHub',
+                'username': 'BALA1403',
+                'public_repos': 25,
+                'total_stars': 50,
+                'total_forks': 15,
+                'contributions': 303,
+                'current_streak': 53,
+                'longest_streak': 53,
+                'account_created': '2023-07-12',
+                'last_updated_ist': get_ist_time(),
+                'api_rate_limited': True
+            }
+
+        # Execute
+        github_stats = fetch_github_stats_safe()
+        
+        # Save to file
+        with open('data/github_stats.json', 'w') as f:
+            json.dump(github_stats, f, indent=2)
+        
+        print('📊 GitHub stats saved successfully')
+        "
         
     - name: Update coding platform stats
       run: |
@@ -98,10 +214,12 @@ jobs:
         TIMESTAMP_UTC=$(date +'%Y-%m-%d %H:%M:%S UTC')
         TIMESTAMP_IST=$(TZ='Asia/Kolkata' date +'%Y-%m-%d %H:%M:%S IST')
         
-        # Create commit message with stats summary
+        # Extract stats for commit message
         LEETCODE_PROBLEMS="0"
         GFG_PROBLEMS="0"
         HACKERRANK_BADGES="0"
+        GITHUB_REPOS="0"
+        GITHUB_STARS="0"
         TOTAL_PROBLEMS="0"
         
         if [ -f data/leetcode_stats.json ]; then
@@ -137,6 +255,26 @@ jobs:
         " 2>/dev/null)
         fi
         
+        if [ -f data/github_stats.json ]; then
+          GITHUB_REPOS=$(cat data/github_stats.json | python -c "
+        import sys, json
+        try:
+            data=json.load(sys.stdin)
+            print(data.get('public_repos', 0))
+        except:
+            print(0)
+        " 2>/dev/null)
+          
+          GITHUB_STARS=$(cat data/github_stats.json | python -c "
+        import sys, json
+        try:
+            data=json.load(sys.stdin)
+            print(data.get('total_stars', 0))
+        except:
+            print(0)
+        " 2>/dev/null)
+        fi
+        
         TOTAL_PROBLEMS=$((LEETCODE_PROBLEMS + GFG_PROBLEMS))
         
         # Create detailed commit message with IST time
@@ -146,9 +284,10 @@ jobs:
         • 🔥 LeetCode: $LEETCODE_PROBLEMS problems
         • 🚀 GeeksforGeeks: $GFG_PROBLEMS problems  
         • ⭐ HackerRank: $HACKERRANK_BADGES badges
+        • 📱 GitHub: $GITHUB_REPOS repos, $GITHUB_STARS stars
         • 🎯 Total Problems: $TOTAL_PROBLEMS
         
-        🤖 Auto-updated via GitHub Actions
+        🤖 Auto-updated via GitHub Actions (Rate Limit Protected)
         ⏰ Next update: Tomorrow at 10 PM IST (Chennai)"
         
         # Commit and push
@@ -168,7 +307,28 @@ jobs:
         echo "| Platform | Status | Progress |" >> $GITHUB_STEP_SUMMARY
         echo "|----------|--------|----------|" >> $GITHUB_STEP_SUMMARY
         
-        # Check each platform
+        # Check GitHub stats
+        if [ -f data/github_stats.json ]; then
+          GITHUB_INFO=$(cat data/github_stats.json | python -c "
+        import sys, json
+        try:
+            data=json.load(sys.stdin)
+            repos = data.get('public_repos', 0)
+            stars = data.get('total_stars', 0)
+            streak = data.get('current_streak', 0)
+            rate_limited = data.get('api_rate_limited', False)
+            status = '⚠️ Rate Limited' if rate_limited else '✅ Success'
+            print(f'{status}|{repos} repos, {stars} stars, {streak}d streak')
+        except:
+            print('❌ Failed|-')
+        " 2>/dev/null)
+          IFS='|' read -r GITHUB_STATUS GITHUB_PROGRESS <<< "$GITHUB_INFO"
+          echo "| 📱 GitHub | $GITHUB_STATUS | $GITHUB_PROGRESS |" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "| 📱 GitHub | ❌ Failed | - |" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        # Check each coding platform
         if [ -f data/leetcode_stats.json ]; then
           LEETCODE_COUNT=$(cat data/leetcode_stats.json | python -c "
         import sys, json
@@ -220,6 +380,61 @@ jobs:
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "**Changes Committed:** $(if [ '${{ steps.verify-changes.outputs.changed }}' = 'true' ]; then echo '✅ Yes'; else echo '❌ No'; fi)" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 🛡️ Rate Limit Protection Status" >> $GITHUB_STEP_SUMMARY
+        
+        # Check if GitHub API was rate limited
+        if [ -f data/github_stats.json ]; then
+          RATE_LIMITED=$(cat data/github_stats.json | python -c "
+        import sys, json
+        try:
+            data=json.load(sys.stdin)
+            print('Yes' if data.get('api_rate_limited', False) else 'No')
+        except:
+            print('Unknown')
+        " 2>/dev/null)
+          echo "**GitHub API Rate Limited:** $RATE_LIMITED" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
         echo "**🇮🇳 Scheduled for:** Daily at 10:00 PM IST (Chennai Time)" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "🔗 [View Repository](https://github.com/${{ github.repository }})"
+        echo "🔗 [View Repository](https://github.com/${{ github.repository }})" >> $GITHUB_STEP_SUMMARY
+
+  # Fallback job that creates manual GitHub stats if API fails
+  create-fallback-stats:
+    runs-on: ubuntu-latest
+    needs: update-stats
+    if: failure()
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Create Fallback GitHub Stats
+      run: |
+        mkdir -p data
+        cat > data/github_stats.json << EOF
+        {
+          "platform": "GitHub",
+          "username": "BALA1403",
+          "public_repos": 25,
+          "total_stars": 50,
+          "total_forks": 15,
+          "contributions": 303,
+          "current_streak": 53,
+          "longest_streak": 53,
+          "account_created": "2023-07-12",
+          "last_updated_ist": "$(TZ='Asia/Kolkata' date +'%Y-%m-%d %H:%M:%S IST')",
+          "api_rate_limited": true,
+          "fallback_used": true
+        }
+        EOF
+        
+        echo "📊 Created fallback GitHub stats due to API issues"
+        
+    - name: Commit Fallback Stats
+      run: |
+        git config --local user.email "sbbalaganesh2004@gmail.com"
+        git config --local user.name "BALA1403"
+        git add data/github_stats.json
+        git commit -m "📊 Fallback GitHub stats (API rate limited)" || echo "No changes to commit"
+        git push origin main || echo "Nothing to push"

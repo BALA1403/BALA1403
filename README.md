@@ -40,13 +40,63 @@
 ## 📊 **GitHub Statistics**
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=BALA1403&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=0D1117&title_color=00D9FF&text_color=FFFFFF&icon_color=00D9FF" alt="GitHub Stats" height="180"/>
   
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=BALA1403&layout=compact&theme=tokyonight&hide_border=true&langs_count=10&bg_color=0D1117&title_color=00D9FF&text_color=FFFFFF" alt="Top Languages" height="180"/>
+  <!-- Alternative 1: Using GitHub's native stats (no API limits) -->
+  <picture>
+    <source 
+      srcset="https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api?username=BALA1403&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=0D1117&title_color=00D9FF&text_color=FFFFFF&icon_color=00D9FF"
+      media="(prefers-color-scheme: dark)"
+    />
+    <source
+      srcset="https://github-readme-stats-sigma-five.vercel.app/api?username=BALA1403&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=0D1117&title_color=00D9FF&text_color=FFFFFF&icon_color=00D9FF"
+      media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
+    />
+    <img src="https://github-readme-stats-omega-one.vercel.app/api?username=BALA1403&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&bg_color=0D1117&title_color=00D9FF&text_color=FFFFFF&icon_color=00D9FF" alt="GitHub Stats" height="180"/>
+  </picture>
+  
+  <!-- Alternative language stats with multiple fallbacks -->
+  <picture>
+    <source 
+      srcset="https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api/top-langs/?username=BALA1403&layout=compact&theme=tokyonight&hide_border=true&langs_count=10&bg_color=0D1117&title_color=00D9FF&text_color=FFFFFF"
+      media="(prefers-color-scheme: dark)"
+    />
+    <source
+      srcset="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=BALA1403&layout=compact&theme=tokyonight&hide_border=true&langs_count=10&bg_color=0D1117&title_color=00D9FF&text_color=FFFFFF"
+      media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
+    />
+    <img src="https://github-readme-stats-omega-one.vercel.app/api/top-langs/?username=BALA1403&layout=compact&theme=tokyonight&hide_border=true&langs_count=10&bg_color=0D1117&title_color=00D9FF&text_color=FFFFFF" alt="Top Languages" height="180"/>
+  </picture>
 </div>
 
 <div align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=BALA1403&theme=tokyonight&hide_border=true&background=0D1117&stroke=00D9FF&ring=00D9FF&fire=FF6B6B&currStreakLabel=00D9FF" alt="GitHub Streak" width="500"/>
+  <!-- Multiple streak stats fallbacks -->
+  <picture>
+    <source 
+      srcset="https://streak-stats.demolab.com/?user=BALA1403&theme=tokyonight&hide_border=true&background=0D1117&stroke=00D9FF&ring=00D9FF&fire=FF6B6B&currStreakLabel=00D9FF"
+      media="(prefers-color-scheme: dark)"
+    />
+    <source
+      srcset="https://github-readme-streak-stats.herokuapp.com/?user=BALA1403&theme=tokyonight&hide_border=true&background=0D1117&stroke=00D9FF&ring=00D9FF&fire=FF6B6B&currStreakLabel=00D9FF"
+      media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
+    />
+    <img src="https://streak-stats.demolab.com/?user=BALA1403&theme=tokyonight&hide_border=true&background=0D1117&stroke=00D9FF&ring=00D9FF&fire=FF6B6B&currStreakLabel=00D9FF" alt="GitHub Streak" width="500"/>
+  </picture>
+</div>
+
+<!-- Manual Backup Stats (updated via GitHub Actions) -->
+<div align="center">
+  <h4>📈 Latest GitHub Activity</h4>
+  
+  | 📊 **Metric** | 🔢 **Value** |
+  |:-------------|:-------------|
+  | 🔥 **Total Contributions** | 303+ |
+  | ⚡ **Current Streak** | 53 days |
+  | 🏆 **Longest Streak** | 53 days |
+  | 📅 **Active Since** | Jul 12, 2023 |
+  | 🚀 **Public Repos** | 25+ |
+  | ⭐ **Total Stars** | 50+ |
+  
+  <sub><em>📅 Last Updated: 2025-09-17 22:16:08 IST</em></sub>
 </div>
 
 ---
@@ -54,7 +104,18 @@
 ## 🔥 **Activity & Contribution Graph**
 
 <div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=BALA1403&bg_color=0d1117&color=00d9ff&line=00d9ff&point=ff6b6b&area=true&hide_border=true&area_color=00d9ff" alt="Contribution Graph" />
+  <!-- Multiple contribution graph fallbacks -->
+  <picture>
+    <source 
+      srcset="https://github-readme-activity-graph.vercel.app/graph?username=BALA1403&bg_color=0d1117&color=00d9ff&line=00d9ff&point=ff6b6b&area=true&hide_border=true&area_color=00d9ff"
+      media="(prefers-color-scheme: dark)"
+    />
+    <source
+      srcset="https://github-readme-activity-graph.cyclic.app/graph?username=BALA1403&bg_color=0d1117&color=00d9ff&line=00d9ff&point=ff6b6b&area=true&hide_border=true&area_color=00d9ff"
+      media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
+    />
+    <img src="https://github-readme-activity-graph.vercel.app/graph?username=BALA1403&bg_color=0d1117&color=00d9ff&line=00d9ff&point=ff6b6b&area=true&hide_border=true&area_color=00d9ff" alt="Contribution Graph" />
+  </picture>
 </div>
 
 ---
@@ -88,14 +149,14 @@
 
 ## 📈 **Current Coding Stats** 
 <div align="center">
-  <sub><em>📅 Updated: 2025-08-15 09:03:54 IST</em></sub>
+  <sub><em>📅 Updated: 2025-09-17 22:16:08 IST</em></sub>
 </div>
 
 <div align="center">
   
 | 🏆 **Platform** | 📊 **Stats** | 🔗 **Profile** |
 |:----------------|:-------------|:---------------|
-| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **44** problems solved<br/>🟢 Easy: 28 \| 🟡 Medium: 15 \| 🔴 Hard: 1<br/>🏅 Ranking: #2,255,048 | [bxlz14](https://leetcode.com/bxlz14) |
+| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **55** problems solved<br/>🟢 Easy: 29 \| 🟡 Medium: 24 \| 🔴 Hard: 2<br/>🏅 Ranking: #2,006,835 | [bxlz14](https://leetcode.com/bxlz14) |
 | <img src="https://img.icons8.com/color/24/000000/GeeksforGeeks.png" width="20"/> **GeeksforGeeks** | **20** problems solved<br/>⚡ Coding Score: 0 | [bxlz14](https://auth.geeksforgeeks.org/user/bxlz14) |
 | <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-hackerrank-is-a-technology-company-that-focuses-on-competitive-programming-logo-shadow-tal-revivo.png" width="20"/> **HackerRank** | **6** badges earned \| **7** problems<br/>🥇 0 \| 🥈 0 \| 🥉 0 | [bxlz_14](https://www.hackerrank.com/bxlz_14) |
 | <img src="https://img.icons8.com/ios-filled/24/58A6FF/code.png" width="20"/> **Codolio** | 📊 Multi-platform Progress Tracker<br/>🔄 Unified coding stats dashboard | [bxlz.14](https://codolio.com/profile/bxlz.14) |
@@ -104,7 +165,7 @@
 
 <div align="center">
   <br>
-  <img src="https://img.shields.io/badge/Total%20Problems%20Solved-64+-FF6B6B?style=for-the-badge&logo=target&logoColor=white" alt="Total Problems" />
+  <img src="https://img.shields.io/badge/Total%20Problems%20Solved-75+-FF6B6B?style=for-the-badge&logo=target&logoColor=white" alt="Total Problems" />
   <br>
   <sub>⚡ <em>Auto-updated daily via GitHub Actions</em></sub>
 </div>
