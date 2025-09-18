@@ -105,17 +105,7 @@
 
 <div align="center">
   <!-- Primary Service -->
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=BALA1403&bg_color=0d1117&color=00d9ff&line=00d9ff&point=ff6b6b&area=true&hide_border=true&area_color=00d9ff" alt="Contribution Graph" />
-</div>
-
-<!-- Fallback if primary doesn't load -->
-<div align="center">
-  <img src="https://activity-graph.herokuapp.com/graph?username=BALA1403&bg_color=0d1117&color=00d9ff&line=00d9ff&point=ff6b6b&area=true&hide_border=true&area_color=00d9ff" alt="GitHub Activity Graph" />
-</div>
-
-<!-- Additional fallback -->
-<div align="center">
-  <img src="https://github-readme-activity-graph.cyclic.app/graph?username=BALA1403&bg_color=0d1117&color=00d9ff&line=00d9ff&point=ff6b6b&area=true&hide_border=true&area_color=00d9ff" alt="Activity Graph" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=BALA1403&theme=tokyo-night&bg_color=0d1117&hide_border=true" />
 </div>
 
 ---
