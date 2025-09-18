@@ -105,7 +105,7 @@
 
 <div align="center">
   <!-- Primary Service -->
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=BALA1403&theme=tokyo-night&bg_color=0d1117&hide_border=true" />
+  <img src="https://raw.githubusercontent.com/BALA1403/BALA1403/output/github-contribution-grid-snake.svg" />
 </div>
 
 ---
