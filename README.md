@@ -92,9 +92,7 @@
   | 🔥 **Total Contributions** | 303+ |
   | ⚡ **Current Streak** | 53 days |
   | 🏆 **Longest Streak** | 53 days |
-  | 📅 **Active Since** | Jul 12, 2023 |
-  | 🚀 **Public Repos** | 25+ |
-  | ⭐ **Total Stars** | 50+ |
+  | 📅 **Active Since** | Jul 27, 2025 |
   
   <sub><em>📅 Last Updated: 2025-09-17 22:16:08 IST</em></sub>
 </div>
@@ -104,7 +102,7 @@
 ## 🔥 **Activity & Contribution Graph**
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/BALA1403/BALA1403/output/github-contribution-grid-snake.svg" alt="Snake animation" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=BALA1403&theme=tokyo-night&bg_color=0d1117&hide_border=true" />
 </div>
 
 ---
