@@ -1,4 +1,4 @@
-# scripts/update_stats.py - Enhanced Daily Progress Tracker with GitHub Stats
+# scripts/update_stats.py - Daily Coding Progress Tracker
 import requests
 import json
 import os
@@ -255,12 +255,12 @@ def fetch_hackerrank_stats(username="bxlz_14"):
         }
 
 def update_readme_stats_section():
-    """Update the specific coding stats section in README with GitHub stats"""
-    print("📝 Updating README stats section with GitHub integration...")
+    """Update the specific coding stats section in README"""
+    print("📝 Updating README stats section...")
     
     # Load all platform stats
     stats = {}
-    for platform in ['leetcode', 'geeksforgeeks', 'hackerrank', 'github']:
+    for platform in ['leetcode', 'geeksforgeeks', 'hackerrank']:
         try:
             with open(f'data/{platform}_stats.json', 'r') as f:
                 stats[platform] = json.load(f)
@@ -285,23 +285,6 @@ def update_readme_stats_section():
     if stats['geeksforgeeks']:
         total_problems += stats['geeksforgeeks']['problems_solved']
     
-    # Update the GitHub statistics table first
-    if stats['github']:
-        github_stats_table = f"""| 📊 **Metric** | 🔢 **Value** |
-|:-------------|:-------------|
-| 🔥 **Total Contributions** | {stats['github'].get('contributions', 303)}+ |
-| ⚡ **Current Streak** | {stats['github'].get('current_streak', 53)} days |
-| 🏆 **Longest Streak** | {stats['github'].get('longest_streak', 53)} days |
-| 📅 **Active Since** | {stats['github'].get('account_created', 'Jul 12, 2023')[:10].replace('-', ' ').replace('2023', 'Jul 2023')} |
-| 🚀 **Public Repos** | {stats['github'].get('public_repos', 25)}+ |
-| ⭐ **Total Stars** | {stats['github'].get('total_stars', 50)}+ |"""
-        
-        # Update GitHub stats table
-        github_table_pattern = r'(\| 📊 \*\*Metric\*\* \| 🔢 \*\*Value\*\* \|[\s\S]*?\| ⭐ \*\*Total Stars\*\* \| \d+\+ \|)'
-        if re.search(github_table_pattern, readme_content):
-            readme_content = re.sub(github_table_pattern, github_stats_table, readme_content, flags=re.MULTILINE)
-            print("✅ Updated GitHub stats table")
-    
     # Update the coding platforms stats table
     stats_table = f"""| 🏆 **Platform** | 📊 **Stats** | 🔗 **Profile** |
 |:----------------|:-------------|:---------------|"""
@@ -314,7 +297,7 @@ def update_readme_stats_section():
 | <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **{lc['solved_problems']['total']}** problems solved<br/>🟢 Easy: {lc['solved_problems']['easy']} \\| 🟡 Medium: {lc['solved_problems']['medium']} \\| 🔴 Hard: {lc['solved_problems']['hard']}<br/>🏅 Ranking: {ranking} | [bxlz14](https://leetcode.com/bxlz14) |"""
     else:
         stats_table += """
-| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **55** problems solved<br/>🟢 Easy: 29 \\| 🟡 Medium: 24 \\| 🔴 Hard: 2<br/>🏅 Ranking: #2,006,835 | [bxlz14](https://leetcode.com/bxlz14) |"""
+| <img src="https://img.icons8.com/external-tal-revivo-shadow-tal-revivo/24/58A6FF/external-level-up-your-coding-skills-and-quickly-land-a-job-logo-shadow-tal-revivo.png" width="20"/> **LeetCode** | **55** problems solved<br/>🟢 Easy: 29 \\| 🟡 Medium: 24 \\| 🔴 Hard: 2<br/>🏅 Ranking: #2,012,529 | [bxlz14](https://leetcode.com/bxlz14) |"""
     
     # GeeksforGeeks row  
     if stats['geeksforgeeks']:
@@ -374,7 +357,7 @@ def update_readme_stats_section():
         return False
 
 def generate_daily_summary(stats):
-    """Generate a summary of daily progress including GitHub stats"""
+    """Generate a summary of daily progress"""
     print("\n" + "="*60)
     print("📊 DAILY CODING PROGRESS SUMMARY")
     print("="*60)
@@ -385,17 +368,7 @@ def generate_daily_summary(stats):
     total_problems = 0
     platforms_updated = 0
     
-    # GitHub stats first
-    if stats.get('github') and stats['github'].get('daily_update'):
-        platforms_updated += 1
-        gh = stats['github']
-        rate_limited = "⚠️ (Rate Limited)" if gh.get('api_rate_limited') else ""
-        print(f"📱 GitHub: {gh.get('public_repos', 0)} repos, {gh.get('total_stars', 0)} stars, {gh.get('current_streak', 0)}d streak {rate_limited}")
-    
     for platform, data in stats.items():
-        if platform == 'github':
-            continue  # Already handled above
-            
         if data and data.get('daily_update'):
             platforms_updated += 1
             if platform == 'leetcode':
@@ -413,32 +386,20 @@ def generate_daily_summary(stats):
     
     print("-" * 60)
     print(f"🎯 Total Problems Across Platforms: {total_problems}")
-    print(f"📈 Platforms Successfully Updated: {platforms_updated}/4 (including GitHub)")
+    print(f"📈 Platforms Successfully Updated: {platforms_updated}/3")
     print(f"🕙 Daily Update Completed: {get_ist_time()}")
     print("⏰ Next Update: Tomorrow at 10:00 PM IST (Chennai)")
-    print("🛡️ Rate Limit Protection: Enabled")
     print("="*60)
 
 def main():
-    """Main function for daily stats update with GitHub integration"""
-    print("🌙 Starting Enhanced Daily Coding Progress Update")
+    """Main function for daily stats update"""
+    print("🌙 Starting Daily Coding Progress Update")
     print(f"⏰ Current Time (IST): {get_ist_time()}")
     print(f"⏰ Current Time (UTC): {get_utc_time()}")
     print("="*60)
     
     stats_results = {}
     success_count = 0
-    
-    # Check if GitHub stats were already fetched by the workflow
-    try:
-        with open('data/github_stats.json', 'r') as f:
-            github_stats = json.load(f)
-            stats_results['github'] = github_stats
-            success_count += 1
-            print("✅ GitHub stats loaded from workflow")
-    except (FileNotFoundError, json.JSONDecodeError):
-        print("⚠️ No GitHub stats found from workflow")
-        stats_results['github'] = None
     
     # Fetch from coding platforms
     platforms = [
@@ -461,20 +422,20 @@ def main():
             print(f"❌ {platform_name.title()} failed: {e}")
             stats_results[platform_name] = None
     
-    # Update README with fresh stats including GitHub
-    print(f"\n📝 Updating README with fresh data (including GitHub stats)...")
+    # Update README with fresh stats
+    print(f"\n📝 Updating README with fresh data...")
     readme_updated = update_readme_stats_section()
     
     # Generate comprehensive summary
     generate_daily_summary(stats_results)
     
     if readme_updated and success_count > 0:
-        print("🎉 Enhanced daily update completed successfully!")
+        print("🎉 Daily update completed successfully!")
         print("✅ Changes ready for commit")
     else:
         print("⚠️ Daily update completed with issues")
     
-    return success_count, len(platforms) + 1  # +1 for GitHub
+    return success_count, len(platforms)
 
 if __name__ == "__main__":
     success, total = main()
