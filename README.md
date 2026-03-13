@@ -31,7 +31,7 @@
 - 🎓 **B.Tech in Computer Science & Business Systems** — Panimalar Engineering College *(CGPA: 8.97)*
 - 🏆 **Oracle Certified Java Professional** & **Generative AI Professional**
 - 🌱 Continuously leveling up in **cloud data engineering**, **system design**, and **big data technologies**
-- 💬 Ask me about **Java, Spark, Azure Databricks, Spring Boot, and data pipelines**
+- 💬 Ask me about **Python, PySpark, Azure Databricks, Spark SQL, and data pipelines**
 - 📫 Reach me at: **bxlz143@gmail.com**
 - 🌐 Portfolio: **[bala1403.github.io/portfolio](https://bala1403.github.io/portfolio)**
 - ⚡ Fun fact: I solve coding problems while listening to music! 🎵
