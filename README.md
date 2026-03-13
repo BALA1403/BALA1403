@@ -154,34 +154,14 @@
 ## 💼 Professional Experience
 
 <div align="center">
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│  🏢  ACCENTURE                         Mar 2026 – Present       │
-│  💼  Associate Software Engineer                                 │
-│  📍  Chennai, Tamil Nadu · Hybrid                                │
-├─────────────────────────────────────────────────────────────────┤
-│  ⚡  Azure Databricks & Apache Spark (PySpark, Spark SQL)       │
-│  🏗️  Batch & Streaming ELT pipelines using Delta Lake           │
-│  🥇  Medallion Architecture: Bronze → Silver → Gold             │
-│  ☁️   Enterprise software & data engineering on cloud platforms  │
-└─────────────────────────────────────────────────────────────────┘
-```
-
+  <img src="https://img.shields.io/badge/Accenture-Associate%20Software%20Engineer-7B2FBE?style=for-the-badge&logo=accenture&logoColor=white" alt="Accenture" />
 </div>
 
-<div align="center">
-  <img src="https://img.shields.io/badge/Wipro%20TalentNext-Java%20Full%20Stack%20Intern-0078D4?style=for-the-badge&logo=wipro&logoColor=white" alt="Wipro Experience" />
-</div>
+**📍 Chennai, Tamil Nadu · Hybrid &nbsp;|&nbsp; 🗓️ Mar 2026 – Present**
 
-**Duration:** May 2024 – September 2024
-
-```
-🚀 Enhanced system performance by 30% through optimized backend operations
-⚡ 25% faster response time by implementing RESTful APIs
-🐳 20% reduction in deployment time using Angular and Docker
-📈 Built end-to-end Java applications with Spring Boot and MySQL
-```
+- ⚡ Completed role-based training on **Azure Databricks** and **Apache Spark** (PySpark, Spark SQL)
+- 🏗️ Built batch & streaming **ELT pipelines** using **Delta Lake** following Medallion Architecture (Bronze → Silver → Gold)
+- ☁️ Contributing to enterprise software and **data engineering solutions** on cloud platforms
 
 ---
 
